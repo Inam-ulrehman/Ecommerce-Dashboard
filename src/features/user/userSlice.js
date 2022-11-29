@@ -19,6 +19,7 @@ const initialState = {
   userName: '' || name,
   isMember: name ? true : false,
   isLoading: false,
+  showDashboard: true,
   forgetPassword: false,
 }
 
@@ -141,6 +142,9 @@ const userSlice = createSlice({
     forgetPasswordToggle: (state, { payload }) => {
       state.forgetPassword = !state.forgetPassword
     },
+    hideDashboard: (state, { payload }) => {
+      state.showDashboard = false
+    },
   },
   extraReducers: {
     [userThunk.pending]: (state, { payload }) => {
@@ -238,6 +242,6 @@ const userSlice = createSlice({
     },
   },
 })
-export const { createFunction, logOut, forgetPasswordToggle } =
+export const { createFunction, logOut, forgetPasswordToggle, hideDashboard } =
   userSlice.actions
 export default userSlice.reducer

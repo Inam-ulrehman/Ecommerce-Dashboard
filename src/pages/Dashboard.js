@@ -1,15 +1,13 @@
 import React from 'react'
-import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Navigate, Outlet, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
 import { DashboardSideBar } from '../components/dashboard'
 
 const Dashboard = () => {
-  const navigate = useNavigate()
-  useEffect(() => {
-    navigate('/dashboard/products')
-  }, [])
+  const { user } = useSelector((state) => state)
+
   return (
     <Wrapper>
       <Helmet>
@@ -21,7 +19,10 @@ const Dashboard = () => {
         <DashboardSideBar />
       </div>
       <div className='box box-2-dashboard'>
-        <Outlet />
+        {user.showDashboard && <div>Show your desktop</div>}
+        <div>
+          <Outlet />
+        </div>
       </div>
     </Wrapper>
   )
