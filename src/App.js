@@ -30,14 +30,15 @@ const App = () => {
               </ProtectedRoute>
             }
           >
-            <Route index element={<Dashboard />} />
+            <Route path='/dashboard' element={<Dashboard />}>
+              <Route path='/dashboard/contact' element={<Contact />} />
+              <Route path='/dashboard/products' element={<Products />} />
+            </Route>
             <Route path='/dashboard/profile' element={<Profile />} />
             <Route
               path='/dashboard/changepassword'
               element={<ChangePassword />}
             />
-            <Route path='/dashboard/products' element={<Products />} />
-            <Route path='/dashboard/contact' element={<Contact />} />
           </Route>
 
           <Route path='*' element={<ErrorPage />} />

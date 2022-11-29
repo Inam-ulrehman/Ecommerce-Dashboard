@@ -1,5 +1,4 @@
 import {
-  FaHome,
   FaRegAddressBook,
   FaInstagramSquare,
   FaFacebook,
@@ -12,14 +11,23 @@ export const logo =
   'https://res.cloudinary.com/inam6530/image/upload/v1667486202/inamwebsolutions/Inam_n9s4i4.svg'
 // ========Nav Bar=========== //
 
-export const navbar = [
-  { id: 1, path: '/', title: 'Home', icon: <FaHome /> },
-  { id: 3, path: '/products', title: 'Products', icon: <FaProductHunt /> },
-  { id: 4, path: '/contact', title: 'Contact', icon: <FaRegAddressBook /> },
+export const DashboardSidebar = [
+  {
+    id: 1,
+    path: '/dashboard/products',
+    title: 'Products',
+    icon: <FaProductHunt />,
+  },
+  {
+    id: 2,
+    path: '/dashboard/contact',
+    title: 'Contact',
+    icon: <FaRegAddressBook />,
+  },
 ]
 // =======Dashboard========
 export const dashboardNavLink = [
-  { id: 1, title: 'dashboard', path: '/dashboard' },
+  { id: 1, title: 'Dashboard', path: '/dashboard' },
   { id: 2, title: 'Profile', path: '/dashboard/profile' },
   { id: 3, title: 'Change password', path: '/dashboard/changepassword' },
 ]
