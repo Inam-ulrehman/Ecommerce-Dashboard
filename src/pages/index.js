@@ -6,6 +6,7 @@ import ProtectedRoute from './ProtectedRoute'
 import Register from './Register'
 import SharedDashboardLayout from './SharedDashboardLayout'
 import SharedLayout from './SharedLayout'
+import UploadProduct from './UploadProduct'
 
 export {
   Products,
@@ -16,4 +17,5 @@ export {
   ProtectedRoute,
   SharedDashboardLayout,
   Register,
+  UploadProduct,
 }

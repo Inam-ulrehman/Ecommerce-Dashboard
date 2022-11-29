@@ -13,6 +13,7 @@ import {
   ProtectedRoute,
   SharedDashboardLayout,
   Register,
+  UploadProduct,
 } from './pages'
 
 const App = () => {
@@ -30,13 +31,16 @@ const App = () => {
               </ProtectedRoute>
             }
           >
+            {/* ===============Dashboard inside route=============== */}
             <Route path='/dashboard' element={<Dashboard />}>
               <Route path='/dashboard/contact' element={<Contact />} />
               <Route path='/dashboard/products' element={<Products />} />
             </Route>
+            {/* ===============Dashboard inside route=============== */}
             <Route path='/dashboard/profile' element={<Profile />} />
+            <Route path='/dashboard/upload' element={<UploadProduct />} />
             <Route
-              path='/dashboard/changepassword'
+              path='/dashboard/changePassword'
               element={<ChangePassword />}
             />
           </Route>

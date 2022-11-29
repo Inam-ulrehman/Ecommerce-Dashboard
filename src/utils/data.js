@@ -27,8 +27,9 @@ export const DashboardSidebar = [
 ]
 // =======Dashboard========
 export const dashboardNavLink = [
-  { id: 2, title: 'Profile', path: '/dashboard/profile' },
-  { id: 3, title: 'Change password', path: '/dashboard/changepassword' },
+  { id: 1, title: 'Profile', path: '/dashboard/profile' },
+  { id: 2, title: 'Upload Product', path: '/dashboard/upload' },
+  { id: 3, title: 'Change password', path: '/dashboard/changePassword' },
 ]
 // ==================footer //============
 // ===== Data for Address =====
