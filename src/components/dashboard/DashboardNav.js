@@ -1,14 +1,19 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { showDashboard } from '../../features/user/userSlice'
 import { dashboardNavLink } from '../../utils/data'
 
 const DashboardNav = () => {
+  const dispatch = useDispatch()
   const { user } = useSelector((state) => state)
   return (
     <Wrapper>
       <ul>
+        <li onClick={() => dispatch(showDashboard())}>
+          <Link to={'/dashboard'}>Dashboard</Link>
+        </li>
         {dashboardNavLink.map((item, index) => {
           return (
             <li key={index}>

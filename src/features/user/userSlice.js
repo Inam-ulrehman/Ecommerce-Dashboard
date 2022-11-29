@@ -145,6 +145,9 @@ const userSlice = createSlice({
     hideDashboard: (state, { payload }) => {
       state.showDashboard = false
     },
+    showDashboard: (state, { payload }) => {
+      state.showDashboard = true
+    },
   },
   extraReducers: {
     [userThunk.pending]: (state, { payload }) => {
@@ -242,6 +245,11 @@ const userSlice = createSlice({
     },
   },
 })
-export const { createFunction, logOut, forgetPasswordToggle, hideDashboard } =
-  userSlice.actions
+export const {
+  createFunction,
+  logOut,
+  forgetPasswordToggle,
+  hideDashboard,
+  showDashboard,
+} = userSlice.actions
 export default userSlice.reducer

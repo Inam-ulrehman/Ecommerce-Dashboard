@@ -27,7 +27,6 @@ export const DashboardSidebar = [
 ]
 // =======Dashboard========
 export const dashboardNavLink = [
-  { id: 1, title: 'Dashboard', path: '/dashboard' },
   { id: 2, title: 'Profile', path: '/dashboard/profile' },
   { id: 3, title: 'Change password', path: '/dashboard/changepassword' },
 ]

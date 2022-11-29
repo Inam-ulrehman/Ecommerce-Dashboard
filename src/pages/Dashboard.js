@@ -20,9 +20,7 @@ const Dashboard = () => {
       </div>
       <div className='box box-2-dashboard'>
         {user.showDashboard && <div>Show your desktop</div>}
-        <div>
-          <Outlet />
-        </div>
+        <div>{!user.showDashboard && <Outlet />}</div>
       </div>
     </Wrapper>
   )
