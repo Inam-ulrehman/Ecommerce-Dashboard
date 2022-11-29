@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { logOut } from '../../features/user/userSlice'
-import { navbar } from '../../utils/data'
 import Logo from '../Logo'
 
 const DesktopNavbar = () => {
@@ -14,13 +13,6 @@ const DesktopNavbar = () => {
     <Wrapper>
       <Logo />
       <ul>
-        {navbar.map((item, index) => {
-          return (
-            <li key={index}>
-              <NavLink to={item.path}>{item.title}</NavLink>
-            </li>
-          )
-        })}
         {user.isMember && (
           <li>
             <NavLink to={'/dashboard'}>Dashboard</NavLink>
@@ -34,7 +26,7 @@ const DesktopNavbar = () => {
           </li>
         ) : (
           <li>
-            <Link to='/register'>
+            <Link to='/'>
               <FaSignInAlt /> LogIn
             </Link>
           </li>
@@ -75,9 +67,6 @@ const Wrapper = styled.nav`
   .active {
     background-color: var(--primary-5);
     color: var(--white);
-  }
-  @media (max-width: 600px) {
-    display: none;
   }
 `
 export default DesktopNavbar

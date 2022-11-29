@@ -6,15 +6,11 @@ import { ChangePassword, Profile } from './components/dashboard'
 import ScrollToTopHook from './hooks/ScrollToTopHook'
 import {
   SharedLayout,
-  LandingPage,
   ErrorPage,
-  About,
   Contact,
   Products,
   Dashboard,
   ProtectedRoute,
-  SingleChangePassword,
-  VerifyUser,
   SharedDashboardLayout,
   Register,
 } from './pages'
@@ -25,7 +21,7 @@ const App = () => {
       <ScrollToTopHook />
       <Routes>
         <Route path='/' element={<SharedLayout />}>
-          <Route index element={<LandingPage />} />
+          <Route index element={<Register />} />
           <Route
             path='/dashboard'
             element={
@@ -34,19 +30,16 @@ const App = () => {
               </ProtectedRoute>
             }
           >
-            <Route index element={<Dashboard />}></Route>
+            <Route index element={<Dashboard />} />
             <Route path='/dashboard/profile' element={<Profile />} />
             <Route
               path='/dashboard/changepassword'
               element={<ChangePassword />}
             />
+            <Route path='/dashboard/products' element={<Products />} />
+            <Route path='/dashboard/contact' element={<Contact />} />
           </Route>
-          <Route path='changepassword/:id' element={<SingleChangePassword />} />
-          <Route path='verify/:id' element={<VerifyUser />} />
-          <Route path='about' element={<About />} />
-          <Route path='products' element={<Products />} />
-          <Route path='contact' element={<Contact />} />
-          <Route path='register' element={<Register />} />
+
           <Route path='*' element={<ErrorPage />} />
         </Route>
       </Routes>

@@ -1,6 +1,5 @@
 import {
   FaHome,
-  FaEnvelope,
   FaRegAddressBook,
   FaInstagramSquare,
   FaFacebook,
@@ -15,7 +14,6 @@ export const logo =
 
 export const navbar = [
   { id: 1, path: '/', title: 'Home', icon: <FaHome /> },
-  { id: 2, path: '/about', title: 'About', icon: <FaEnvelope /> },
   { id: 3, path: '/products', title: 'Products', icon: <FaProductHunt /> },
   { id: 4, path: '/contact', title: 'Contact', icon: <FaRegAddressBook /> },
 ]
