@@ -18,6 +18,9 @@ const UploadSingleProduct = () => {
   console.log(product.amount)
   return (
     <Wrapper>
+      {/* ==== VALUE INPUT */}
+
+      {/* ====FORM INPUT */}
       <form className='form' onSubmit={handleSubmit}>
         <div>
           {/* title  */}
@@ -58,7 +61,7 @@ const UploadSingleProduct = () => {
               onChange={handleChange}
               style={{ padding: '3px' }}
               className='form-input'
-              name='totalStock'
+              name='inStock'
               id=''
             >
               <option value={product.stock}>true</option>
