@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
-import { DashboardSideBar } from '../components/dashboard'
+import SideBar from '../components/dashboard/SideBar'
 
 const Dashboard = () => {
   const { user } = useSelector((state) => state)
@@ -16,7 +16,7 @@ const Dashboard = () => {
         <link rel='canonical' href='/Dashboard' />
       </Helmet>
       <div className='box box-1-sidebar'>
-        <DashboardSideBar />
+        <SideBar />
       </div>
       <div className='box box-2-dashboard'>
         {user.showDashboard && <div>Show your desktop</div>}
