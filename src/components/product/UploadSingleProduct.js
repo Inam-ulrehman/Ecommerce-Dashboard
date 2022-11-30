@@ -55,17 +55,14 @@ const UploadSingleProduct = () => {
               Stock
             </label>
             <select
+              onChange={handleChange}
               style={{ padding: '3px' }}
               className='form-input'
               name='totalStock'
               id=''
             >
-              <option value={product.stock} onChange={handleChange}>
-                true
-              </option>
-              <option value={product.stock} onChange={handleChange}>
-                false
-              </option>
+              <option value={product.stock}>true</option>
+              <option value={product.stock}>false</option>
             </select>
           </div>
           {/* subCategory  */}
