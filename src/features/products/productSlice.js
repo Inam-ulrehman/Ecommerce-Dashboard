@@ -9,8 +9,15 @@ const { token } = getUserFromLocalStorage('user')
 const localUploadImage = getImageFromLocalStorage('uploadImage')
 
 const initialState = {
-  name: 'inam',
+  title: '',
+  amount: 0,
+  category: '',
+  subCategory: '',
+  inStock: true,
+  totalStock: 10,
+  value: [],
   uploadImage: localUploadImage || [],
+  description: '',
   isLoading: false,
 }
 
@@ -64,6 +71,28 @@ export const deleteImageThunk = createAsyncThunk(
     }
   }
 )
+// ========== Upload Product =======
+export const uploadProductThunk = createAsyncThunk(
+  'product/uploadProductThunk',
+  async (product, thunkAPI) => {
+    try {
+      const response = await customFetch.post(
+        '/products/uploadProduct',
+        product,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      console.log(response)
+      return response.data
+    } catch (error) {
+      console.log(error.response)
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
 
 const productSlice = createSlice({
   name: 'product',
@@ -71,6 +100,10 @@ const productSlice = createSlice({
   reducers: {
     createFunction: (state, { payload }) => {
       console.log('function call')
+    },
+    getStateValues: (state, { payload }) => {
+      const { name, value } = payload
+      state[name] = value
     },
   },
   extraReducers: {
@@ -113,7 +146,17 @@ const productSlice = createSlice({
     [deleteImageThunk.rejected]: (state, { payload }) => {
       state.isLoading = false
     },
+    // ====== upload Product ======
+    [uploadProductThunk.pending]: (state, { payload }) => {
+      state.isLoading = true
+    },
+    [uploadProductThunk.fulfilled]: (state, { payload }) => {
+      state.isLoading = false
+    },
+    [uploadProductThunk.rejected]: (state, { payload }) => {
+      state.isLoading = false
+    },
   },
 })
-export const { createFunction } = productSlice.actions
+export const { createFunction, getStateValues } = productSlice.actions
 export default productSlice.reducer
