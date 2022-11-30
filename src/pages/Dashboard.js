@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
-import { DashboardSideBar } from '../components/dashboard'
+import DashboardSideBar from '../components/dashboard/DashboardSideBar'
 
 const Dashboard = () => {
   const { user } = useSelector((state) => state)
