@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import { Link } from 'react-router-dom'
 import { hideDashboard } from '../../features/user/userSlice'
-import { DashboardSidebar } from '../../utils/data'
+import { DashboardSidebarNav } from '../../utils/data'
 
 const DashboardSideBar = () => {
   const dispatch = useDispatch()
@@ -12,7 +12,7 @@ const DashboardSideBar = () => {
   }
   return (
     <ul>
-      {DashboardSidebar.map((item, index) => {
+      {DashboardSidebarNav.map((item, index) => {
         return (
           <li onClick={handleClick} key={index}>
             <Link to={item.path}>{item.title}</Link>

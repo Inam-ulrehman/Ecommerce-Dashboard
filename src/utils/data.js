@@ -11,7 +11,7 @@ export const logo =
   'https://res.cloudinary.com/inam6530/image/upload/v1667486202/inamwebsolutions/Inam_n9s4i4.svg'
 // ========Nav Bar=========== //
 
-export const DashboardSidebar = [
+export const DashboardSidebarNav = [
   {
     id: 1,
     path: '/dashboard/products',
