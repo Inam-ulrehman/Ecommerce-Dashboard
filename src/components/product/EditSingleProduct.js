@@ -2,23 +2,24 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
-import { getEditProductValue } from '../../features/products/editProductSlice'
-import { uploadProductThunk } from '../../features/products/productSlice'
+import {
+  editProductThunk,
+  getEditProductValue,
+} from '../../features/products/editProductSlice'
 import FormInput from '../FormInput'
 
 const EditSingleProduct = () => {
   const dispatch = useDispatch()
   const { editProduct: product } = useSelector((state) => state)
+  // handleSubmit
   const handleSubmit = (e) => {
     e.preventDefault()
-    const { title, amount, category, description, uploadImage } = product
-    if (uploadImage.length <= 0) {
-      return toast.warning('Please upload Image.')
-    }
+    const { title, amount, category, description } = product
     if (!title || !amount || !category || !description) {
       return toast.warning('Please fill all REQUIRED fields.')
     }
-    dispatch(uploadProductThunk(product))
+
+    dispatch(editProductThunk(product))
   }
   const handleChange = (e) => {
     const name = e.target.name

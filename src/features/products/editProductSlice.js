@@ -1,8 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 import { customFetch } from '../../utils/axios'
+import { getUserFromLocalStorage } from '../../utils/localStorage'
+const { token } = getUserFromLocalStorage('user')
 
 let initialState = {
+  _id: '',
   title: '',
   amount: '',
   category: '',
@@ -32,12 +35,21 @@ export const singleProductThunk = createAsyncThunk(
 // edit Product
 export const editProductThunk = createAsyncThunk(
   'product/editProductThunk',
-  async (_, thunkAPI) => {
+  async (product, thunkAPI) => {
     try {
-      const response = await customFetch.get()
-      console.log('hello Thunk')
+      const response = await customFetch.patch(
+        `/products/singleProduct/${product._id}`,
+        product,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
       return response.data
     } catch (error) {
+      console.log(error.response)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -50,16 +62,21 @@ const editProductSlice = createSlice({
     createFunction: (state, { payload }) => {
       console.log('function call')
     },
+    editDeleteImage: (state, { payload }) => {
+      state.uploadImage = payload
+    },
     getEditProductValue: (state, { payload }) => {
       const { name, value } = payload
       state[name] = value
     },
   },
   extraReducers: {
+    // ========== Get Single product
     [singleProductThunk.pending]: (state, { payload }) => {
       state.isLoading = true
     },
     [singleProductThunk.fulfilled]: (state, { payload }) => {
+      state._id = payload._id
       state.title = payload.title
       state.amount = payload.amount
       state.category = payload.category
@@ -75,12 +92,12 @@ const editProductSlice = createSlice({
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
+    // ========== Edit Single product
     [editProductThunk.pending]: (state, { payload }) => {
-      console.log('promise pending')
       state.isLoading = true
     },
     [editProductThunk.fulfilled]: (state, { payload }) => {
-      console.log('promise full filled')
+      toast.success('product is updated.')
       state.isLoading = false
     },
     [editProductThunk.rejected]: (state, { payload }) => {
@@ -89,5 +106,6 @@ const editProductSlice = createSlice({
     },
   },
 })
-export const { createFunction, getEditProductValue } = editProductSlice.actions
+export const { createFunction, getEditProductValue, editDeleteImage } =
+  editProductSlice.actions
 export default editProductSlice.reducer
