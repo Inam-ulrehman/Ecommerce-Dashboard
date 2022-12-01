@@ -101,7 +101,7 @@ export const getProductsThunk = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await customFetch.get('/products/static')
-      console.log('hello Thunk')
+
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)

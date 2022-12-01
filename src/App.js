@@ -15,6 +15,7 @@ import {
   Register,
   UploadProduct,
 } from './pages'
+import SingleProduct from './pages/SingleProduct'
 
 const App = () => {
   return (
@@ -35,6 +36,10 @@ const App = () => {
             <Route path='/dashboard' element={<Dashboard />}>
               <Route path='/dashboard/contact' element={<Contact />} />
               <Route path='/dashboard/products' element={<Products />} />
+              <Route
+                path='/dashboard/products/:_id'
+                element={<SingleProduct />}
+              />
             </Route>
             {/* ===============Dashboard inside route=============== */}
             <Route path='/dashboard/profile' element={<Profile />} />
