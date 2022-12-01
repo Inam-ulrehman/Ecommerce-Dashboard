@@ -1,7 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
-import { getStateValues } from '../../features/products/productSlice'
+import {
+  getStateValues,
+  uploadProductThunk,
+} from '../../features/products/productSlice'
 import FormInput from '../FormInput'
 
 const UploadSingleProduct = () => {
@@ -9,13 +13,21 @@ const UploadSingleProduct = () => {
   const { product } = useSelector((state) => state)
   const handleSubmit = (e) => {
     e.preventDefault()
+    const { title, amount, category, description, uploadImage } = product
+    if (uploadImage.length <= 0) {
+      return toast.warning('Please upload Image.')
+    }
+    if (!title || !amount || !category || !description) {
+      return toast.warning('Please fill all REQUIRED fields.')
+    }
+    dispatch(uploadProductThunk(product))
   }
   const handleChange = (e) => {
     const name = e.target.name
     const value = e.target.value
     dispatch(getStateValues({ name, value }))
   }
-  console.log(product.amount)
+
   return (
     <Wrapper>
       {/* ==== VALUE INPUT */}
@@ -26,6 +38,7 @@ const UploadSingleProduct = () => {
           {/* title  */}
           <div>
             <FormInput
+              placeholder={'required'}
               name={'title'}
               value={product.title}
               onChange={handleChange}
@@ -35,6 +48,7 @@ const UploadSingleProduct = () => {
           {/* category  */}
           <div>
             <FormInput
+              placeholder={'required'}
               name={'category'}
               value={product.category}
               onChange={handleChange}
@@ -43,6 +57,7 @@ const UploadSingleProduct = () => {
           {/* amount  */}
           <div>
             <FormInput
+              placeholder={'required'}
               type={'number'}
               name={'amount'}
               value={product.amount}
@@ -71,6 +86,7 @@ const UploadSingleProduct = () => {
           {/* subCategory  */}
           <div>
             <FormInput
+              placeholder={'Optional not required.'}
               name={'subCategory'}
               value={product.subCategory}
               onChange={handleChange}
@@ -90,6 +106,7 @@ const UploadSingleProduct = () => {
         <div>
           <label htmlFor='description'>Product Description</label>
           <textarea
+            placeholder={'REQUIRED'}
             name='description'
             value={product.description}
             onChange={handleChange}

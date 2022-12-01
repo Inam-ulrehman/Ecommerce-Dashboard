@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 import { customFetch } from '../../utils/axios'
 import {
   getImageFromLocalStorage,
   getUserFromLocalStorage,
+  removeImageFromLocalStorage,
   setImageInLocalStorage,
 } from '../../utils/localStorage'
 const { token } = getUserFromLocalStorage('user')
@@ -10,7 +12,7 @@ const localUploadImage = getImageFromLocalStorage('uploadImage')
 
 const initialState = {
   title: '',
-  amount: 0,
+  amount: '',
   category: '',
   subCategory: '',
   inStock: true,
@@ -85,10 +87,9 @@ export const uploadProductThunk = createAsyncThunk(
           },
         }
       )
-      console.log(response)
+
       return response.data
     } catch (error) {
-      console.log(error.response)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -129,6 +130,7 @@ const productSlice = createSlice({
       state.isLoading = false
     },
     [uploadImageThunk.rejected]: (state, { payload }) => {
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
     // ====== Delete Image ======
@@ -144,6 +146,7 @@ const productSlice = createSlice({
       state.isLoading = false
     },
     [deleteImageThunk.rejected]: (state, { payload }) => {
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
     // ====== upload Product ======
@@ -151,9 +154,18 @@ const productSlice = createSlice({
       state.isLoading = true
     },
     [uploadProductThunk.fulfilled]: (state, { payload }) => {
+      removeImageFromLocalStorage('uploadImage')
+      state.title = ''
+      state.amount = ''
+      state.category = ''
+      state.subCategory = ''
+      state.description = ''
+      state.uploadImage = []
+      toast.success('Product is uploaded.')
       state.isLoading = false
     },
     [uploadProductThunk.rejected]: (state, { payload }) => {
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
   },
