@@ -161,6 +161,10 @@ const productSlice = createSlice({
       state.subCategory = ''
       state.description = ''
       state.uploadImage = []
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
       toast.success('Product is uploaded.')
       state.isLoading = false
     },
