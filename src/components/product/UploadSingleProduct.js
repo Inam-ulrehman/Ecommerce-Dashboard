@@ -115,7 +115,7 @@ const UploadSingleProduct = () => {
             rows='10'
           ></textarea>
         </div>
-        <button type='submit' className='btn'>
+        <button disabled={product.isLoading} type='submit' className='btn'>
           Submit
         </button>
       </form>
