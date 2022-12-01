@@ -20,6 +20,8 @@ const initialState = {
   value: [],
   uploadImage: localUploadImage || [],
   description: '',
+  productsList: [],
+  nbHits: '',
   isLoading: false,
 }
 
@@ -87,7 +89,19 @@ export const uploadProductThunk = createAsyncThunk(
           },
         }
       )
-
+      return response.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
+// ========= Get products ========
+export const getProductsThunk = createAsyncThunk(
+  'product/getProductsThunk',
+  async (_, thunkAPI) => {
+    try {
+      const response = await customFetch.get('/products/static')
+      console.log('hello Thunk')
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
@@ -169,6 +183,20 @@ const productSlice = createSlice({
       state.isLoading = false
     },
     [uploadProductThunk.rejected]: (state, { payload }) => {
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
+      state.isLoading = false
+    },
+    // ====== Get Products ======
+    [getProductsThunk.pending]: (state, { payload }) => {
+      state.isLoading = true
+    },
+    [getProductsThunk.fulfilled]: (state, { payload }) => {
+      const { nbHits, products } = payload
+      state.productsList = products
+      state.nbHits = nbHits
+      state.isLoading = false
+    },
+    [getProductsThunk.rejected]: (state, { payload }) => {
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
