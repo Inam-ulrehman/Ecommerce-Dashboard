@@ -62,7 +62,7 @@ const editProductSlice = createSlice({
     createFunction: (state, { payload }) => {
       console.log('function call')
     },
-    editDeleteImage: (state, { payload }) => {
+    editLocalImage: (state, { payload }) => {
       state.uploadImage = payload
     },
     getEditProductValue: (state, { payload }) => {
@@ -106,6 +106,6 @@ const editProductSlice = createSlice({
     },
   },
 })
-export const { createFunction, getEditProductValue, editDeleteImage } =
+export const { createFunction, getEditProductValue, editLocalImage } =
   editProductSlice.actions
 export default editProductSlice.reducer
