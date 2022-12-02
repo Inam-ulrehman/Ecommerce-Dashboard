@@ -43,7 +43,9 @@ const Products = () => {
         <meta name='description' content='Welcome to our Product Page.' />
         <link rel='canonical' href='/product' />
       </Helmet>
-      <h4>Total products: {nbHits}</h4>
+      <h4>
+        Total products: {nbHits} <strong>Page No: {index + 1}</strong>
+      </h4>
       <table>
         <tbody>
           <tr>
@@ -96,6 +98,11 @@ const Wrapper = styled.div`
   }
   img {
     width: 100px;
+  }
+  h4 {
+    strong {
+      float: right;
+    }
   }
 `
 export default Products
