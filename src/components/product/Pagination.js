@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Pagination = ({ index, setIndex, productsList }) => {
-  console.log(index)
   // handle Previous
   const handlePrevious = () => {
     if (index <= 0) {
