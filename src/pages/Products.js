@@ -4,12 +4,22 @@ import { Helmet } from 'react-helmet-async'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { getProductsThunk } from '../features/products/productSlice'
+import {
+  deleteProductsThunk,
+  getProductsThunk,
+  updateProductList,
+} from '../features/products/productSlice'
 
 const Products = () => {
   const dispatch = useDispatch()
   const { product } = useSelector((state) => state)
   const { isLoading, productsList } = product
+
+  const handleDelete = (_id) => {
+    dispatch(deleteProductsThunk(_id))
+    const newProductList = productsList.filter((item) => item._id !== _id)
+    dispatch(updateProductList(newProductList))
+  }
 
   useEffect(() => {
     dispatch(getProductsThunk())
@@ -53,7 +63,11 @@ const Products = () => {
                   <Link className='btn' to={item._id}>
                     Edit
                   </Link>
-                  <button type='button' className='btn'>
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    type='button'
+                    className='btn'
+                  >
                     Delete
                   </button>
                 </td>

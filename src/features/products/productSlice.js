@@ -108,6 +108,26 @@ export const getProductsThunk = createAsyncThunk(
     }
   }
 )
+// ========= Delete products ========
+export const deleteProductsThunk = createAsyncThunk(
+  'product/deleteProductsThunk',
+  async (_id, thunkAPI) => {
+    try {
+      const response = await customFetch.delete(
+        `/products/singleProduct/${_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      return response.data
+    } catch (error) {
+      console.log(error.response)
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
 
 const productSlice = createSlice({
   name: 'product',
@@ -115,6 +135,9 @@ const productSlice = createSlice({
   reducers: {
     createFunction: (state, { payload }) => {
       console.log('function call')
+    },
+    updateProductList: (state, { payload }) => {
+      state.productsList = payload
     },
     getStateValues: (state, { payload }) => {
       const { name, value } = payload
@@ -200,7 +223,20 @@ const productSlice = createSlice({
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
+    // ====== Delete Products ======
+    [deleteProductsThunk.pending]: (state, { payload }) => {
+      state.isLoading = true
+    },
+    [deleteProductsThunk.fulfilled]: (state, { payload }) => {
+      toast.success('product is deleted.')
+      state.isLoading = false
+    },
+    [deleteProductsThunk.rejected]: (state, { payload }) => {
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
+      state.isLoading = false
+    },
   },
 })
-export const { createFunction, getStateValues } = productSlice.actions
+export const { createFunction, getStateValues, updateProductList } =
+  productSlice.actions
 export default productSlice.reducer
