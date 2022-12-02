@@ -23,6 +23,8 @@ const initialState = {
   description: '',
   productsList: [],
   nbHits: '',
+  productDeleteId: '',
+  getProducts: false,
   isLoading: false,
 }
 
@@ -137,8 +139,8 @@ const productSlice = createSlice({
     createFunction: (state, { payload }) => {
       console.log('function call')
     },
-    updateProductList: (state, { payload }) => {
-      state.productsList = payload
+    getProductDeleteId: (state, { payload }) => {
+      state.productDeleteId = payload
     },
     getStateValues: (state, { payload }) => {
       const { name, value } = payload
@@ -229,6 +231,7 @@ const productSlice = createSlice({
       state.isLoading = true
     },
     [deleteProductsThunk.fulfilled]: (state, { payload }) => {
+      state.getProducts = !state.getProducts
       toast.success('product is deleted.')
       state.isLoading = false
     },
@@ -238,6 +241,6 @@ const productSlice = createSlice({
     },
   },
 })
-export const { createFunction, getStateValues, updateProductList } =
+export const { createFunction, getStateValues, getProductDeleteId } =
   productSlice.actions
 export default productSlice.reducer

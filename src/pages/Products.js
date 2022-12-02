@@ -6,28 +6,27 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Pagination from '../components/product/Pagination'
+import { showProductWarning } from '../features/functions/functionSlice'
 import {
-  deleteProductsThunk,
+  getProductDeleteId,
   getProductsThunk,
-  updateProductList,
 } from '../features/products/productSlice'
 
 const Products = () => {
   const dispatch = useDispatch()
   const { product } = useSelector((state) => state)
   const [index, setIndex] = useState(0)
-  const { isLoading, productsList, nbHits } = product
-
+  const { isLoading, productsList, nbHits, getProducts } = product
+  console.log(getProducts)
   const handleDelete = (_id) => {
-    dispatch(deleteProductsThunk(_id))
-    const newProductList = productsList.filter((item) => item._id !== _id)
-    dispatch(updateProductList(newProductList))
+    dispatch(showProductWarning())
+    dispatch(getProductDeleteId(_id))
   }
 
   useEffect(() => {
     dispatch(getProductsThunk())
     // eslint-disable-next-line
-  }, [])
+  }, [getProducts])
   if (isLoading) {
     return (
       <div>
