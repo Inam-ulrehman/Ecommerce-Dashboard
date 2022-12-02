@@ -12,6 +12,9 @@ const Pagination = ({ index, setIndex, productsList }) => {
   }
   // handle Next
   const handleNext = () => {
+    if (index === productsList.length - 1) {
+      return console.log('no')
+    }
     setIndex(index + 1)
   }
 
