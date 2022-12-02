@@ -14,6 +14,12 @@ export const logo =
 export const DashboardSidebarNav = [
   {
     id: 1,
+    path: '/dashboard',
+    title: 'Home',
+    icon: <FaProductHunt />,
+  },
+  {
+    id: 1,
     path: '/dashboard/products',
     title: 'Products',
     icon: <FaProductHunt />,

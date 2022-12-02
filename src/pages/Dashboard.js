@@ -1,13 +1,10 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
 import SideBar from '../components/dashboard/SideBar'
 
 const Dashboard = () => {
-  const { user } = useSelector((state) => state)
-
   return (
     <Wrapper>
       <Helmet>
@@ -19,8 +16,7 @@ const Dashboard = () => {
         <SideBar />
       </div>
       <div className='box box-2-dashboard'>
-        {user.showDashboard && <div>Show your desktop</div>}
-        <div>{!user.showDashboard && <Outlet />}</div>
+        <Outlet />
       </div>
     </Wrapper>
   )

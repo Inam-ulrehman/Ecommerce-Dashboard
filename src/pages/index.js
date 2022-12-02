@@ -1,5 +1,6 @@
 import Contact from './Contact'
 import Dashboard from './Dashboard'
+import DashboardHome from './DashboardHome'
 import ErrorPage from './ErrorPage'
 import Products from './Products'
 import ProtectedRoute from './ProtectedRoute'
@@ -18,4 +19,5 @@ export {
   SharedDashboardLayout,
   Register,
   UploadProduct,
+  DashboardHome,
 }

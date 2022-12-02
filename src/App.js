@@ -14,6 +14,7 @@ import {
   SharedDashboardLayout,
   Register,
   UploadProduct,
+  DashboardHome,
 } from './pages'
 import SingleProduct from './pages/SingleProduct'
 
@@ -34,6 +35,7 @@ const App = () => {
           >
             {/* ===============Dashboard inside route=============== */}
             <Route path='/dashboard' element={<Dashboard />}>
+              <Route index element={<DashboardHome />} />
               <Route path='/dashboard/contact' element={<Contact />} />
               <Route path='/dashboard/products' element={<Products />} />
               <Route

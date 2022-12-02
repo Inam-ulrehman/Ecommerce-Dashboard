@@ -1,15 +1,9 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-
 import { Link } from 'react-router-dom'
-import { hideDashboard } from '../../features/user/userSlice'
 import { DashboardSidebarNav } from '../../utils/data'
 
 const SideBar = () => {
-  const dispatch = useDispatch()
-  const handleClick = () => {
-    dispatch(hideDashboard())
-  }
+  const handleClick = () => {}
   return (
     <ul>
       {DashboardSidebarNav.map((item, index) => {
