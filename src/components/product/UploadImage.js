@@ -54,6 +54,7 @@ const UploadImage = () => {
             </div>
           )
         })}
+        {product.isLoading && <div className='loading'></div>}
       </div>
     </Wrapper>
   )
