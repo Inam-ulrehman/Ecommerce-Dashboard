@@ -7,6 +7,7 @@ import {
   removeImageFromLocalStorage,
   setImageInLocalStorage,
 } from '../../utils/localStorage'
+import paginate from '../../utils/paginate'
 const { token } = getUserFromLocalStorage('user')
 const localUploadImage = getImageFromLocalStorage('uploadImage')
 
@@ -215,7 +216,7 @@ const productSlice = createSlice({
     },
     [getProductsThunk.fulfilled]: (state, { payload }) => {
       const { nbHits, products } = payload
-      state.productsList = products
+      state.productsList = paginate(products)
       state.nbHits = nbHits
       state.isLoading = false
     },

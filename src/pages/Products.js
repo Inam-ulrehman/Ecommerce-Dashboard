@@ -1,9 +1,11 @@
 import React from 'react'
+import { useState } from 'react'
 import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import Pagination from '../components/product/Pagination'
 import {
   deleteProductsThunk,
   getProductsThunk,
@@ -13,7 +15,8 @@ import {
 const Products = () => {
   const dispatch = useDispatch()
   const { product } = useSelector((state) => state)
-  const { isLoading, productsList } = product
+  const [index, setIndex] = useState(0)
+  const { isLoading, productsList, nbHits } = product
 
   const handleDelete = (_id) => {
     dispatch(deleteProductsThunk(_id))
@@ -40,6 +43,7 @@ const Products = () => {
         <meta name='description' content='Welcome to our Product Page.' />
         <link rel='canonical' href='/product' />
       </Helmet>
+      <h4>Total products: {nbHits}</h4>
       <table>
         <tbody>
           <tr>
@@ -50,7 +54,7 @@ const Products = () => {
             <th>ACTIONS</th>
           </tr>
 
-          {productsList.map((item) => {
+          {productsList[index]?.map((item) => {
             return (
               <tr key={item._id}>
                 <td className='image-holder'>
@@ -76,6 +80,12 @@ const Products = () => {
           })}
         </tbody>
       </table>
+      {/* Pagination buttons */}
+      <Pagination
+        index={index}
+        setIndex={setIndex}
+        productsList={productsList}
+      />
     </Wrapper>
   )
 }
