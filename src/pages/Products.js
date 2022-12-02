@@ -17,7 +17,7 @@ const Products = () => {
   const { product } = useSelector((state) => state)
   const [index, setIndex] = useState(0)
   const { isLoading, productsList, nbHits, getProducts } = product
-  console.log(getProducts)
+
   const handleDelete = (_id) => {
     dispatch(showProductWarning())
     dispatch(getProductDeleteId(_id))
