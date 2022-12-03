@@ -3,7 +3,8 @@ import { Helmet } from 'react-helmet-async'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import Pagination from '../../components/product/Pagination'
+import { Pagination } from '../../components'
+
 import { showProductWarning } from '../../features/functions/functionSlice'
 import {
   getProductDeleteId,
