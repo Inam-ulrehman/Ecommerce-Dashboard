@@ -1,4 +1,5 @@
-import { React, useEffect, useDispatch } from 'react'
+import { React, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { EditSingleProduct, EditUploadImage } from '../../components/product'
