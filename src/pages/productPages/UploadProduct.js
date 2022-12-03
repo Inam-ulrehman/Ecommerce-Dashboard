@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import UploadImage from '../components/product/UploadImage'
-import UploadSingleProduct from '../components/product/UploadSingleProduct'
+import { UploadImage, UploadSingleProduct } from '../../components/product'
 
 const UploadProduct = () => {
   return (

@@ -1,16 +1,14 @@
-import React from 'react'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { React, useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import Pagination from '../components/product/Pagination'
-import { showProductWarning } from '../features/functions/functionSlice'
+import Pagination from '../../components/product/Pagination'
+import { showProductWarning } from '../../features/functions/functionSlice'
 import {
   getProductDeleteId,
   getProductsThunk,
-} from '../features/products/productSlice'
+} from '../../features/products/productSlice'
 
 const Products = () => {
   const dispatch = useDispatch()

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
-import DashboardNav from '../components/dashboard/DashboardNav'
+import DashboardNav from '../../components/dashboard/DashboardNav'
 
 const SharedDashboardLayout = () => {
   return (

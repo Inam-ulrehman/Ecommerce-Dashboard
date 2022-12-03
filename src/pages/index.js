@@ -1,23 +1,7 @@
 import Contact from './Contact'
-import Dashboard from './Dashboard'
-import DashboardHome from './DashboardHome'
 import ErrorPage from './ErrorPage'
-import Products from './Products'
 import ProtectedRoute from './ProtectedRoute'
 import Register from './Register'
-import SharedDashboardLayout from './SharedDashboardLayout'
 import SharedLayout from './SharedLayout'
-import UploadProduct from './UploadProduct'
 
-export {
-  Products,
-  SharedLayout,
-  ErrorPage,
-  Contact,
-  Dashboard,
-  ProtectedRoute,
-  SharedDashboardLayout,
-  Register,
-  UploadProduct,
-  DashboardHome,
-}
+export { SharedLayout, ErrorPage, Contact, ProtectedRoute, Register }

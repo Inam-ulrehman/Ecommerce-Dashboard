@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
-import SideBar from '../components/dashboard/SideBar'
+import SideBar from '../../components/dashboard/SideBar'
 
 const Dashboard = () => {
   return (

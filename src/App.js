@@ -8,15 +8,15 @@ import {
   SharedLayout,
   ErrorPage,
   Contact,
-  Products,
-  Dashboard,
   ProtectedRoute,
-  SharedDashboardLayout,
   Register,
-  UploadProduct,
-  DashboardHome,
 } from './pages'
-import SingleProduct from './pages/SingleProduct'
+import {
+  SharedDashboardLayout,
+  Dashboard,
+  DashboardHome,
+} from './pages/dashboardPages'
+import { Products, UploadProduct, SingleProduct } from './pages/productPages'
 
 const App = () => {
   return (

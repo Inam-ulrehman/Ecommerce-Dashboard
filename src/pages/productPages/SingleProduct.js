@@ -1,11 +1,8 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { React, useEffect, useDispatch } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import EditSingleProduct from '../components/product/EditSingleProduct'
-import EditUploadImage from '../components/product/EditUploadImage'
-import { singleProductThunk } from '../features/products/editProductSlice'
+import { EditSingleProduct, EditUploadImage } from '../../components/product'
+import { singleProductThunk } from '../../features/products/editProductSlice'
 
 const SingleProduct = () => {
   const dispatch = useDispatch()
