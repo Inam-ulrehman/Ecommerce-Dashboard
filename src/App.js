@@ -4,13 +4,9 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ChangePassword, Profile } from './components/dashboard'
 import ScrollToTopHook from './hooks/ScrollToTopHook'
-import {
-  SharedLayout,
-  ErrorPage,
-  Contact,
-  ProtectedRoute,
-  Register,
-} from './pages'
+import { SharedLayout, ErrorPage, ProtectedRoute, Register } from './pages'
+
+import { Contact, SingleContact } from './pages/contactPages'
 import {
   SharedDashboardLayout,
   Dashboard,
@@ -37,6 +33,10 @@ const App = () => {
             <Route path='/dashboard' element={<Dashboard />}>
               <Route index element={<DashboardHome />} />
               <Route path='/dashboard/contact' element={<Contact />} />
+              <Route
+                path='/dashboard/contact/:_id'
+                element={<SingleContact />}
+              />
               <Route path='/dashboard/products' element={<Products />} />
               <Route
                 path='/dashboard/products/:_id'
