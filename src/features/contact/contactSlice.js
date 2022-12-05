@@ -7,6 +7,7 @@ import paginate from '../../utils/paginate'
 const { token } = getUserFromLocalStorage('user')
 const initialState = {
   contactList: [],
+  singleContact: [],
   count: '',
   isLoading: false,
 }
@@ -34,6 +35,24 @@ export const getContactThunk = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       })
+      return response.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
+// ==== GET CONTACT LIST====
+
+export const getSingleContactThunk = createAsyncThunk(
+  'contact/getSingleContactThunk',
+  async (_id, thunkAPI) => {
+    try {
+      const response = await customFetch.get(`contacts/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      console.log(response)
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
@@ -73,6 +92,19 @@ const contactSlice = createSlice({
       state.isLoading = false
     },
     [getContactThunk.rejected]: (state, { payload }) => {
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
+      state.isLoading = false
+    },
+    // === GET Single CONTACT LIST
+    [getSingleContactThunk.pending]: (state, { payload }) => {
+      state.isLoading = true
+    },
+    [getSingleContactThunk.fulfilled]: (state, { payload }) => {
+      console.log(payload)
+      state.singleContact = payload.contacts
+      state.isLoading = false
+    },
+    [getSingleContactThunk.rejected]: (state, { payload }) => {
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
