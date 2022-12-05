@@ -3,11 +3,10 @@ import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { hideWarning } from '../features/functions/functionSlice'
 
-const Warning = ({ warning, action }) => {
+const Warning = ({ action, id }) => {
   const dispatch = useDispatch()
   const handleYes = () => {
-    console.log(warning)
-    console.log(action)
+    dispatch(action)
   }
   return (
     <Wrapper>

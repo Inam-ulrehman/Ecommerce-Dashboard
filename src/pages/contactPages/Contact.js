@@ -6,13 +6,22 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Pagination } from '../../components'
 import { getContactThunk } from '../../features/contact/contactSlice'
+import { showWarning } from '../../features/functions/functionSlice'
 
 const Contact = () => {
   const dispatch = useDispatch()
   const { contactList, count, isLoading } = useSelector(
     (state) => state.contact
   )
+  const state = useSelector((state) => state)
+  console.log(state)
   const [index, setIndex] = useState(0)
+  //=== handle Delete button
+
+  const handleDelete = (_id) => {
+    console.log(_id)
+    dispatch(showWarning(_id))
+  }
 
   useEffect(() => {
     dispatch(getContactThunk())
@@ -48,7 +57,9 @@ const Contact = () => {
                 <td>{moment(item.createdAt).format('MMM Do YY')}</td>
                 <td>
                   <Link to={`${item._id}`}>Read</Link>{' '}
-                  <button type='button'>Delete</button>
+                  <button onClick={() => handleDelete(item._id)} type='button'>
+                    Delete
+                  </button>
                 </td>
               </tr>
             )

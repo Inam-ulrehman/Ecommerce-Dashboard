@@ -41,10 +41,28 @@ export const getContactThunk = createAsyncThunk(
     }
   }
 )
-// ==== GET CONTACT LIST====
+// ==== GET Single CONTACT LIST====
 
 export const getSingleContactThunk = createAsyncThunk(
   'contact/getSingleContactThunk',
+  async (_id, thunkAPI) => {
+    try {
+      const response = await customFetch.get(`contacts/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      console.log(response)
+      return response.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
+// ==== Delete Single CONTACT LIST====
+
+export const deleteSingleContactThunk = createAsyncThunk(
+  'contact/deleteSingleContactThunk',
   async (_id, thunkAPI) => {
     try {
       const response = await customFetch.get(`contacts/${_id}`, {
@@ -105,6 +123,17 @@ const contactSlice = createSlice({
       state.isLoading = false
     },
     [getSingleContactThunk.rejected]: (state, { payload }) => {
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
+      state.isLoading = false
+    },
+    // === Delete Single CONTACT LIST
+    [deleteSingleContactThunk.pending]: (state, { payload }) => {
+      state.isLoading = true
+    },
+    [deleteSingleContactThunk.fulfilled]: (state, { payload }) => {
+      state.isLoading = false
+    },
+    [deleteSingleContactThunk.rejected]: (state, { payload }) => {
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
