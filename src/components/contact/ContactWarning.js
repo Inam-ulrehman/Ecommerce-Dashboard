@@ -1,15 +1,18 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { deleteSingleContactThunk } from '../../features/contact/contactSlice'
 import { hideContactWarning } from '../../features/functions/functionSlice'
 
 const ContactWarning = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { deleteId } = useSelector((state) => state.contact)
   const handleYes = () => {
     dispatch(deleteSingleContactThunk(deleteId))
     dispatch(hideContactWarning())
+    navigate('/dashboard/contact')
   }
   return (
     <Wrapper>

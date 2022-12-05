@@ -41,7 +41,6 @@ const functionSlice = createSlice({
       state.productWarning = false
     },
     showContactWarning: (state, { payload }) => {
-      console.log('show')
       state.contactWarning = true
     },
     hideContactWarning: (state, { payload }) => {

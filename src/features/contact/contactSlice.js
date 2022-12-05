@@ -72,7 +72,7 @@ export const deleteSingleContactThunk = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       })
-      console.log(response)
+
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
@@ -123,7 +123,6 @@ const contactSlice = createSlice({
       state.isLoading = true
     },
     [getSingleContactThunk.fulfilled]: (state, { payload }) => {
-      console.log(payload)
       state.singleContact = payload.contacts
       state.isLoading = false
     },
@@ -136,7 +135,7 @@ const contactSlice = createSlice({
       state.isLoading = true
     },
     [deleteSingleContactThunk.fulfilled]: (state, { payload }) => {
-      toast.success(payload)
+      toast.success('Form deleted.')
       state.getContacts = !state.getContacts
       state.isLoading = false
     },

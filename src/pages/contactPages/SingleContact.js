@@ -1,15 +1,25 @@
 import moment from 'moment/moment'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { getSingleContactThunk } from '../../features/contact/contactSlice'
+import {
+  getContactDeleteId,
+  getSingleContactThunk,
+} from '../../features/contact/contactSlice'
+import { showContactWarning } from '../../features/functions/functionSlice'
 
 const SingleContact = () => {
   const dispatch = useDispatch()
   const { _id } = useParams()
   const { singleContact, isLoading } = useSelector((state) => state.contact)
 
+  // handleDelete
+
+  const handleDelete = () => {
+    dispatch(showContactWarning())
+    dispatch(getContactDeleteId(_id))
+  }
   useEffect(() => {
     dispatch(getSingleContactThunk(_id))
     // eslint-disable-next-line
@@ -46,6 +56,14 @@ const SingleContact = () => {
       <div className='message'>
         <h3 className='title'>Message</h3>
         <p>{singleContact.message}</p>
+      </div>
+      <div>
+        <Link to={`/dashboard/contact`} className='btn'>
+          Go Back
+        </Link>
+        <button onClick={handleDelete} type='button' className='btn'>
+          Delete
+        </button>
       </div>
     </Wrapper>
   )

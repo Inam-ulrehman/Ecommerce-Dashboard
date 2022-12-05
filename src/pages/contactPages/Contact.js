@@ -21,7 +21,6 @@ const Contact = () => {
   //=== handle Delete button
 
   const handleDelete = (_id) => {
-    console.log(_id)
     dispatch(showContactWarning())
     dispatch(getContactDeleteId(_id))
   }
