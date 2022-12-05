@@ -9,6 +9,8 @@ const initialState = {
   contactList: [],
   singleContact: [],
   count: '',
+  deleteId: '',
+  getContacts: false,
   isLoading: false,
 }
 
@@ -65,7 +67,7 @@ export const deleteSingleContactThunk = createAsyncThunk(
   'contact/deleteSingleContactThunk',
   async (_id, thunkAPI) => {
     try {
-      const response = await customFetch.get(`contacts/${_id}`, {
+      const response = await customFetch.delete(`contacts/${_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -84,6 +86,9 @@ const contactSlice = createSlice({
   reducers: {
     createFunction: (state, { payload }) => {
       console.log('function call')
+    },
+    getContactDeleteId: (state, { payload }) => {
+      state.deleteId = payload
     },
   },
   extraReducers: {
@@ -131,6 +136,8 @@ const contactSlice = createSlice({
       state.isLoading = true
     },
     [deleteSingleContactThunk.fulfilled]: (state, { payload }) => {
+      toast.success(payload)
+      state.getContacts = !state.getContacts
       state.isLoading = false
     },
     [deleteSingleContactThunk.rejected]: (state, { payload }) => {
@@ -139,5 +146,5 @@ const contactSlice = createSlice({
     },
   },
 })
-export const { createFunction } = contactSlice.actions
+export const { createFunction, getContactDeleteId } = contactSlice.actions
 export default contactSlice.reducer
