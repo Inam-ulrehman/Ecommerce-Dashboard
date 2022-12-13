@@ -26,10 +26,9 @@ const Wrapper = styled.div`
   min-height: calc(100vh - 3.2rem);
   display: flex;
   .box {
-    border: 2px solid black;
   }
   .box-1-sidebar {
-    width: 300px;
+    width: 200px;
   }
   .box-2-dashboard {
     width: 100%;

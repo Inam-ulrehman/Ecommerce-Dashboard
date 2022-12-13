@@ -25,7 +25,7 @@ const DashboardNav = () => {
       </ul>
 
       <p>
-        Welcome <strong>{user.userName.toUpperCase()}</strong>
+        Welcome, <strong>{user.userName.toUpperCase()}</strong>
       </p>
     </Wrapper>
   )
@@ -46,13 +46,14 @@ const Wrapper = styled.div`
   }
   p {
     color: white;
+    background: var(--primary-5);
     padding: 0 1rem;
     strong {
-      border-bottom: 2px solid var(--primary-5);
+      border-bottom: 2px solid var(--primary-8);
     }
   }
 
-  background-color: var(--primary-8);
+  background-color: var(--grey-2);
   .btn {
     background: var(--primary-8);
     :hover {
