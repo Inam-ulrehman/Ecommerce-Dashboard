@@ -42,7 +42,8 @@ const Products = () => {
         <link rel='canonical' href='/product' />
       </Helmet>
       <h4>
-        Total products: {nbHits} <strong>Page No: {index + 1}</strong>
+        <strong>Total Products: {nbHits}</strong>{' '}
+        <strong>Page No: {index + 1}</strong>
       </h4>
       <table>
         <tbody>
@@ -63,7 +64,7 @@ const Products = () => {
                 <td>{item.title}</td>
                 <td>{item.category}</td>
                 <td>{item.inStock ? 'In-Stock' : 'out-of-Stock'}</td>
-                <td>
+                <td className='buttons'>
                   <Link className='btn' to={item._id}>
                     Edit
                   </Link>
@@ -98,8 +99,17 @@ const Wrapper = styled.div`
     width: 100px;
   }
   h4 {
-    strong {
-      float: right;
+    display: flex;
+    justify-content: space-between;
+  }
+  td {
+    text-transform: capitalize;
+  }
+  .buttons {
+    width: 160px;
+    a {
+      padding: 1px 10px;
+      margin-right: 5px;
     }
   }
 `
