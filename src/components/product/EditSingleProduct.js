@@ -11,6 +11,7 @@ import FormInput from '../FormInput'
 const EditSingleProduct = () => {
   const dispatch = useDispatch()
   const { editProduct: product } = useSelector((state) => state)
+  console.log(product.inStock)
   // handleSubmit
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -69,7 +70,7 @@ const EditSingleProduct = () => {
           {/* Stock  */}
           <div>
             <label className='form-label' htmlFor='stock'>
-              {product.inStock ? 'IN-STOCK' : 'OUT-OF-STOCK'}
+              Stock
             </label>
             <select
               onChange={handleChange}
@@ -78,9 +79,9 @@ const EditSingleProduct = () => {
               name='inStock'
               id=''
             >
-              <option value=''>Select</option>
-              <option value={product.stock}>true</option>
-              <option value={product.stock}>false</option>
+              <option value='true'>Select Options</option>
+              <option value='true'>In-Stock</option>
+              <option value='false'>Out-Of-Stock</option>
             </select>
           </div>
           {/* subCategory  */}

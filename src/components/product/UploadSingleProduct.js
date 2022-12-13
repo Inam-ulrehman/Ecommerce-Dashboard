@@ -79,8 +79,9 @@ const UploadSingleProduct = () => {
               name='inStock'
               id=''
             >
-              <option value={product.stock}>true</option>
-              <option value={product.stock}>false</option>
+              <option value='true'>Select Options</option>
+              <option value='true'>In-Stock</option>
+              <option value='false'>Out-Of-Stock</option>
             </select>
           </div>
           {/* subCategory  */}
