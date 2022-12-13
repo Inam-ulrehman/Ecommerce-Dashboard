@@ -69,7 +69,7 @@ const EditSingleProduct = () => {
           {/* Stock  */}
           <div>
             <label className='form-label' htmlFor='stock'>
-              Stock
+              {product.inStock ? 'IN-STOCK' : 'OUT-OF-STOCK'}
             </label>
             <select
               onChange={handleChange}
@@ -78,6 +78,7 @@ const EditSingleProduct = () => {
               name='inStock'
               id=''
             >
+              <option value=''>Select</option>
               <option value={product.stock}>true</option>
               <option value={product.stock}>false</option>
             </select>
