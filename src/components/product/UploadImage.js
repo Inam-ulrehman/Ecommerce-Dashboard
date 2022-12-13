@@ -42,7 +42,9 @@ const UploadImage = () => {
         {product.uploadImage.map((item, index) => {
           return (
             <div className='container' key={index}>
-              <img src={item.url} alt='product' />
+              <div className='image-holder'>
+                <img src={item.url} alt='product' />
+              </div>
               <div className='btn-container'>
                 <button
                   onClick={() => handleDelete(item.public_id)}
@@ -72,21 +74,24 @@ const Wrapper = styled.div`
       max-height: 150px;
       overflow: hidden;
       text-align: center;
-      box-shadow: var(--shadow-1);
+      border: 2px solid var(--primary-5);
       margin: 0.5rem;
+      .image-holder {
+        max-width: 110px;
+      }
       img {
-        width: 70%;
+        width: 100%;
+        margin-bottom: -7px;
       }
       .btn {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+        border-radius: 0;
       }
     }
   }
   .file-upload-container {
     text-align: center;
     input {
-      border: 2px solid black;
+      border: 2px solid var(--primary-5);
     }
   }
 `
