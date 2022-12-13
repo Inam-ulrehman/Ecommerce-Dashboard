@@ -33,7 +33,11 @@ const UploadImage = () => {
   return (
     <Wrapper>
       <div className='file-upload-container'>
-        <input type='file' class='custom-file-input' onChange={handleChange} />
+        <input
+          type='file'
+          className='custom-file-input'
+          onChange={handleChange}
+        />
         <button className='btn' type='submit' onClick={handleSubmit}>
           Upload
         </button>
