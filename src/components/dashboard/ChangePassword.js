@@ -32,13 +32,13 @@ const ChangePassword = () => {
       <form className='form' onSubmit={handleSubmit}>
         <div>
           <label className='form-label' htmlFor='password'>
-            Password
+            New Password
           </label>
           <input className='form-input' type='password' ref={passwordOneRef} />
         </div>
         <div>
           <label className='form-label' htmlFor='passwordTwo'>
-            Confirm Password
+            Confirm New Password
           </label>
           <input className='form-input' type='password' ref={passwordTwoRef} />
         </div>

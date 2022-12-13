@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
+import styled from 'styled-components'
 import {
   forgetPasswordLinkThunk,
   forgetPasswordToggle,
@@ -34,7 +35,7 @@ const ForgetPassword = () => {
     )
   }
   return (
-    <div>
+    <Wrapper>
       <form className='form' onSubmit={handleSubmit}>
         {/* Email input */}
         <div>
@@ -43,15 +44,23 @@ const ForgetPassword = () => {
           </label>
           <input ref={emailRef} className='form-input' type='text' />
         </div>
-        <button className='btn' type='submit'>
-          Submit
-        </button>
-        <button onClick={handleButton} className='btn' type='button'>
-          login/Register
-        </button>
+        <div className='submit-login'>
+          <button className='btn' type='submit'>
+            Submit
+          </button>
+          <button onClick={handleButton} className='btn' type='button'>
+            login/Register
+          </button>
+        </div>
       </form>
-    </div>
+    </Wrapper>
   )
 }
+const Wrapper = styled.div`
+  .submit-login {
+    display: flex;
+    justify-content: space-between;
+  }
+`
 
 export default ForgetPassword
