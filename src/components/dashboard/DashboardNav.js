@@ -45,9 +45,10 @@ const Wrapper = styled.div`
     }
   }
   p {
+    color: white;
     padding: 0 1rem;
     strong {
-      border-bottom: 2px solid var(--primary-8);
+      border-bottom: 2px solid var(--primary-5);
     }
   }
 
