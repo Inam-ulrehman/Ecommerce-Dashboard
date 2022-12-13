@@ -40,7 +40,8 @@ const Contact = () => {
   return (
     <Wrapper>
       <h4>
-        Total forms: {count} <strong>Page No: {index + 1}</strong>
+        <strong>Total forms: {count}</strong>
+        <strong>Page No: {index + 1}</strong>
       </h4>
       <table>
         <tbody>
@@ -53,13 +54,19 @@ const Contact = () => {
 
           {contactList[index]?.map((item, itemIndex) => {
             return (
-              <tr key={itemIndex}>
+              <tr className='tr' key={itemIndex}>
                 <td>{item.name}</td>
                 <td>{item.subject}</td>
                 <td>{moment(item.createdAt).format('MMM Do YY')}</td>
-                <td>
-                  <Link to={`${item._id}`}>Read</Link>{' '}
-                  <button onClick={() => handleDelete(item._id)} type='button'>
+                <td className='buttons'>
+                  <Link className='btn' to={`${item._id}`}>
+                    Read
+                  </Link>
+                  <button
+                    className='btn'
+                    onClick={() => handleDelete(item._id)}
+                    type='button'
+                  >
                     Delete
                   </button>
                 </td>
@@ -78,8 +85,21 @@ const Contact = () => {
 }
 const Wrapper = styled.div`
   h4 {
-    strong {
-      float: right;
+    display: flex;
+    justify-content: space-between;
+  }
+  .buttons {
+    width: 160px;
+    a {
+      margin: 5px;
+      padding: 1px 9px;
+    }
+  }
+
+  .tr {
+    text-align: center;
+    td {
+      text-transform: capitalize;
     }
   }
 `
