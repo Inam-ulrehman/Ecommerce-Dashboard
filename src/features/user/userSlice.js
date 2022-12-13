@@ -7,17 +7,11 @@ import {
 } from '../../utils/localStorage'
 import { toast } from 'react-toastify'
 
-const {
-  token,
-  user: { name },
-} = getUserFromLocalStorage('user')
-  ? getUserFromLocalStorage('user')
-  : { token: '', user: '' }
-
+const user = getUserFromLocalStorage()
 const initialState = {
-  token: '' || token,
-  userName: '' || name,
-  isMember: name ? true : false,
+  token: user?.token || '',
+  userName: user?.user?.name || '',
+  isMember: user ? true : false,
   isLoading: false,
   forgetPassword: false,
 }
@@ -114,7 +108,7 @@ export const changePasswordThunk = createAsyncThunk(
         password,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${user?.token}`,
           },
         }
       )
