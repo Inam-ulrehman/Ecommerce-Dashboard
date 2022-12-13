@@ -32,7 +32,7 @@ const Pagination = ({ index, setIndex, productsList }) => {
         }
       >
         <button onClick={handlePrevious} className='btn' type='button'>
-          Previous
+          Prev
         </button>
         {productsList?.map((item, itemIndex) => {
           return (
@@ -53,6 +53,8 @@ const Pagination = ({ index, setIndex, productsList }) => {
   )
 }
 const Wrapper = styled.div`
+  text-align: center;
+  margin: 1rem;
   .active {
     background-color: var(--primary-8);
   }
