@@ -45,11 +45,11 @@ const SingleContact = () => {
           </tr>
 
           <tr>
-            <th>{singleContact.name}</th>
-            <th>{singleContact.subject}</th>
-            <th>{singleContact.email}</th>
-            <th>{singleContact.phone}</th>
-            <th>{moment(singleContact.createdAt).format('MMM Do YY')}</th>
+            <td>{singleContact.name}</td>
+            <td>{singleContact.subject}</td>
+            <td>{singleContact.email}</td>
+            <td>{singleContact.mobile}</td>
+            <td>{moment(singleContact.createdAt).format('MMM Do YY')}</td>
           </tr>
         </tbody>
       </table>
@@ -57,9 +57,9 @@ const SingleContact = () => {
         <h3 className='title'>Message</h3>
         <p>{singleContact.message}</p>
       </div>
-      <div>
+      <div className='buttons'>
         <Link to={`/dashboard/contact`} className='btn'>
-          Go Back
+          GoBack
         </Link>
         <button onClick={handleDelete} type='button' className='btn'>
           Delete
@@ -77,9 +77,23 @@ const Wrapper = styled.div`
     box-shadow: var(--shadow-2);
     margin: 1rem auto;
     padding: 1rem;
-    overflow: scroll;
+
     p {
-      word-break: break-all;
+      max-width: 100%;
+    }
+  }
+  tr {
+    text-align: center;
+    td {
+      text-transform: capitalize;
+    }
+  }
+
+  .buttons {
+    text-align: center;
+    a {
+      padding: 1px 10px;
+      margin-right: 1rem;
     }
   }
 `
