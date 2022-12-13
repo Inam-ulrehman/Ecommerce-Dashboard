@@ -82,7 +82,7 @@ const Register = () => {
             Password
           </label>
           <input className='form-input' ref={passwordRef} type='password' />
-          <div>
+          <div className='login-register-forget'>
             {login ? (
               <button type='submit' className='btn'>
                 LogIn
@@ -137,6 +137,11 @@ const Wrapper = styled.div`
       background: var(--primary-5);
       color: white;
     }
+  }
+
+  .login-register-forget {
+    display: flex;
+    justify-content: space-between;
   }
 `
 export default Register

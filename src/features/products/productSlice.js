@@ -8,7 +8,7 @@ import {
   setImageInLocalStorage,
 } from '../../utils/localStorage'
 import paginate from '../../utils/paginate'
-const { token } = getUserFromLocalStorage('user')
+const user = getUserFromLocalStorage()
 const localUploadImage = getImageFromLocalStorage('uploadImage')
 
 const initialState = {
@@ -48,7 +48,7 @@ export const uploadImageThunk = createAsyncThunk(
       const response = await customFetch.post('/products/uploadImage', file, {
         headers: {
           'content-type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user?.token}`,
         },
       })
 
@@ -67,7 +67,7 @@ export const deleteImageThunk = createAsyncThunk(
     try {
       await customFetch.post('/products/deleteImage', data, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user?.token}`,
         },
       })
 
@@ -88,7 +88,7 @@ export const uploadProductThunk = createAsyncThunk(
         product,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${user?.token}`,
           },
         }
       )
@@ -120,7 +120,7 @@ export const deleteProductsThunk = createAsyncThunk(
         `/products/singleProduct/${_id}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${user?.token}`,
           },
         }
       )

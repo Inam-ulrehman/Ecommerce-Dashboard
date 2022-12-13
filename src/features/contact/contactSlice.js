@@ -4,7 +4,7 @@ import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 import paginate from '../../utils/paginate'
 
-const { token } = getUserFromLocalStorage('user')
+const user = getUserFromLocalStorage()
 const initialState = {
   contactList: [],
   singleContact: [],
@@ -34,7 +34,7 @@ export const getContactThunk = createAsyncThunk(
     try {
       const response = await customFetch.get('contacts', {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user?.token}`,
         },
       })
       return response.data
@@ -51,7 +51,7 @@ export const getSingleContactThunk = createAsyncThunk(
     try {
       const response = await customFetch.get(`contacts/${_id}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user?.token}`,
         },
       })
       console.log(response)
@@ -69,7 +69,7 @@ export const deleteSingleContactThunk = createAsyncThunk(
     try {
       const response = await customFetch.delete(`contacts/${_id}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user?.token}`,
         },
       })
 

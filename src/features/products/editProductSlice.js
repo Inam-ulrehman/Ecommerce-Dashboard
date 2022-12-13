@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
-const { token } = getUserFromLocalStorage('user')
+const user = getUserFromLocalStorage()
 
 let initialState = {
   _id: '',
@@ -42,7 +42,7 @@ export const editProductThunk = createAsyncThunk(
         product,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${user?.token}`,
           },
         }
       )

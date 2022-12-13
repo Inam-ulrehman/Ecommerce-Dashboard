@@ -9,7 +9,7 @@ import {
 import { deleteImageThunk } from '../../features/products/productSlice'
 import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
-const { token } = getUserFromLocalStorage('user')
+const user = getUserFromLocalStorage()
 const EditUploadImage = () => {
   const dispatch = useDispatch()
   const [file, setFile] = useState(null)
@@ -36,7 +36,7 @@ const EditUploadImage = () => {
         {
           headers: {
             'content-type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${user?.token}`,
           },
         }
       )
