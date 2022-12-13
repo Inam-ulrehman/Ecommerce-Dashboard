@@ -10,9 +10,13 @@ import { deleteImageThunk } from '../../features/products/productSlice'
 import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 const user = getUserFromLocalStorage()
+
+// =========function start here=====
+
 const EditUploadImage = () => {
   const dispatch = useDispatch()
   const [file, setFile] = useState(null)
+  const [isLoading, setIsLoading] = useState(null)
   const { editProduct } = useSelector((state) => state)
   const { uploadImage } = editProduct
 
@@ -30,6 +34,7 @@ const EditUploadImage = () => {
     const formData = new FormData()
     formData.append('file', file)
     try {
+      setIsLoading(true)
       const response = await customFetch.post(
         '/products/uploadImage',
         formData,
@@ -45,8 +50,10 @@ const EditUploadImage = () => {
       dispatch(editProductThunk(newProduct))
       dispatch(editLocalImage(newUploadImage))
       setFile(null)
+      setIsLoading(false)
     } catch (error) {
       console.log(error.response)
+      setIsLoading(true)
     }
   }
 
@@ -61,38 +68,52 @@ const EditUploadImage = () => {
     dispatch(editProductThunk(newProduct))
     dispatch(deleteImageThunk(public_id))
   }
+  if (isLoading)
+    return (
+      <div>
+        <h1 className='title'>Loading...</h1>
+        <div className='loading'></div>
+      </div>
+    )
 
   return (
     <Wrapper>
       {/* ==== Uploading Image */}
-      <div>
+      <div className='file-upload-container '>
         <input type='file' onChange={handleChange} />
-        <button type='submit' onClick={handleSubmit}>
+        <button
+          disabled={isLoading}
+          className='btn'
+          type='submit'
+          onClick={handleSubmit}
+        >
           Upload
         </button>
       </div>
       {/* ==== Showing image Delete image */}
-      {uploadImage?.map((item, index) => {
-        return (
-          <div className='container' key={index}>
-            <div className='img-box'>
-              <img src={item.secure_url} alt={editProduct.title} />
+      <div className='image-container'>
+        {uploadImage?.map((item, index) => {
+          return (
+            <div className='container' key={index}>
+              <div className='img-box'>
+                <img src={item.secure_url} alt={editProduct.title} />
+              </div>
+              <button
+                onClick={() => handleDelete(item.public_id)}
+                type='button'
+                className='btn btn-block'
+              >
+                Delete
+              </button>
             </div>
-            <button
-              onClick={() => handleDelete(item.public_id)}
-              type='button'
-              className='btn btn-block'
-            >
-              Delete
-            </button>
-          </div>
-        )
-      })}
+          )
+        })}
+      </div>
     </Wrapper>
   )
 }
 const Wrapper = styled.div`
-  display: flex;
+  display: grid;
 
   padding: 1rem;
   .container {
@@ -106,12 +127,29 @@ const Wrapper = styled.div`
   }
   .img-box {
     text-align: center;
-    border: 2px solid black;
+    border: 2px solid var(--primary-5);
     border-bottom: transparent;
     overflow: hidden;
   }
   img {
     width: 100px;
+  }
+  /* file upload container */
+  .file-upload-container {
+    justify-content: center;
+    display: flex;
+    input {
+      border: 2px solid var(--primary-5);
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
+  /* image container */
+  .image-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
   }
 `
 export default EditUploadImage
