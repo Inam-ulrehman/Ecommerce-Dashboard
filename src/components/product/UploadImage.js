@@ -32,9 +32,9 @@ const UploadImage = () => {
   }
   return (
     <Wrapper>
-      <div>
-        <input type='file' onChange={handleChange} />
-        <button type='submit' onClick={handleSubmit}>
+      <div className='file-upload-container'>
+        <input type='file' class='custom-file-input' onChange={handleChange} />
+        <button className='btn' type='submit' onClick={handleSubmit}>
           Upload
         </button>
       </div>
@@ -61,6 +61,8 @@ const UploadImage = () => {
 }
 
 const Wrapper = styled.div`
+  display: grid;
+  margin-left: 1rem;
   .image-container {
     display: flex;
     flex-wrap: wrap;
@@ -79,6 +81,12 @@ const Wrapper = styled.div`
         border-top-left-radius: 0;
         border-top-right-radius: 0;
       }
+    }
+  }
+  .file-upload-container {
+    text-align: center;
+    input {
+      border: 2px solid black;
     }
   }
 `
