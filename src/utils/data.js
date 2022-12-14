@@ -27,7 +27,13 @@ export const DashboardSidebarNav = [
   {
     id: 2,
     path: '/dashboard/contact',
-    title: 'Contact',
+    title: 'Contact Form',
+    icon: <FaRegAddressBook />,
+  },
+  {
+    id: 3,
+    path: '/dashboard/orders',
+    title: 'Online Orders',
     icon: <FaRegAddressBook />,
   },
 ]
