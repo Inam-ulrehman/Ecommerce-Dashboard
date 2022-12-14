@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 import { customFetch } from '../../utils/axios'
 
 const initialState = {
@@ -40,6 +41,7 @@ const userSlice = createSlice({
     },
     [userThunk.rejected]: (state, { payload }) => {
       console.log('promise rejected')
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
   },

@@ -12,11 +12,14 @@ const SideBar = () => {
       {DashboardSidebarNav.map((item, index) => {
         return (
           <li
-            className={index === value && 'active-li'}
+            className={index === value ? 'active-li' : null}
             onClick={() => setValue(index)}
             key={index}
           >
-            <Link className={index === value && 'active-a'} to={item.path}>
+            <Link
+              className={index === value ? 'active-a' : null}
+              to={item.path}
+            >
               {item.title}
             </Link>
           </li>
