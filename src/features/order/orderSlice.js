@@ -58,11 +58,13 @@ const orderSlice = createSlice({
       console.log('function call')
     },
     nextOrder: (state, { payload }) => {
-      // state.page = state.page + 1
-      console.log('next')
+      state.page = state.page + 1
     },
     prevOrder: (state, { payload }) => {
       state.page = state.page - 1
+    },
+    indexOrder: (state, { payload }) => {
+      state.page = payload
     },
   },
   extraReducers: {
@@ -93,5 +95,6 @@ const orderSlice = createSlice({
     },
   },
 })
-export const { createFunction, nextOrder, prevOrder } = orderSlice.actions
+export const { createFunction, nextOrder, prevOrder, indexOrder } =
+  orderSlice.actions
 export default orderSlice.reducer
