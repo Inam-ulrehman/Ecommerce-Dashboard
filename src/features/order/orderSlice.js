@@ -74,6 +74,10 @@ const orderSlice = createSlice({
       state.email = payload
       state.page = 1
     },
+    searchOrderById: (state, { payload }) => {
+      state._id = payload
+      state.page = 1
+    },
   },
   extraReducers: {
     [orderThunk.pending]: (state, { payload }) => {
@@ -110,5 +114,6 @@ export const {
   indexOrder,
   searchOrderByPhone,
   searchOrderByEmail,
+  searchOrderById,
 } = orderSlice.actions
 export default orderSlice.reducer

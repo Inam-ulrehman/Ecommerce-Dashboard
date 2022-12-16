@@ -8,13 +8,13 @@ const OrderList = () => {
   const dispatch = useDispatch()
   const { orderList, isLoading } = useSelector((state) => state.order)
   const { order } = useSelector((state) => state)
-  const { page, phone } = order
+  const { page, phone, email, _id } = order
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     dispatch(getOrdersThunk(order))
     // eslint-disable-next-line
-  }, [page, phone])
+  }, [page, phone, email, _id])
   if (isLoading)
     return (
       <div>
