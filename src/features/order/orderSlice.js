@@ -5,9 +5,8 @@ import { getUserFromLocalStorage } from '../../utils/localStorage'
 
 const user = getUserFromLocalStorage()
 const initialState = {
-  name: '',
-  email: '',
-  password: '',
+  orderList: [],
+  totalOrders: '',
   isLoading: false,
 }
 
@@ -33,7 +32,7 @@ export const getOrdersThunk = createAsyncThunk(
           Authorization: `Bearer ${user?.token}`,
         },
       })
-      console.log(response)
+
       return response.data
     } catch (error) {
       console.log(error.response)
@@ -68,6 +67,8 @@ const orderSlice = createSlice({
       state.isLoading = true
     },
     [getOrdersThunk.fulfilled]: (state, { payload }) => {
+      state.orderList = payload.adminOrders
+      state.totalOrders = payload.count
       state.isLoading = false
     },
     [getOrdersThunk.rejected]: (state, { payload }) => {
