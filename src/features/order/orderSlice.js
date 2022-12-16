@@ -5,6 +5,12 @@ import { getUserFromLocalStorage } from '../../utils/localStorage'
 
 const user = getUserFromLocalStorage()
 const initialState = {
+  phone: '',
+  email: '',
+  payment_intent: '',
+  _id: '',
+  sort: '-createdAt',
+  page: 1,
   orderList: [],
   totalOrders: '',
   isLoading: false,
@@ -25,13 +31,16 @@ export const orderThunk = createAsyncThunk(
 // Get All Orders
 export const getOrdersThunk = createAsyncThunk(
   'order/getOrdersThunk',
-  async (_, thunkAPI) => {
+  async (query, thunkAPI) => {
     try {
-      const response = await customFetch.get('/admin/orders', {
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      })
+      const response = await customFetch.get(
+        `/admin/orders?phone=${query?.phone}&email=${query?.email}&_id=${query?._id}&payment_intent=${query?.payment_intent}&sort=${query?.sort}&page=${query?.page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      )
 
       return response.data
     } catch (error) {
@@ -47,6 +56,13 @@ const orderSlice = createSlice({
   reducers: {
     createFunction: (state, { payload }) => {
       console.log('function call')
+    },
+    nextOrder: (state, { payload }) => {
+      // state.page = state.page + 1
+      console.log('next')
+    },
+    prevOrder: (state, { payload }) => {
+      state.page = state.page - 1
     },
   },
   extraReducers: {
@@ -67,8 +83,8 @@ const orderSlice = createSlice({
       state.isLoading = true
     },
     [getOrdersThunk.fulfilled]: (state, { payload }) => {
-      state.orderList = payload.adminOrders
-      state.totalOrders = payload.count
+      state.orderList = payload.result
+      state.totalOrders = payload.totalOrders
       state.isLoading = false
     },
     [getOrdersThunk.rejected]: (state, { payload }) => {
@@ -77,5 +93,5 @@ const orderSlice = createSlice({
     },
   },
 })
-export const { createFunction } = orderSlice.actions
+export const { createFunction, nextOrder, prevOrder } = orderSlice.actions
 export default orderSlice.reducer
