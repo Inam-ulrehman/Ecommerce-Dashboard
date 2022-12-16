@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import OrderList from '../../components/order/OrderList'
+import Search from '../../components/order/Search'
 import ServerPagination from '../../components/order/ServerPagination'
 
 const Orders = () => {
   return (
     <Wrapper>
+      <Search />
       <OrderList />
       <ServerPagination />
     </Wrapper>

@@ -66,6 +66,14 @@ const orderSlice = createSlice({
     indexOrder: (state, { payload }) => {
       state.page = payload
     },
+    searchOrderByPhone: (state, { payload }) => {
+      state.phone = payload
+      state.page = 1
+    },
+    searchOrderByEmail: (state, { payload }) => {
+      state.email = payload
+      state.page = 1
+    },
   },
   extraReducers: {
     [orderThunk.pending]: (state, { payload }) => {
@@ -95,6 +103,12 @@ const orderSlice = createSlice({
     },
   },
 })
-export const { createFunction, nextOrder, prevOrder, indexOrder } =
-  orderSlice.actions
+export const {
+  createFunction,
+  nextOrder,
+  prevOrder,
+  indexOrder,
+  searchOrderByPhone,
+  searchOrderByEmail,
+} = orderSlice.actions
 export default orderSlice.reducer

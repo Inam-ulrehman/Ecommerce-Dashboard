@@ -10,7 +10,8 @@ const ServerPagination = () => {
   const dispatch = useDispatch()
   const { page, totalOrders } = useSelector((state) => state.order)
 
-  const pages = Array.from({ length: totalOrders / 10 }, (v, i) => i + 1)
+  const totalPages = Math.ceil(totalOrders / 10)
+  const pages = Array.from({ length: totalPages }, (v, i) => i + 1)
 
   // handle buttons
 
