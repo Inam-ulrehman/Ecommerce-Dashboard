@@ -82,6 +82,11 @@ const orderSlice = createSlice({
       state.phone = ''
       state.email = ''
       state._id = ''
+      state.sort = '-createdAt'
+      state.page = 1
+    },
+    sortOrder: (state, { payload }) => {
+      state.sort = payload
       state.page = 1
     },
   },
@@ -122,5 +127,6 @@ export const {
   searchOrderByEmail,
   searchOrderById,
   clearOrderSearch,
+  sortOrder,
 } = orderSlice.actions
 export default orderSlice.reducer

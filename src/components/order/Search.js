@@ -7,6 +7,7 @@ import {
   searchOrderByEmail,
   searchOrderById,
   searchOrderByPhone,
+  sortOrder,
 } from '../../features/order/orderSlice'
 
 const Search = () => {
@@ -40,11 +41,13 @@ const Search = () => {
     orderIdRef.current.value = ''
     phoneRef.current.value = ''
     emailRef.current.value = ''
+    sortRef.current.value = ''
     dispatch(clearOrderSearch())
   }
   // handle OrderId
   const handleSort = (e) => {
-    console.log(sortRef.current.value)
+    const sort = sortRef.current.value
+    dispatch(sortOrder(sort))
   }
   return (
     <Wrapper>
@@ -54,7 +57,7 @@ const Search = () => {
       </div>
       <div className='form-container'>
         {/* phone search */}
-        <form onClick={handlePhone}>
+        <form onClick={handlePhone} className='mobile'>
           <label htmlFor='phone'>
             <strong>Phone No</strong>
           </label>
@@ -83,21 +86,23 @@ const Search = () => {
             Search
           </button>
         </form>
-        {/* clear filter button */}
-        <div className='clear-sort'>
-          <button className='btn' type='button' onClick={handleClear}>
-            Clear Filters
-          </button>
-          {/* handle sort */}
-          <div>
-            <label htmlFor='sort'>Sort By</label>
-            <select onChange={handleSort} ref={sortRef} name='sort' id='sort'>
-              <option value='-createdAt'>Default</option>
-              <option value='-createdAt'>New Orders</option>
-              <option value='createdAt'>Old Orders</option>
-            </select>
-          </div>
+      </div>
+      {/* clear filter and Sort*/}
+      <div className='clear-sort'>
+        {/* handle sort */}
+        <div>
+          <label htmlFor='sort'>
+            <strong>Sort By</strong>
+          </label>
+          <select onChange={handleSort} ref={sortRef} name='sort' id='sort'>
+            <option value='-createdAt'>Default</option>
+            <option value='-createdAt'>New Orders</option>
+            <option value='createdAt'>Old Orders</option>
+          </select>
         </div>
+        <button className='btn' type='button' onClick={handleClear}>
+          Clear Filters
+        </button>
       </div>
     </Wrapper>
   )
@@ -121,6 +126,22 @@ const Wrapper = styled.div`
       border-radius: var(--borderRadius);
       background: var(--backgroundColor);
       border: 2px solid var(--grey-2);
+    }
+  }
+
+  .clear-sort {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .mobile {
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type='number'] {
+      -moz-appearance: textfield;
     }
   }
 `
