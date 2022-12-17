@@ -2,7 +2,7 @@ import React from 'react'
 import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { FaSearch } from 'react-icons/fa'
+
 import {
   clearOrderSearch,
   limitOrder,
@@ -12,6 +12,8 @@ import {
   searchOrderByPhone,
   sortOrder,
 } from '../../features/order/orderSlice'
+import SortClearSearch from './SortClearSearch'
+import FormSearch from './FormSearch'
 
 const Search = () => {
   const dispatch = useDispatch()
@@ -73,61 +75,26 @@ const Search = () => {
         <strong>Total:{totalOrders}</strong>
         <strong>Page No:{page} </strong>
       </div>
-      <div className='form-container'>
-        {/* phone search */}
-        <form onClick={handlePhone} className='mobile'>
-          <input placeholder='Phone No' type='number' ref={phoneRef} />
-          <button className='btn' type='submit'>
-            <FaSearch />
-          </button>
-        </form>
-        {/* email Search */}
-        <form onClick={handleEmail}>
-          <input placeholder='Email' type='text' ref={emailRef} />
-          <button className='btn' type='submit'>
-            <FaSearch />
-          </button>
-        </form>
-        {/* Order _id */}
-        <form onClick={handleOrderId}>
-          <input placeholder='Order Id' type='text' ref={orderIdRef} />
-          <button className='btn' type='submit'>
-            <FaSearch />
-          </button>
-        </form>
-        {/* payment_Intent */}
-        <form onClick={handlePaymentIntent}>
-          <input placeholder='Stripe Id' type='text' ref={paymentIntentRef} />
-          <button className='btn' type='submit'>
-            <FaSearch />
-          </button>
-        </form>
-      </div>
+
       {/* clear filter and Sort*/}
-      <div className='clear-sort'>
-        {/* handle sort and limit */}
-        <div className='sort-limit'>
-          <label htmlFor='sort'>
-            <strong>Sort By</strong>
-          </label>
-          <select onChange={handleSort} ref={sortRef} name='sort' id='sort'>
-            <option value='-createdAt'>New Orders</option>
-            <option value='createdAt'>Old Orders</option>
-          </select>
-          <label htmlFor='limit'>
-            <strong>Limit Per Page</strong>
-          </label>
-          <select onChange={handleLimit} ref={limitRef} name='limit' id='limit'>
-            <option value='10'>10</option>
-            <option value='20'>20</option>
-            <option value='30'>30</option>
-            <option value='40'>40</option>
-          </select>
-        </div>
-        <button className='btn' type='button' onClick={handleClear}>
-          Clear Filters
-        </button>
-      </div>
+      <SortClearSearch
+        handleSort={handleSort}
+        sortRef={sortRef}
+        handleLimit={handleLimit}
+        limitRef={limitRef}
+        handleClear={handleClear}
+      />
+      {/* Form Search */}
+      <FormSearch
+        emailRef={emailRef}
+        handlePhone={handlePhone}
+        phoneRef={phoneRef}
+        handleEmail={handleEmail}
+        handleOrderId={handleOrderId}
+        orderIdRef={orderIdRef}
+        handlePaymentIntent={handlePaymentIntent}
+        paymentIntentRef={paymentIntentRef}
+      />
     </Wrapper>
   )
 }
