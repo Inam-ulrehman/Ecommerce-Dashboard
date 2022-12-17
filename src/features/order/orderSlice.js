@@ -99,11 +99,16 @@ const orderSlice = createSlice({
       state._id = payload
       state.page = 1
     },
+    searchOrderByPaymentIntent: (state, { payload }) => {
+      state.payment_intent = payload
+      state.page = 1
+    },
     clearOrderSearch: (state, { payload }) => {
       state.phone = ''
       state.email = ''
       state._id = ''
       state.sort = '-createdAt'
+      state.payment_intent = ''
       state.page = 1
       state.limit = 10
     },
@@ -168,6 +173,7 @@ export const {
   searchOrderByPhone,
   searchOrderByEmail,
   searchOrderById,
+  searchOrderByPaymentIntent,
   clearOrderSearch,
   sortOrder,
   limitOrder,

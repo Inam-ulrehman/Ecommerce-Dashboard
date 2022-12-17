@@ -2,11 +2,13 @@ import React from 'react'
 import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { FaSearch } from 'react-icons/fa'
 import {
   clearOrderSearch,
   limitOrder,
   searchOrderByEmail,
   searchOrderById,
+  searchOrderByPaymentIntent,
   searchOrderByPhone,
   sortOrder,
 } from '../../features/order/orderSlice'
@@ -16,6 +18,7 @@ const Search = () => {
   const { totalOrders, page } = useSelector((state) => state.order)
   const phoneRef = useRef()
   const emailRef = useRef()
+  const paymentIntentRef = useRef()
   const orderIdRef = useRef()
   const sortRef = useRef()
   const limitRef = useRef()
@@ -38,11 +41,18 @@ const Search = () => {
     const orderId = orderIdRef.current.value
     dispatch(searchOrderById(orderId))
   }
+  // handle PaymentIntent
+  const handlePaymentIntent = (e) => {
+    e.preventDefault()
+    const paymentIntent = paymentIntentRef.current.value
+    dispatch(searchOrderByPaymentIntent(paymentIntent))
+  }
   // handle OrderId
   const handleClear = () => {
     orderIdRef.current.value = ''
     phoneRef.current.value = ''
     emailRef.current.value = ''
+    paymentIntentRef.current.value = ''
     sortRef.current.value = ''
     limitRef.current.value = ''
     dispatch(clearOrderSearch())
@@ -66,32 +76,30 @@ const Search = () => {
       <div className='form-container'>
         {/* phone search */}
         <form onClick={handlePhone} className='mobile'>
-          <label htmlFor='phone'>
-            <strong>Phone No</strong>
-          </label>
-          <input type='number' ref={phoneRef} />
+          <input placeholder='Phone No' type='number' ref={phoneRef} />
           <button className='btn' type='submit'>
-            <strong>Search</strong>
+            <FaSearch />
           </button>
         </form>
         {/* email Search */}
         <form onClick={handleEmail}>
-          <label htmlFor='phone'>
-            <strong>Email</strong>
-          </label>
-          <input type='text' ref={emailRef} />
+          <input placeholder='Email' type='text' ref={emailRef} />
           <button className='btn' type='submit'>
-            Search
+            <FaSearch />
           </button>
         </form>
         {/* Order _id */}
         <form onClick={handleOrderId}>
-          <label htmlFor='order'>
-            <strong>Order Id</strong>
-          </label>
-          <input type='text' ref={orderIdRef} />
+          <input placeholder='Order Id' type='text' ref={orderIdRef} />
           <button className='btn' type='submit'>
-            Search
+            <FaSearch />
+          </button>
+        </form>
+        {/* payment_Intent */}
+        <form onClick={handlePaymentIntent}>
+          <input placeholder='Stripe Id' type='text' ref={paymentIntentRef} />
+          <button className='btn' type='submit'>
+            <FaSearch />
           </button>
         </form>
       </div>
@@ -134,11 +142,20 @@ const Wrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     padding: 0.5rem 1rem;
-    label {
-      margin: 0 5px;
+    form {
+      margin: 5px 5px;
+      button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
     }
+
     input {
-      padding: 0.375rem 0rem;
+      padding: 0.3rem 0rem;
       border-radius: var(--borderRadius);
       background: var(--backgroundColor);
       border: 2px solid var(--grey-2);
