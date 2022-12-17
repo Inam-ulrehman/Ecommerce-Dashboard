@@ -3,7 +3,6 @@ import { toast } from 'react-toastify'
 import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 
-const user = getUserFromLocalStorage()
 const initialState = {
   phone: '',
   email: '',
@@ -32,6 +31,7 @@ export const orderThunk = createAsyncThunk(
 export const getOrdersThunk = createAsyncThunk(
   'order/getOrdersThunk',
   async (query, thunkAPI) => {
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.get(
         `/admin/orders?phone=${query?.phone}&email=${query?.email}&_id=${query?._id}&payment_intent=${query?.payment_intent}&sort=${query?.sort}&page=${query?.page}`,
