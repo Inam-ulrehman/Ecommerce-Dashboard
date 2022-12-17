@@ -98,7 +98,7 @@ const Search = () => {
       {/* clear filter and Sort*/}
       <div className='clear-sort'>
         {/* handle sort and limit */}
-        <div>
+        <div className='sort-limit'>
           <label htmlFor='sort'>
             <strong>Sort By</strong>
           </label>
@@ -109,7 +109,7 @@ const Search = () => {
             <option value='createdAt'>Old Orders</option>
           </select>
           <label htmlFor='limit'>
-            <strong>Limit PerPage</strong>
+            <strong>Limit Per Page</strong>
           </label>
           <select onChange={handleLimit} ref={limitRef} name='limit' id='limit'>
             <option selected value='10'>
@@ -162,6 +162,17 @@ const Wrapper = styled.div`
     }
     input[type='number'] {
       -moz-appearance: textfield;
+    }
+  }
+  .sort-limit {
+    label {
+      margin: 0 1rem;
+    }
+    select {
+      padding: 0.175rem 0rem;
+      border-radius: var(--borderRadius);
+      background: var(--backgroundColor);
+      border: 2px solid var(--grey-2);
     }
   }
 `
