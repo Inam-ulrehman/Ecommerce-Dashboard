@@ -3,18 +3,26 @@ import { Link } from 'react-router-dom'
 import moment from 'moment/moment'
 import { formatPrice } from '../../utils/helper'
 import { useDispatch, useSelector } from 'react-redux'
-import { getOrdersThunk } from '../../features/order/orderSlice'
+import { deleteIdOrder, getOrdersThunk } from '../../features/order/orderSlice'
+import { showOrderWarning } from '../../features/functions/functionSlice'
 const OrderList = () => {
   const dispatch = useDispatch()
   const { orderList, isLoading } = useSelector((state) => state.order)
   const { order } = useSelector((state) => state)
-  const { page, phone, email, _id, sort, limit } = order
+  const { page, phone, email, _id, sort, limit, getOrders } = order
+
+  // handleDelete
+
+  const handleDelete = (_id) => {
+    dispatch(deleteIdOrder(_id))
+    dispatch(showOrderWarning())
+  }
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     dispatch(getOrdersThunk(order))
     // eslint-disable-next-line
-  }, [page, phone, email, _id, sort, limit])
+  }, [page, phone, email, _id, sort, limit, getOrders])
   if (isLoading)
     return (
       <div>
@@ -67,7 +75,11 @@ const OrderList = () => {
                   <Link to={item._id} type='button' className='btn'>
                     Select
                   </Link>
-                  <button type='button' className='btn'>
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    type='button'
+                    className='btn'
+                  >
                     Delete
                   </button>
                 </td>

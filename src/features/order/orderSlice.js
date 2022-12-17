@@ -13,6 +13,8 @@ const initialState = {
   page: 1,
   orderList: [],
   totalOrders: '',
+  getOrders: '',
+  deleteId: '',
   isLoading: false,
 }
 
@@ -50,7 +52,25 @@ export const getOrdersThunk = createAsyncThunk(
     }
   }
 )
+// ==== Delete Single Order====
 
+export const deleteSingleOrderThunk = createAsyncThunk(
+  'order/deleteSingleOrderThunk',
+  async (_id, thunkAPI) => {
+    const user = getUserFromLocalStorage()
+
+    try {
+      const response = await customFetch.delete(`admin/orders/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
+      return response.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
 const orderSlice = createSlice({
   name: 'order',
   initialState,
@@ -95,6 +115,9 @@ const orderSlice = createSlice({
       state.limit = payload
       state.page = 1
     },
+    deleteIdOrder: (state, { payload }) => {
+      state.deleteId = payload
+    },
   },
   extraReducers: {
     [orderThunk.pending]: (state, { payload }) => {
@@ -122,6 +145,19 @@ const orderSlice = createSlice({
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
+    // === Delete Single Order
+    [deleteSingleOrderThunk.pending]: (state, { payload }) => {
+      state.isLoading = true
+    },
+    [deleteSingleOrderThunk.fulfilled]: (state, { payload }) => {
+      toast.success('Order deleted.')
+      state.getOrders = !state.getOrders
+      state.isLoading = false
+    },
+    [deleteSingleOrderThunk.rejected]: (state, { payload }) => {
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
+      state.isLoading = false
+    },
   },
 })
 export const {
@@ -135,5 +171,6 @@ export const {
   clearOrderSearch,
   sortOrder,
   limitOrder,
+  deleteIdOrder,
 } = orderSlice.actions
 export default orderSlice.reducer

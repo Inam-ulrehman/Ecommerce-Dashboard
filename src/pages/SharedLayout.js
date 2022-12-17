@@ -5,11 +5,12 @@ import styled from 'styled-components'
 import { ContactWarning } from '../components/contact'
 import Footer from '../components/footer/Footer'
 import DesktopNavbar from '../components/navbar/DesktopNavbar'
+import OrderWarning from '../components/order/OrderWarning'
 import ProductWarning from '../components/product/ProductWarning'
 import Warning from '../components/Warning'
 
 const SharedLayout = () => {
-  const { warning, productWarning, contactWarning } = useSelector(
+  const { warning, productWarning, contactWarning, orderWarning } = useSelector(
     (state) => state.function
   )
   return (
@@ -18,6 +19,7 @@ const SharedLayout = () => {
       {warning && <Warning />}
       {productWarning && <ProductWarning />}
       {contactWarning && <ContactWarning />}
+      {orderWarning && <OrderWarning />}
       <Wrapper>
         <Outlet />
       </Wrapper>

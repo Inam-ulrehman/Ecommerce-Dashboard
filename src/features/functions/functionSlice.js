@@ -5,6 +5,7 @@ const initialState = {
   warning: false,
   productWarning: false,
   contactWarning: false,
+  orderWarning: false,
   isLoading: false,
 }
 
@@ -46,6 +47,12 @@ const functionSlice = createSlice({
     hideContactWarning: (state, { payload }) => {
       state.contactWarning = false
     },
+    showOrderWarning: (state, { payload }) => {
+      state.orderWarning = true
+    },
+    hideOrderWarning: (state, { payload }) => {
+      state.orderWarning = false
+    },
   },
   extraReducers: {
     [functionThunk.pending]: (state, { payload }) => {
@@ -70,5 +77,7 @@ export const {
   showProductWarning,
   hideContactWarning,
   showContactWarning,
+  showOrderWarning,
+  hideOrderWarning,
 } = functionSlice.actions
 export default functionSlice.reducer

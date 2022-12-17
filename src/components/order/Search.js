@@ -103,18 +103,14 @@ const Search = () => {
             <strong>Sort By</strong>
           </label>
           <select onChange={handleSort} ref={sortRef} name='sort' id='sort'>
-            <option selected value='-createdAt'>
-              New Orders
-            </option>
+            <option value='-createdAt'>New Orders</option>
             <option value='createdAt'>Old Orders</option>
           </select>
           <label htmlFor='limit'>
             <strong>Limit Per Page</strong>
           </label>
           <select onChange={handleLimit} ref={limitRef} name='limit' id='limit'>
-            <option selected value='10'>
-              10
-            </option>
+            <option value='10'>10</option>
             <option value='20'>20</option>
             <option value='30'>30</option>
             <option value='40'>40</option>
