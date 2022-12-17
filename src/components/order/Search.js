@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
   clearOrderSearch,
+  limitOrder,
   searchOrderByEmail,
   searchOrderById,
   searchOrderByPhone,
@@ -17,6 +18,7 @@ const Search = () => {
   const emailRef = useRef()
   const orderIdRef = useRef()
   const sortRef = useRef()
+  const limitRef = useRef()
 
   // handle Searches
   const handlePhone = (e) => {
@@ -42,12 +44,18 @@ const Search = () => {
     phoneRef.current.value = ''
     emailRef.current.value = ''
     sortRef.current.value = ''
+    limitRef.current.value = ''
     dispatch(clearOrderSearch())
   }
-  // handle OrderId
+  // handle Sort
   const handleSort = (e) => {
     const sort = sortRef.current.value
     dispatch(sortOrder(sort))
+  }
+  // handle Limit
+  const handleLimit = (e) => {
+    const limit = limitRef.current.value
+    dispatch(limitOrder(limit))
   }
   return (
     <Wrapper>
@@ -89,15 +97,27 @@ const Search = () => {
       </div>
       {/* clear filter and Sort*/}
       <div className='clear-sort'>
-        {/* handle sort */}
+        {/* handle sort and limit */}
         <div>
           <label htmlFor='sort'>
             <strong>Sort By</strong>
           </label>
           <select onChange={handleSort} ref={sortRef} name='sort' id='sort'>
-            <option value='-createdAt'>Default</option>
-            <option value='-createdAt'>New Orders</option>
+            <option selected value='-createdAt'>
+              New Orders
+            </option>
             <option value='createdAt'>Old Orders</option>
+          </select>
+          <label htmlFor='limit'>
+            <strong>Limit PerPage</strong>
+          </label>
+          <select onChange={handleLimit} ref={limitRef} name='limit' id='limit'>
+            <option selected value='10'>
+              10
+            </option>
+            <option value='20'>20</option>
+            <option value='30'>30</option>
+            <option value='40'>40</option>
           </select>
         </div>
         <button className='btn' type='button' onClick={handleClear}>

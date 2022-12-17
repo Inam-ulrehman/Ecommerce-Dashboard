@@ -8,9 +8,9 @@ import {
 } from '../../features/order/orderSlice'
 const ServerPagination = () => {
   const dispatch = useDispatch()
-  const { page, totalOrders } = useSelector((state) => state.order)
+  const { page, totalOrders, limit } = useSelector((state) => state.order)
 
-  const totalPages = Math.ceil(totalOrders / 10)
+  const totalPages = Math.ceil(totalOrders / limit)
   const pages = Array.from({ length: totalPages }, (v, i) => i + 1)
 
   // handle buttons

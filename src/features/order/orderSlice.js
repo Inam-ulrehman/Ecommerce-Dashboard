@@ -9,6 +9,7 @@ const initialState = {
   payment_intent: '',
   _id: '',
   sort: '-createdAt',
+  limit: 10,
   page: 1,
   orderList: [],
   totalOrders: '',
@@ -34,7 +35,7 @@ export const getOrdersThunk = createAsyncThunk(
     const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.get(
-        `/admin/orders?phone=${query?.phone}&email=${query?.email}&_id=${query?._id}&payment_intent=${query?.payment_intent}&sort=${query?.sort}&page=${query?.page}`,
+        `/admin/orders?phone=${query?.phone}&email=${query?.email}&_id=${query?._id}&payment_intent=${query?.payment_intent}&sort=${query?.sort}&page=${query?.page}&limit=${query.limit}`,
         {
           headers: {
             Authorization: `Bearer ${user?.token}`,
@@ -84,9 +85,14 @@ const orderSlice = createSlice({
       state._id = ''
       state.sort = '-createdAt'
       state.page = 1
+      state.limit = 10
     },
     sortOrder: (state, { payload }) => {
       state.sort = payload
+      state.page = 1
+    },
+    limitOrder: (state, { payload }) => {
+      state.limit = payload
       state.page = 1
     },
   },
@@ -128,5 +134,6 @@ export const {
   searchOrderById,
   clearOrderSearch,
   sortOrder,
+  limitOrder,
 } = orderSlice.actions
 export default orderSlice.reducer
