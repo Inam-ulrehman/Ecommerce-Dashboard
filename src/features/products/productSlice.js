@@ -139,6 +139,9 @@ const productSlice = createSlice({
     createFunction: (state, { payload }) => {
       console.log('function call')
     },
+    getUploadProductAmount: (state, { payload }) => {
+      state.amount = payload
+    },
     getProductDeleteId: (state, { payload }) => {
       state.productDeleteId = payload
     },
@@ -241,6 +244,10 @@ const productSlice = createSlice({
     },
   },
 })
-export const { createFunction, getStateValues, getProductDeleteId } =
-  productSlice.actions
+export const {
+  createFunction,
+  getStateValues,
+  getProductDeleteId,
+  getUploadProductAmount,
+} = productSlice.actions
 export default productSlice.reducer

@@ -7,6 +7,7 @@ import {
   uploadProductThunk,
 } from '../../features/products/productSlice'
 import FormInput from '../FormInput'
+import AmountUploadSingleProduct from './AmountUploadSingleProduct'
 
 const UploadSingleProduct = () => {
   const dispatch = useDispatch()
@@ -55,15 +56,7 @@ const UploadSingleProduct = () => {
             />
           </div>
           {/* amount  */}
-          <div>
-            <FormInput
-              placeholder={'required'}
-              type={'number'}
-              name={'amount'}
-              value={product.amount}
-              onChange={handleChange}
-            />
-          </div>
+          <AmountUploadSingleProduct />
         </div>
         {/* ===============div divider========= */}
         <div>
