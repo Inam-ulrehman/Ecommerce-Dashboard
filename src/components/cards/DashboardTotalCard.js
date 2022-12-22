@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-const DashboardTotalCard = ({ total, navigateLink }) => {
+const DashboardTotalCard = ({ total, navigateLink, title }) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
@@ -11,11 +11,11 @@ const DashboardTotalCard = ({ total, navigateLink }) => {
     <Wrapper onClick={handleClick} className='container'>
       <div className='product-container'>
         <div className='product-header'>
-          <h3 className='title'>Products</h3>
+          <h3 className='title'>{title}</h3>
           <div className='title-underline'></div>
         </div>
         <div className='product-body'>
-          <span>Total Product's : </span>
+          <span>Total {title} : </span>
           <span>
             <strong> {total}</strong>
           </span>
