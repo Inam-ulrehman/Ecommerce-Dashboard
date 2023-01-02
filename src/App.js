@@ -2,7 +2,15 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { ChangePassword, Profile } from './components/dashboard'
+import { ChangePassword, Profile, WebsiteContent } from './components/dashboard'
+import {
+  ContentAbout,
+  ContentFooter,
+  ContentSectionOne,
+  ContentSectionThree,
+  ContentSectionTwo,
+  ContentSocialLinks,
+} from './components/dashboard/WebsiteContentComponents'
 import ScrollToTopHook from './hooks/ScrollToTopHook'
 import { SharedLayout, ErrorPage, ProtectedRoute, Register } from './pages'
 
@@ -30,7 +38,7 @@ const App = () => {
               </ProtectedRoute>
             }
           >
-            {/* ===============Dashboard inside route=============== */}
+            {/* ===============Dashboard inside route===============Start */}
             <Route path='/dashboard' element={<Dashboard />}>
               <Route index element={<DashboardHome />} />
               <Route path='/dashboard/contact' element={<Contact />} />
@@ -46,13 +54,41 @@ const App = () => {
               <Route path='/dashboard/orders' element={<Orders />} />
               <Route path='/dashboard/orders/:id' element={<SingleOrder />} />
             </Route>
-            {/* ===============Dashboard inside route=============== */}
+            {/* ===============Dashboard inside route===============Finish */}
             <Route path='/dashboard/profile' element={<Profile />} />
             <Route path='/dashboard/upload' element={<UploadProduct />} />
             <Route
               path='/dashboard/changePassword'
               element={<ChangePassword />}
             />
+            {/* ============update Content Route=======================Start */}
+            <Route
+              path='/dashboard/websiteContent'
+              element={<WebsiteContent />}
+            >
+              <Route index element={<ContentSectionOne />} />
+              <Route
+                path='/dashboard/websiteContent/sectionTwo'
+                element={<ContentSectionTwo />}
+              />
+              <Route
+                path='/dashboard/websiteContent/sectionThree'
+                element={<ContentSectionThree />}
+              />
+              <Route
+                path='/dashboard/websiteContent/about'
+                element={<ContentAbout />}
+              />
+              <Route
+                path='/dashboard/websiteContent/contact'
+                element={<ContentFooter />}
+              />
+              <Route
+                path='/dashboard/websiteContent/SocialLinks'
+                element={<ContentSocialLinks />}
+              />
+            </Route>
+            {/* ============update Content Route=======================Finish */}
           </Route>
 
           <Route path='*' element={<ErrorPage />} />

@@ -38,12 +38,34 @@ export const DashboardSidebarNav = [
   },
 ]
 // =======Dashboard========
+
 export const dashboardNavLink = [
   { id: 1, title: 'Dashboard', path: '/dashboard' },
   { id: 2, title: 'Profile', path: '/dashboard/profile' },
   { id: 3, title: 'Upload Product', path: '/dashboard/upload' },
   { id: 4, title: 'Change password', path: '/dashboard/changePassword' },
+  { id: 5, title: 'Update Website Content', path: '/dashboard/websiteContent' },
 ]
+
+// ==========Website Content=========
+
+export const WebsiteContentSideBar = [
+  { id: 1, title: 'Section-1', path: '/dashboard/websiteContent' },
+  { id: 2, title: 'Section-2', path: '/dashboard/websiteContent/sectionTwo' },
+  { id: 3, title: 'Section-3', path: '/dashboard/websiteContent/SectionThree' },
+  { id: 4, title: 'About Us', path: '/dashboard/websiteContent/about' },
+  {
+    id: 5,
+    title: 'Contact Details',
+    path: '/dashboard/websiteContent/contact',
+  },
+  {
+    id: 6,
+    title: 'Social Links',
+    path: '/dashboard/websiteContent/socialLinks',
+  },
+]
+
 // ==================footer //============
 // ===== Data for Address =====
 export const address = [
