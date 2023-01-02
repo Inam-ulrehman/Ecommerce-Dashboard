@@ -7,7 +7,6 @@ const initialState = {
   heading: '',
   buttonTitle: '',
   desktopImage: '',
-  mobileImage: '',
   paragraph: '',
 }
 const ContentSectionTwo = () => {
@@ -52,15 +51,7 @@ const ContentSectionTwo = () => {
             onChange={handleChange}
           />
         </div>
-        {/* Mobile Image */}
-        <div>
-          <FormInput
-            label={'Mobile Image'}
-            name={'mobileImage'}
-            value={state.mobileImage}
-            onChange={handleChange}
-          />
-        </div>
+
         {/* paragraph */}
         <div>
           <FormInput
