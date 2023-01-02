@@ -1,24 +1,67 @@
 import React from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
+import { customFetch } from '../../../utils/axios'
+import { getUserFromLocalStorage } from '../../../utils/localStorage'
 import FormInput from '../../FormInput'
+const user = getUserFromLocalStorage()
 
 const initialState = {
   heading: '',
   buttonTitle: '',
   desktopImage: '',
   paragraph: '',
+  isLoading: false,
 }
 const ContentSectionThree = () => {
   const [state, setState] = useState(initialState)
 
-  const handleSubmit = (e) => {
-    console.log(e)
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      const result = await customFetch.post('/sectionThree', state, {
+        headers: {
+          Authorization: `Bearer ${user?.token} `,
+        },
+      })
+
+      toast.success(result.statusText)
+    } catch (error) {
+      console.log(error)
+    }
   }
   const handleChange = (e) => {
     const value = e.target.value
     const name = e.target.name
     setState({ ...state, [name]: value })
+  }
+
+  const getData = async () => {
+    setState({ isLoading: true })
+    try {
+      const result = await customFetch('/sectionThree')
+      const data = result?.data?.sectionThree[0]
+      setState({ isLoading: false })
+      setState(data)
+    } catch (error) {
+      setState({ isLoading: false })
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+  if (state.isLoading) {
+    return (
+      <div>
+        <h1 className='title'>Loading...</h1>
+        <div className='loading'></div>
+      </div>
+    )
   }
   return (
     <Wrapper>
@@ -51,7 +94,6 @@ const ContentSectionThree = () => {
             onChange={handleChange}
           />
         </div>
-
         {/* paragraph */}
         <div>
           <FormInput
