@@ -4,7 +4,6 @@ import { customFetch } from '../../utils/axios'
 import {
   getItemFromLocalStorage,
   getUserFromLocalStorage,
-  removeImageFromLocalStorage,
   removeItemFromLocalStorage,
   setItemInLocalStorage,
 } from '../../utils/localStorage'
