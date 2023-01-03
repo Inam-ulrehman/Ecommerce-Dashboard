@@ -25,3 +25,8 @@ export const formatPrice = (number) => {
 
 // ============Scroll up============
 window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+
+//================Capitalize first Letter========
+export const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
