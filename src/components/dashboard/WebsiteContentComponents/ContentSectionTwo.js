@@ -27,7 +27,6 @@ const ContentSectionTwo = () => {
           Authorization: `Bearer ${user?.token} `,
         },
       })
-
       toast.success(result.statusText)
     } catch (error) {
       console.log(error)
