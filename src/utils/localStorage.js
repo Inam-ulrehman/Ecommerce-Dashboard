@@ -26,3 +26,17 @@ export const getImageFromLocalStorage = () => {
 export const removeImageFromLocalStorage = () => {
   localStorage.removeItem('uploadImage')
 }
+// =================Get Item From LocalStorage=======================
+export const setItemInLocalStorage = (name, uploadImage) => {
+  localStorage.setItem(name, JSON.stringify(uploadImage))
+}
+
+export const getItemFromLocalStorage = (item) => {
+  const result = localStorage.getItem(item)
+  const uploadImage = result ? JSON.parse(result) : null
+  return uploadImage
+}
+
+export const removeItemFromLocalStorage = (item) => {
+  localStorage.removeItem(item)
+}

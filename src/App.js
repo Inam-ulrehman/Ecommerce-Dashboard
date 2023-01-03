@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ChangePassword, Profile, WebsiteContent } from './components/dashboard'
 import {
-  ContentAbout,
+  ContentAboutUs,
   ContentContact,
   ContentSectionOne,
   ContentSectionThree,
@@ -76,8 +76,8 @@ const App = () => {
                 element={<ContentSectionThree />}
               />
               <Route
-                path='/dashboard/websiteContent/about'
-                element={<ContentAbout />}
+                path='/dashboard/websiteContent/aboutUs'
+                element={<ContentAboutUs />}
               />
               <Route
                 path='/dashboard/websiteContent/contact'

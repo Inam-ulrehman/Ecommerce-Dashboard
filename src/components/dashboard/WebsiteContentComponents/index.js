@@ -1,4 +1,4 @@
-import ContentAbout from './ContentAbout'
+import ContentAboutUs from './ContentAboutUs'
 import ContentContact from './ContentContact'
 import ContentSectionOne from './ContentSectionOne'
 import ContentSectionThree from './ContentSectionThree'
@@ -11,7 +11,7 @@ export {
   ContentSectionOne,
   ContentSectionTwo,
   ContentSectionThree,
-  ContentAbout,
+  ContentAboutUs,
   ContentContact,
   ContentSocialLinks,
 }

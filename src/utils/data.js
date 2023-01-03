@@ -53,7 +53,7 @@ export const WebsiteContentSideBar = [
   { id: 1, title: 'Section-1', path: '/dashboard/websiteContent' },
   { id: 2, title: 'Section-2', path: '/dashboard/websiteContent/sectionTwo' },
   { id: 3, title: 'Section-3', path: '/dashboard/websiteContent/SectionThree' },
-  { id: 4, title: 'About Us', path: '/dashboard/websiteContent/about' },
+  { id: 4, title: 'About Us', path: '/dashboard/websiteContent/aboutUs' },
   {
     id: 5,
     title: 'Contact Details',
