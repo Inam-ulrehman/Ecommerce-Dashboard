@@ -1,10 +1,11 @@
 import React from 'react'
-import { UploadImage } from './aboutComponent'
+import { UploadAboutUs, UploadImage } from './aboutComponent'
 
 const ContentAboutUs = () => {
   return (
     <div>
       <UploadImage />
+      <UploadAboutUs />
     </div>
   )
 }

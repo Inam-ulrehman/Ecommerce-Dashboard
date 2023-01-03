@@ -143,7 +143,7 @@ const aboutUsSlice = createSlice({
     getAboutUsDeleteId: (state, { payload }) => {
       state.aboutUsDeleteId = payload
     },
-    getStateValues: (state, { payload }) => {
+    getAboutUsValues: (state, { payload }) => {
       const { name, value } = payload
       state[name] = value
     },
@@ -247,7 +247,7 @@ const aboutUsSlice = createSlice({
 })
 export const {
   createFunction,
-  getStateValues,
+  getAboutUsValues,
   getAboutUsDeleteId,
   getUploadAboutUsAmount,
 } = aboutUsSlice.actions
