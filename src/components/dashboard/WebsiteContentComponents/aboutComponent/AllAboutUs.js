@@ -80,7 +80,6 @@ const Wrapper = styled.div`
     transition: var(--transition-1);
 
     :hover {
-      z-index: 0;
       cursor: pointer;
       box-shadow: var(--shadow-3);
     }
