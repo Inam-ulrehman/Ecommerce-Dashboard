@@ -78,7 +78,9 @@ const Wrapper = styled.div`
     position: relative;
     background-color: var(--grey-2);
     transition: var(--transition-1);
+
     :hover {
+      z-index: 0;
       cursor: pointer;
       box-shadow: var(--shadow-3);
     }
