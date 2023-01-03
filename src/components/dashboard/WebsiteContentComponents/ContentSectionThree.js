@@ -76,6 +76,15 @@ const ContentSectionThree = () => {
             onChange={handleChange}
           />
         </div>
+        {/* paragraph */}
+        <div>
+          <FormInput
+            label={'Paragraph'}
+            name={'paragraph'}
+            value={state.paragraph}
+            onChange={handleChange}
+          />
+        </div>
         {/* Button Title  */}
         <div>
           <FormInput
@@ -94,15 +103,7 @@ const ContentSectionThree = () => {
             onChange={handleChange}
           />
         </div>
-        {/* paragraph */}
-        <div>
-          <FormInput
-            label={'Paragraph'}
-            name={'paragraph'}
-            value={state.paragraph}
-            onChange={handleChange}
-          />
-        </div>
+
         <button type='submit' className='btn'>
           Submit
         </button>
