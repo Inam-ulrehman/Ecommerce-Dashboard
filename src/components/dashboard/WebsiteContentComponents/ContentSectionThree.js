@@ -43,7 +43,7 @@ const ContentSectionThree = () => {
     setState({ isLoading: true })
     try {
       const result = await customFetch('/sectionThree')
-      const data = result?.data?.sectionThree[0]
+      const data = result?.data?.sectionThree
       setState({ isLoading: false })
       setState(data)
     } catch (error) {
