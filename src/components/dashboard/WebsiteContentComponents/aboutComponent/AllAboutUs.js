@@ -26,6 +26,10 @@ const AllAboutUs = () => {
     }
   }
 
+  const handleDelete = (public_id, _id) => {
+    const data = { public_id, _id }
+  }
+
   useEffect(() => {
     getData()
     // eslint-disable-next-line
@@ -33,9 +37,17 @@ const AllAboutUs = () => {
   return (
     <Wrapper>
       <div className='container'>
-        {state.aboutUsList.map((item) => {
+        {state.aboutUsList.map((item, index) => {
           return (
-            <div className='containerHolder'>
+            <div className='containerHolder' key={index}>
+              <button
+                className='btn'
+                onClick={() =>
+                  handleDelete(item.uploadImage[0].public_id, item._id)
+                }
+              >
+                x
+              </button>
               <div className='imageContainer'>
                 <img src={item.uploadImage[0].secure_url} alt={item.name} />
               </div>
@@ -63,12 +75,21 @@ const Wrapper = styled.div`
     gap: 1rem;
   }
   .containerHolder {
+    position: relative;
     background-color: var(--grey-2);
+    transition: var(--transition-1);
+    :hover {
+      cursor: pointer;
+      box-shadow: var(--shadow-3);
+    }
   }
-
+  .btn {
+    position: absolute;
+    right: 0;
+  }
   .imageContainer {
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: 300px;
     img {
       width: 100%;
     }
@@ -81,6 +102,7 @@ const Wrapper = styled.div`
   }
   .footer {
     padding: 0 1rem;
+    max-width: 250px;
   }
 `
 
