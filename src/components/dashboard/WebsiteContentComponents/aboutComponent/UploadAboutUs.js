@@ -1,14 +1,25 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAboutUsValues } from '../../../../features/aboutUs/aboutUsSlice'
+import { toast } from 'react-toastify'
+import {
+  getAboutUsValues,
+  uploadAboutUsThunk,
+} from '../../../../features/aboutUs/aboutUsSlice'
 import FormInput from '../../../FormInput'
 
 const UploadAboutUs = () => {
   const dispatch = useDispatch()
-  const { name, profession, paragraph } = useSelector((state) => state.aboutUs)
-
+  const { aboutUs } = useSelector((state) => state)
+  const { name, profession, paragraph, uploadImage } = aboutUs
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (uploadImage.length === 0) {
+      return toast.warning('please upload Image First.')
+    }
+    if ((!name, !profession, !paragraph)) {
+      return toast.warning('please enter all details.')
+    }
+    dispatch(uploadAboutUsThunk(aboutUs))
   }
 
   const handleChange = (e) => {
@@ -45,6 +56,9 @@ const UploadAboutUs = () => {
             ></textarea>
           </label>
         </div>
+        <button onClick={handleSubmit} className='btn'>
+          Submit
+        </button>
       </form>
     </div>
   )

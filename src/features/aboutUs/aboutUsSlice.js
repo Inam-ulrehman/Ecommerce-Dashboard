@@ -5,6 +5,7 @@ import {
   getItemFromLocalStorage,
   getUserFromLocalStorage,
   removeImageFromLocalStorage,
+  removeItemFromLocalStorage,
   setItemInLocalStorage,
 } from '../../utils/localStorage'
 import paginate from '../../utils/paginate'
@@ -81,7 +82,7 @@ export const uploadAboutUsThunk = createAsyncThunk(
   async (aboutUs, thunkAPI) => {
     try {
       const response = await customFetch.post(
-        '/aboutUss/uploadAboutUs',
+        '/contentAboutUs/uploadContentAboutUs',
         aboutUs,
         {
           headers: {
@@ -89,9 +90,10 @@ export const uploadAboutUsThunk = createAsyncThunk(
           },
         }
       )
-
+      console.log(response)
       return response.data
     } catch (error) {
+      console.log(error)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -198,18 +200,16 @@ const aboutUsSlice = createSlice({
       state.isLoading = true
     },
     [uploadAboutUsThunk.fulfilled]: (state, { payload }) => {
-      removeImageFromLocalStorage('uploadImage')
-      state.title = ''
-      state.amount = ''
-      state.category = ''
-      state.subCategory = ''
-      state.description = ''
+      removeItemFromLocalStorage('aboutUsImage')
+      state.name = ''
+      state.profession = ''
+      state.paragraph = ''
       state.uploadImage = []
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
       })
-      toast.success('AboutUs is uploaded.')
+      toast.success('uploaded.')
       state.isLoading = false
     },
     [uploadAboutUsThunk.rejected]: (state, { payload }) => {
