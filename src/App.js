@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ChangePassword, Profile, WebsiteContent } from './components/dashboard'
 import {
   ContentAbout,
-  ContentFooter,
+  ContentContact,
   ContentSectionOne,
   ContentSectionThree,
   ContentSectionTwo,
@@ -81,7 +81,7 @@ const App = () => {
               />
               <Route
                 path='/dashboard/websiteContent/contact'
-                element={<ContentFooter />}
+                element={<ContentContact />}
               />
               <Route
                 path='/dashboard/websiteContent/SocialLinks'
