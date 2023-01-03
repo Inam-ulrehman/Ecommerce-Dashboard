@@ -10,6 +10,7 @@ const user = getUserFromLocalStorage()
 
 const initialState = {
   address: '',
+  googleLocation: '',
   mobileNumber: '',
   landLine: '',
   email: '',
@@ -70,6 +71,15 @@ const ContentContact = () => {
             name={'address'}
             onChange={handleChange}
             value={state.address}
+          />
+        </div>
+        {/* Google location */}
+        <div>
+          <FormInput
+            label={'Google Location'}
+            name={'googleLocation'}
+            onChange={handleChange}
+            value={state.googleLocation}
           />
         </div>
         {/* mobileNumber */}
