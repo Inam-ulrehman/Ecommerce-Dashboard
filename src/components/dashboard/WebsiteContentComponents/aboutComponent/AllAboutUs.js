@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { FaEdit, FaTimes } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
+
 import {
   deleteAboutUsThunk,
   getAboutUsThunk,
@@ -11,6 +13,8 @@ import { capitalizeFirstLetter } from '../../../../utils/helper'
 
 const AllAboutUs = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const { getAboutUs, aboutUsList, isLoading } = useSelector(
     (state) => state.aboutUs
   )
@@ -19,7 +23,7 @@ const AllAboutUs = () => {
     dispatch(deleteAboutUsThunk(_id))
   }
   const handleEdit = async (_id) => {
-    dispatch(deleteAboutUsThunk(_id))
+    navigate(`${_id}`)
   }
 
   useEffect(() => {
