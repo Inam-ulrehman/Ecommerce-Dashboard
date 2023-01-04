@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import aboutUsSlice from './features/aboutUs/aboutUsSlice'
+import editAboutUsSlice from './features/aboutUs/editAboutUsSlice'
 import contactSlice from './features/contact/contactSlice'
 import functionSlice from './features/functions/functionSlice'
 import orderSlice from './features/order/orderSlice'
@@ -16,6 +17,7 @@ const store = configureStore({
     contact: contactSlice,
     order: orderSlice,
     aboutUs: aboutUsSlice,
+    editAboutUs: editAboutUsSlice,
   },
 })
 
