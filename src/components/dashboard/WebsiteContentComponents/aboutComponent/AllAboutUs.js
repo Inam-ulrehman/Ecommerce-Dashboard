@@ -56,7 +56,9 @@ const AllAboutUs = () => {
                   <span>{item.name}</span>
                   <span>{item.profession}</span>
                 </div>
-                <p className='text-small'>{item.paragraph}</p>
+                <p className='text-small'>
+                  {capitalizeFirstLetter(item.paragraph)}
+                </p>
               </div>
             </div>
           )
@@ -72,14 +74,19 @@ const Wrapper = styled.div`
     flex-wrap: wrap;
   }
   .containerHolder {
-    border-top-left-radius: var(--radius-2);
-    border-top-right-radius: var(--radius-2);
     box-shadow: var(--shadow-2);
     width: 80vw;
     margin: 1rem auto;
-    padding-top: 1rem;
-    background: var(--grey-4);
 
+    background: var(--white);
+    .btn {
+      position: absolute;
+    }
+    .image {
+      background: var(--grey-4);
+      border-top-left-radius: var(--radius-2);
+      border-top-right-radius: var(--radius-2);
+    }
     img {
       width: 80vw;
       height: 30vh;
