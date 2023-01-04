@@ -48,16 +48,15 @@ const AllAboutUs = () => {
               >
                 x
               </button>
-              <div className='imageContainer'>
+              <div className='image'>
                 <img src={item.uploadImage[0].secure_url} alt={item.name} />
               </div>
               <div className='body'>
-                <span>{item.name}</span>
-                <span>{item.profession}</span>
-              </div>
-              <hr />
-              <div className='footer'>
-                <p>{capitalizeFirstLetter(item.paragraph)}</p>
+                <div className='spanHolder'>
+                  <span>{item.name}</span>
+                  <span>{item.profession}</span>
+                </div>
+                <p className='text-small'>{item.paragraph}</p>
               </div>
             </div>
           )
@@ -71,39 +70,48 @@ const Wrapper = styled.div`
   .container {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 1rem;
-    gap: 1rem;
   }
   .containerHolder {
-    position: relative;
-    background-color: var(--grey-2);
-    transition: var(--transition-1);
+    border-top-left-radius: var(--radius-2);
+    border-top-right-radius: var(--radius-2);
+    box-shadow: var(--shadow-2);
+    width: 80vw;
+    margin: 1rem auto;
+    padding-top: 1rem;
+    background: var(--grey-4);
 
-    :hover {
-      cursor: pointer;
-      box-shadow: var(--shadow-3);
-    }
-  }
-  .btn {
-    position: absolute;
-    right: 0;
-  }
-  .imageContainer {
-    width: 300px;
-    height: 300px;
     img {
-      width: 100%;
+      width: 80vw;
+      height: 30vh;
+      object-fit: contain;
+      border-bottom: 2px solid var(--primary-5);
     }
-  }
-  .body {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1rem;
-    text-transform: uppercase;
-  }
-  .footer {
-    padding: 0 1rem;
-    max-width: 250px;
+    .body {
+      margin-top: -8px;
+      padding: 1rem;
+      background: var(--white);
+    }
+    .spanHolder {
+      display: flex;
+      justify-content: space-between;
+      text-transform: capitalize;
+    }
+    p {
+      margin-bottom: 0;
+      color: var(--grey-5);
+    }
+    @media (min-width: 600px) {
+      width: 45vw;
+      img {
+        width: 45vw;
+      }
+    }
+    @media (min-width: 1024px) {
+      width: 30vw;
+      img {
+        width: 30vw;
+      }
+    }
   }
 `
 
