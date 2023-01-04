@@ -7,7 +7,6 @@ import {
   removeItemFromLocalStorage,
   setItemInLocalStorage,
 } from '../../utils/localStorage'
-import paginate from '../../utils/paginate'
 const user = getUserFromLocalStorage()
 const localUploadImage = getItemFromLocalStorage('aboutUsImage')
 
@@ -16,10 +15,10 @@ const initialState = {
   profession: '',
   paragraph: '',
   uploadImage: localUploadImage || [],
-  aboutUssList: [],
+  aboutUsList: [],
   nbHits: '',
   aboutUsDeleteId: '',
-  getAboutUss: false,
+  getAboutUs: false,
   isLoading: false,
 }
 
@@ -97,12 +96,16 @@ export const uploadAboutUsThunk = createAsyncThunk(
     }
   }
 )
-// ========= Get aboutUss ========
-export const getAboutUssThunk = createAsyncThunk(
-  'aboutUs/getAboutUssThunk',
+// ========= Get aboutUs ========
+export const getAboutUsThunk = createAsyncThunk(
+  'aboutUs/getAboutUsThunk',
   async (_, thunkAPI) => {
     try {
-      const response = await customFetch.get('/aboutUss/static')
+      const response = await customFetch.get('/contentAboutUs/admin', {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
 
       return response.data
     } catch (error) {
@@ -111,12 +114,12 @@ export const getAboutUssThunk = createAsyncThunk(
   }
 )
 // ========= Delete aboutUss ========
-export const deleteAboutUssThunk = createAsyncThunk(
-  'aboutUs/deleteAboutUssThunk',
+export const deleteAboutUsThunk = createAsyncThunk(
+  'aboutUs/deleteAboutUsThunk',
   async (_id, thunkAPI) => {
     try {
       const response = await customFetch.delete(
-        `/aboutUss/singleAboutUs/${_id}`,
+        `/contentAboutUs/admin/${_id}`,
         {
           headers: {
             Authorization: `Bearer ${user?.token}`,
@@ -138,15 +141,16 @@ const aboutUsSlice = createSlice({
     createFunction: (state, { payload }) => {
       console.log('function call')
     },
-    getUploadAboutUsAmount: (state, { payload }) => {
-      state.amount = payload
-    },
     getAboutUsDeleteId: (state, { payload }) => {
       state.aboutUsDeleteId = payload
     },
+    // ==========inUse============
     getAboutUsValues: (state, { payload }) => {
       const { name, value } = payload
       state[name] = value
+    },
+    getAboutUsData: (state, { payload }) => {
+      state.getAboutUs = !state.getAboutUs
     },
   },
   extraReducers: {
@@ -204,10 +208,7 @@ const aboutUsSlice = createSlice({
       state.profession = ''
       state.paragraph = ''
       state.uploadImage = []
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      })
+      state.getAboutUs = !state.getAboutUs
       toast.success('uploaded.')
       state.isLoading = false
     },
@@ -215,30 +216,31 @@ const aboutUsSlice = createSlice({
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
-    // ====== Get AboutUss ======
-    [getAboutUssThunk.pending]: (state, { payload }) => {
+    // ====== Get AboutUs ======
+    [getAboutUsThunk.pending]: (state, { payload }) => {
       state.isLoading = true
     },
-    [getAboutUssThunk.fulfilled]: (state, { payload }) => {
-      const { nbHits, aboutUss } = payload
-      state.aboutUssList = paginate(aboutUss)
+    [getAboutUsThunk.fulfilled]: (state, { payload }) => {
+      const { contentAboutUs, nbHits } = payload
+      state.aboutUsList = contentAboutUs
       state.nbHits = nbHits
+
       state.isLoading = false
     },
-    [getAboutUssThunk.rejected]: (state, { payload }) => {
+    [getAboutUsThunk.rejected]: (state, { payload }) => {
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
-    // ====== Delete AboutUss ======
-    [deleteAboutUssThunk.pending]: (state, { payload }) => {
+    // ====== Delete AboutUs ======
+    [deleteAboutUsThunk.pending]: (state, { payload }) => {
       state.isLoading = true
     },
-    [deleteAboutUssThunk.fulfilled]: (state, { payload }) => {
-      state.getAboutUss = !state.getAboutUss
+    [deleteAboutUsThunk.fulfilled]: (state, { payload }) => {
+      state.getAboutUs = !state.getAboutUs
       toast.success('aboutUs is deleted.')
       state.isLoading = false
     },
-    [deleteAboutUssThunk.rejected]: (state, { payload }) => {
+    [deleteAboutUsThunk.rejected]: (state, { payload }) => {
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
@@ -248,6 +250,6 @@ export const {
   createFunction,
   getAboutUsValues,
   getAboutUsDeleteId,
-  getUploadAboutUsAmount,
+  getAboutUsData,
 } = aboutUsSlice.actions
 export default aboutUsSlice.reducer

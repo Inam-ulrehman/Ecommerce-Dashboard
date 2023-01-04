@@ -4,13 +4,14 @@ import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import {
   deleteImageThunk,
+  getAboutUsData,
   uploadImageThunk,
 } from '../../../../features/aboutUs/aboutUsSlice'
 
 const UploadImage = () => {
   const dispatch = useDispatch()
   const [file, setFile] = useState(null)
-  const { aboutUs } = useSelector((state) => state)
+  const { uploadImage, isLoading } = useSelector((state) => state.aboutUs)
 
   const handleChange = (e) => {
     setFile(e.target.files[0])
@@ -21,12 +22,13 @@ const UploadImage = () => {
     if (!file) {
       return toast.warning('Please Chose a file.')
     }
-    if (aboutUs.uploadImage.length >= 1) {
+    if (uploadImage.length >= 1) {
       return toast.warning('Only One Picture Required.')
     }
     const formData = new FormData()
     formData.append('file', file)
     dispatch(uploadImageThunk(formData))
+    dispatch(getAboutUsData())
     setFile(null)
   }
   // handle Delete
@@ -46,7 +48,7 @@ const UploadImage = () => {
         </button>
       </div>
       <div className='image-container'>
-        {aboutUs.uploadImage.map((item, index) => {
+        {uploadImage.map((item, index) => {
           return (
             <div className='container' key={index}>
               <div className='image-holder'>
@@ -63,7 +65,7 @@ const UploadImage = () => {
             </div>
           )
         })}
-        {aboutUs.isLoading && <div className='loading'></div>}
+        {isLoading && <div className='loading'></div>}
       </div>
     </Wrapper>
   )

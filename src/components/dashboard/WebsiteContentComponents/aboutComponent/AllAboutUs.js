@@ -1,51 +1,42 @@
 import React from 'react'
-import { useState } from 'react'
 import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { customFetch } from '../../../../utils/axios'
+import {
+  deleteAboutUsThunk,
+  getAboutUsThunk,
+} from '../../../../features/aboutUs/aboutUsSlice'
 import { capitalizeFirstLetter } from '../../../../utils/helper'
-import { getUserFromLocalStorage } from '../../../../utils/localStorage'
-const initialState = {
-  aboutUsList: [],
-}
-const user = getUserFromLocalStorage()
 
 const AllAboutUs = () => {
-  const [state, setState] = useState(initialState)
-  const getData = async () => {
-    try {
-      const result = await customFetch('/contentAboutUs/admin', {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      const aboutUsList = result.data.contentAboutUss
-      setState({ ...state, aboutUsList })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const dispatch = useDispatch()
+  const { getAboutUs, aboutUsList, isLoading } = useSelector(
+    (state) => state.aboutUs
+  )
 
-  const handleDelete = (public_id, _id) => {
-    const data = { public_id, _id }
+  const handleDelete = async (_id) => {
+    dispatch(deleteAboutUsThunk(_id))
   }
 
   useEffect(() => {
-    getData()
+    dispatch(getAboutUsThunk())
     // eslint-disable-next-line
-  }, [])
+  }, [getAboutUs])
+  if (isLoading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+        <div className='loading'></div>
+      </div>
+    )
+  }
   return (
     <Wrapper>
       <div className='container'>
-        {state.aboutUsList.map((item, index) => {
+        {aboutUsList?.map((item, index) => {
           return (
             <div className='containerHolder' key={index}>
-              <button
-                className='btn'
-                onClick={() =>
-                  handleDelete(item.uploadImage[0].public_id, item._id)
-                }
-              >
+              <button className='btn' onClick={() => handleDelete(item._id)}>
                 x
               </button>
               <div className='image'>
