@@ -11,6 +11,7 @@ import {
   ContentSectionTwo,
   ContentSocialLinks,
 } from './components/dashboard/WebsiteContentComponents'
+import { EditAboutUs } from './components/dashboard/WebsiteContentComponents/aboutComponent'
 import ScrollToTopHook from './hooks/ScrollToTopHook'
 import { SharedLayout, ErrorPage, ProtectedRoute, Register } from './pages'
 
@@ -78,6 +79,10 @@ const App = () => {
               <Route
                 path='/dashboard/websiteContent/aboutUs'
                 element={<ContentAboutUs />}
+              />
+              <Route
+                path='/dashboard/websiteContent/aboutUs/:_id'
+                element={<EditAboutUs />}
               />
               <Route
                 path='/dashboard/websiteContent/contact'

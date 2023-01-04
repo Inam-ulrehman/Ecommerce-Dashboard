@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { FaEdit, FaTimes } from 'react-icons/fa'
 import {
   deleteAboutUsThunk,
   getAboutUsThunk,
@@ -15,6 +16,9 @@ const AllAboutUs = () => {
   )
 
   const handleDelete = async (_id) => {
+    dispatch(deleteAboutUsThunk(_id))
+  }
+  const handleEdit = async (_id) => {
     dispatch(deleteAboutUsThunk(_id))
   }
 
@@ -36,10 +40,16 @@ const AllAboutUs = () => {
         {aboutUsList?.map((item, index) => {
           return (
             <div className='containerHolder' key={index}>
-              <button className='btn' onClick={() => handleDelete(item._id)}>
-                x
-              </button>
               <div className='image'>
+                <button className='btn' onClick={() => handleDelete(item._id)}>
+                  <FaTimes />
+                </button>
+                <button
+                  className='btn secondBtn'
+                  onClick={() => handleEdit(item._id)}
+                >
+                  <FaEdit />
+                </button>
                 <img src={item.uploadImage[0].secure_url} alt={item.name} />
               </div>
               <div className='body'>
@@ -68,11 +78,9 @@ const Wrapper = styled.div`
     box-shadow: var(--shadow-2);
     width: 80vw;
     margin: 1rem auto;
-
+    position: relative;
     background: var(--white);
-    .btn {
-      position: absolute;
-    }
+
     .image {
       background: var(--grey-4);
       border-top-left-radius: var(--radius-2);
@@ -83,6 +91,13 @@ const Wrapper = styled.div`
       height: 30vh;
       object-fit: contain;
       border-bottom: 2px solid var(--primary-5);
+    }
+    .btn {
+      position: absolute;
+      right: 0;
+    }
+    .secondBtn {
+      right: 12%;
     }
     .body {
       margin-top: -8px;
