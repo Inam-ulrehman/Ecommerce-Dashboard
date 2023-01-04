@@ -1,7 +1,12 @@
 import React from 'react'
 
 const EditAboutUs = () => {
-  return <div>EditAboutUs</div>
+  return (
+    <div>
+      <div className='cart'></div>
+      <div className='changeCart'></div>
+    </div>
+  )
 }
 
 export default EditAboutUs
