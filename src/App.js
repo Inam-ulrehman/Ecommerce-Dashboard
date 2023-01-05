@@ -6,6 +6,7 @@ import { ChangePassword, Profile, WebsiteContent } from './components/dashboard'
 import {
   ContentAboutUs,
   ContentContact,
+  ContentLogo,
   ContentSectionOne,
   ContentSectionThree,
   ContentSectionTwo,
@@ -67,7 +68,11 @@ const App = () => {
               path='/dashboard/websiteContent'
               element={<WebsiteContent />}
             >
-              <Route index element={<ContentSectionOne />} />
+              <Route index element={<ContentLogo />} />
+              <Route
+                path='/dashboard/websiteContent/sectionOne'
+                element={<ContentSectionOne />}
+              />
               <Route
                 path='/dashboard/websiteContent/sectionTwo'
                 element={<ContentSectionTwo />}

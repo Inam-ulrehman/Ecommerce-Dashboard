@@ -50,17 +50,18 @@ export const dashboardNavLink = [
 // ==========Website Content=========
 
 export const WebsiteContentSideBar = [
-  { id: 1, title: 'Section-1', path: '/dashboard/websiteContent' },
-  { id: 2, title: 'Section-2', path: '/dashboard/websiteContent/sectionTwo' },
-  { id: 3, title: 'Section-3', path: '/dashboard/websiteContent/SectionThree' },
-  { id: 4, title: 'About Us', path: '/dashboard/websiteContent/aboutUs' },
+  { id: 1, title: 'Logo', path: '/dashboard/websiteContent' },
+  { id: 2, title: 'Section-1', path: '/dashboard/websiteContent/sectionOne' },
+  { id: 3, title: 'Section-2', path: '/dashboard/websiteContent/sectionTwo' },
+  { id: 4, title: 'Section-3', path: '/dashboard/websiteContent/SectionThree' },
+  { id: 5, title: 'About Us', path: '/dashboard/websiteContent/aboutUs' },
   {
-    id: 5,
+    id: 6,
     title: 'Contact Details',
     path: '/dashboard/websiteContent/contact',
   },
   {
-    id: 6,
+    id: 7,
     title: 'Social Links',
     path: '/dashboard/websiteContent/socialLinks',
   },
