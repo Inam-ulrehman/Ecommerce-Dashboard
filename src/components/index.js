@@ -2,5 +2,6 @@ import FormInput from './FormInput'
 import Logo from './Logo'
 import Pagination from './Pagination'
 import Warning from './Warning'
+import UploadImage from './UploadImage'
 
-export { FormInput, Pagination, Logo, Warning }
+export { UploadImage, FormInput, Pagination, Logo, Warning }

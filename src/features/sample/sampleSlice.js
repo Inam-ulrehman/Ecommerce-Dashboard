@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 import { customFetch } from '../../utils/axios'
+import { getUserFromLocalStorage } from '../../utils/localStorage'
+const user = getUserFromLocalStorage
 
 const initialState = {
   name: '',
@@ -13,7 +15,16 @@ export const userThunk = createAsyncThunk(
   'user/userThunk',
   async (_, thunkAPI) => {
     try {
-      const response = await customFetch.get()
+      const response = await customFetch.post(
+        '/contentAboutUs/uploadImage',
+        file,
+        {
+          headers: {
+            'content-type': 'multipart/form-data',
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      )
       console.log('hello Thunk')
       return response.data
     } catch (error) {
