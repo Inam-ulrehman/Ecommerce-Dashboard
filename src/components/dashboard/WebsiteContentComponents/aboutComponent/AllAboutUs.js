@@ -54,7 +54,7 @@ const AllAboutUs = () => {
                 >
                   <FaEdit />
                 </button>
-                <img src={item.uploadImage[0].secure_url} alt={item.name} />
+                <img src={item.uploadImage[0]?.secure_url} alt={item.name} />
               </div>
               <div className='body'>
                 <div className='spanHolder'>
