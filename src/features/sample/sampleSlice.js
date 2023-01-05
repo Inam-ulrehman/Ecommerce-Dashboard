@@ -15,6 +15,7 @@ export const userThunk = createAsyncThunk(
   'user/userThunk',
   async (_, thunkAPI) => {
     try {
+      const user = getUserFromLocalStorage()
       const response = await customFetch.post(
         '/contentAboutUs/uploadImage',
         file,

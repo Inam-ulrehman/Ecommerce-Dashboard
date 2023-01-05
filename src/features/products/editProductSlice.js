@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
-const user = getUserFromLocalStorage()
 
 let initialState = {
   _id: '',
@@ -36,6 +35,7 @@ export const singleProductThunk = createAsyncThunk(
 export const editProductThunk = createAsyncThunk(
   'product/editProductThunk',
   async (product, thunkAPI) => {
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.patch(
         `/products/singleProduct/${product._id}`,

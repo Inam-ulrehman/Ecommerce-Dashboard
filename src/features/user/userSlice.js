@@ -72,7 +72,7 @@ export const forgetPasswordLinkThunk = createAsyncThunk(
   'user/forgetPasswordLinkThunk',
   async (user, thunkAPI) => {
     try {
-      const response = await customFetch.post('/auth/forgetpassword', user)
+      const response = await customFetch.post('/auth/forgetPassword', user)
 
       return response.data.msg
     } catch (error) {
@@ -87,7 +87,7 @@ export const forgetPasswordChangeThunk = createAsyncThunk(
   async (user, thunkAPI) => {
     const { id, password } = user
     try {
-      const response = await customFetch.post(`/auth/forgetpassword/${id}`, {
+      const response = await customFetch.post(`/auth/forgetPassword/${id}`, {
         password,
       })
 
@@ -102,9 +102,10 @@ export const forgetPasswordChangeThunk = createAsyncThunk(
 export const changePasswordThunk = createAsyncThunk(
   'user/changePasswordThunk',
   async (password, thunkAPI) => {
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.post(
-        `/auth/changepassword`,
+        `/auth/changePassword`,
         password,
         {
           headers: {

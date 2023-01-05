@@ -8,8 +8,6 @@ import {
   setImageInLocalStorage,
 } from '../../utils/localStorage'
 import paginate from '../../utils/paginate'
-const user = getUserFromLocalStorage()
-const localUploadImage = getImageFromLocalStorage('uploadImage')
 
 const initialState = {
   title: '',
@@ -19,7 +17,7 @@ const initialState = {
   inStock: true,
   totalStock: 10,
   value: [],
-  uploadImage: localUploadImage || [],
+  uploadImage: getImageFromLocalStorage('uploadImage') || [],
   description: '',
   productsList: [],
   nbHits: '',
@@ -44,6 +42,7 @@ export const productThunk = createAsyncThunk(
 export const uploadImageThunk = createAsyncThunk(
   'product/uploadImageThunk',
   async (file, thunkAPI) => {
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.post('/products/uploadImage', file, {
         headers: {
@@ -64,6 +63,7 @@ export const deleteImageThunk = createAsyncThunk(
   'product/deleteImageThunk',
   async (public_id, thunkAPI) => {
     const data = { public_id: public_id }
+    const user = getUserFromLocalStorage()
     try {
       await customFetch.post('/products/deleteImage', data, {
         headers: {
@@ -82,6 +82,7 @@ export const deleteImageThunk = createAsyncThunk(
 export const uploadProductThunk = createAsyncThunk(
   'product/uploadProductThunk',
   async (product, thunkAPI) => {
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.post(
         '/products/uploadProduct',
@@ -115,6 +116,7 @@ export const getProductsThunk = createAsyncThunk(
 export const deleteProductsThunk = createAsyncThunk(
   'product/deleteProductsThunk',
   async (_id, thunkAPI) => {
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.delete(
         `/products/singleProduct/${_id}`,
