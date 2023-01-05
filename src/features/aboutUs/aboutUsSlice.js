@@ -7,7 +7,7 @@ import {
   removeItemFromLocalStorage,
   setItemInLocalStorage,
 } from '../../utils/localStorage'
-const user = getUserFromLocalStorage()
+
 const localUploadImage = getItemFromLocalStorage('aboutUsImage')
 
 const initialState = {
@@ -38,6 +38,7 @@ export const aboutUsThunk = createAsyncThunk(
 export const uploadImageThunk = createAsyncThunk(
   'aboutUs/uploadImageThunk',
   async (file, thunkAPI) => {
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.post(
         '/contentAboutUs/uploadImage',
@@ -60,6 +61,7 @@ export const deleteImageThunk = createAsyncThunk(
   'aboutUs/deleteImageThunk',
   async (public_id, thunkAPI) => {
     const data = { public_id: public_id }
+    const user = getUserFromLocalStorage()
     try {
       await customFetch.post('/contentAboutUs/deleteImage', data, {
         headers: {
@@ -78,6 +80,7 @@ export const deleteImageThunk = createAsyncThunk(
 export const uploadAboutUsThunk = createAsyncThunk(
   'aboutUs/uploadAboutUsThunk',
   async (aboutUs, thunkAPI) => {
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.post(
         '/contentAboutUs/uploadContentAboutUs',
@@ -100,10 +103,11 @@ export const uploadAboutUsThunk = createAsyncThunk(
 export const getAboutUsThunk = createAsyncThunk(
   'aboutUs/getAboutUsThunk',
   async (_, thunkAPI) => {
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.get('/contentAboutUs/admin', {
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user?.token}`,
         },
       })
 
@@ -117,6 +121,7 @@ export const getAboutUsThunk = createAsyncThunk(
 export const deleteAboutUsThunk = createAsyncThunk(
   'aboutUs/deleteAboutUsThunk',
   async (_id, thunkAPI) => {
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.delete(
         `/contentAboutUs/admin/${_id}`,

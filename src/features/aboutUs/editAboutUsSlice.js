@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
-const user = getUserFromLocalStorage()
+
 const initialState = {
   name: '',
   profession: '',
@@ -32,6 +32,7 @@ export const editAboutUsThunk = createAsyncThunk(
 export const SingleEditAboutUsThunk = createAsyncThunk(
   'aboutUs/SingleEditAboutUsThunk',
   async (_id, thunkAPI) => {
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.get(`contentAboutUs/admin/${_id}`, {
         headers: {
@@ -50,7 +51,7 @@ export const updateAboutUsImageThunk = createAsyncThunk(
   'aboutUs/updateAboutUsImageThunk',
   async (data, thunkAPI) => {
     const { formData: file, _id } = data
-
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.patch(
         `contentAboutUs/admin/${_id}`,
@@ -75,7 +76,7 @@ export const updateAboutUsTextThunk = createAsyncThunk(
   'aboutUs/updateAboutUsTextThunk',
   async (data, thunkAPI) => {
     const { _id, name, profession, paragraph } = data
-
+    const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.post(
         `contentAboutUs/admin/${_id}`,
