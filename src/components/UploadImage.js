@@ -4,8 +4,6 @@ import styled from 'styled-components'
 import { customFetch } from '../utils/axios'
 import { getUserFromLocalStorage } from '../utils/localStorage'
 
-const user = getUserFromLocalStorage()
-
 const UploadImage = ({ path, cbFunction, state, setState }) => {
   const [file, setFile] = useState(null)
 
@@ -21,6 +19,7 @@ const UploadImage = ({ path, cbFunction, state, setState }) => {
       return toast.warning('Please Chose a file.')
     }
     setState({ ...state, isLoading: true })
+    const user = getUserFromLocalStorage()
     try {
       const formData = new FormData()
       formData.append('file', file)

@@ -7,11 +7,12 @@ import { customFetch } from '../../../utils/axios'
 import {
   getItemFromLocalStorage,
   getUserFromLocalStorage,
+  removeItemFromLocalStorage,
   setItemInLocalStorage,
 } from '../../../utils/localStorage'
 import FormInput from '../../FormInput'
 import UploadImage from '../../UploadImage'
-const user = getUserFromLocalStorage()
+
 const LocalStorageUploadImage = getItemFromLocalStorage('sectionOneImage')
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
   heading: '',
   buttonTitle: '',
   paragraph: '',
-  uploadImage: LocalStorageUploadImage || '',
+  uploadImage: LocalStorageUploadImage || [],
+  fetchData: false,
   isLoading: false,
 }
 const ContentSectionOne = () => {
@@ -28,21 +30,28 @@ const ContentSectionOne = () => {
   // ====Handle Submit ====
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!state.uploadImage) {
+
+    if (state.uploadImage.length <= 0) {
       return toast.error('please upload image first.')
     }
     if ((!state.heading, !state.buttonTitle, !state.paragraph)) {
       return toast.error('Please fill all fields.')
     }
+    setState({ ...state, isLoading: true })
+    const user = getUserFromLocalStorage()
     try {
       const result = await customFetch.post('/sectionOne', state, {
         headers: {
           Authorization: `Bearer ${user?.token} `,
         },
       })
+      console.log(result)
+      setState({ ...state, isLoading: false, fetchData: !state.fetchData })
+      removeItemFromLocalStorage('sectionOneImage')
 
       toast.success(result.statusText)
     } catch (error) {
+      setState({ ...state, isLoading: false })
       console.log(error)
     }
   }
@@ -54,11 +63,13 @@ const ContentSectionOne = () => {
     setState({ ...state, [name]: value })
   }
   // ======cb Function======
-  const cbFunction = (result) => {
+  const cbFunction = async (result) => {
     const name = 'sectionOneImage'
-    const uploadImage = result.data.uploadImage
-    setItemInLocalStorage(name, uploadImage)
-    setState({ ...state, uploadImage: result.data.uploadImage })
+    const uploadImage = result.data.sectionOne.uploadImage
+    if (state._id === 0) {
+      setItemInLocalStorage(name, uploadImage)
+    }
+    setState({ ...state, uploadImage: result.data.sectionOne.uploadImage })
   }
 
   // =====fetch Data=====
@@ -82,8 +93,9 @@ const ContentSectionOne = () => {
 
   useEffect(() => {
     fetchData()
+
     // eslint-disable-next-line
-  }, [])
+  }, [state.fetchData])
   if (state.isLoading) {
     return (
       <div>
@@ -134,7 +146,7 @@ const ContentSectionOne = () => {
           <FormInput
             label={'Desktop Image Link'}
             name={'desktopImage'}
-            value={state.uploadImage?.secure_url}
+            value={state.uploadImage[0]?.secure_url}
             onChange={handleChange}
             disabled
           />
@@ -144,6 +156,9 @@ const ContentSectionOne = () => {
           Submit
         </button>
       </form>
+      <div>
+        <img src={state.uploadImage[0]?.secure_url} alt='' />
+      </div>
     </Wrapper>
   )
 }
