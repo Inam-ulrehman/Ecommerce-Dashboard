@@ -15,6 +15,7 @@ const initialState = {
   category: '',
   subCategory: '',
   inStock: true,
+  feature: false,
   totalStock: 10,
   value: [],
   uploadImage: getImageFromLocalStorage('uploadImage') || [],

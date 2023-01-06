@@ -95,6 +95,16 @@ const UploadSingleProduct = () => {
               onChange={handleChange}
             />
           </div>
+          {/* featured */}
+          <div className='feature'>
+            <input
+              type='checkbox'
+              name='feature'
+              value='true'
+              onChange={handleChange}
+            />
+            <label htmlFor='feature'>Feature product</label>
+          </div>
         </div>
         {/* ===============div divider========= */}
         <div>
@@ -122,6 +132,12 @@ const Wrapper = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
     min-width: 800px;
+  }
+  .feature {
+    padding-top: 1rem;
+    label {
+      margin-left: 1rem;
+    }
   }
 `
 export default UploadSingleProduct
