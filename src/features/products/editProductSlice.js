@@ -10,6 +10,7 @@ let initialState = {
   category: '',
   subCategory: '',
   inStock: true,
+  feature: '',
   totalStock: 10,
   value: [],
   uploadImage: [],
@@ -62,6 +63,9 @@ const editProductSlice = createSlice({
     createFunction: (state, { payload }) => {
       console.log('function call')
     },
+    changeFeatureValue: (state, { payload }) => {
+      state.feature = !state.feature
+    },
     editLocalImage: (state, { payload }) => {
       state.uploadImage = payload
     },
@@ -82,6 +86,7 @@ const editProductSlice = createSlice({
       state.category = payload.category
       state.subCategory = payload.subCategory
       state.inStock = payload.inStock
+      state.feature = payload.feature
       state.totalStock = payload.totalStock
       state.uploadImage = payload.uploadImage
       state.description = payload.description
@@ -106,6 +111,10 @@ const editProductSlice = createSlice({
     },
   },
 })
-export const { createFunction, getEditProductValue, editLocalImage } =
-  editProductSlice.actions
+export const {
+  createFunction,
+  getEditProductValue,
+  editLocalImage,
+  changeFeatureValue,
+} = editProductSlice.actions
 export default editProductSlice.reducer

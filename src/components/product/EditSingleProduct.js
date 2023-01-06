@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import {
+  changeFeatureValue,
   editProductThunk,
   getEditProductValue,
 } from '../../features/products/editProductSlice'
@@ -11,7 +12,7 @@ import FormInput from '../FormInput'
 const EditSingleProduct = () => {
   const dispatch = useDispatch()
   const { editProduct: product } = useSelector((state) => state)
-  console.log(product.inStock)
+
   // handleSubmit
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -27,7 +28,14 @@ const EditSingleProduct = () => {
     const value = e.target.value
     dispatch(getEditProductValue({ name, value }))
   }
-
+  if (product.isLoading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+        <div className='loading'></div>
+      </div>
+    )
+  }
   return (
     <Wrapper>
       {/* ==== VALUE INPUT */}
@@ -102,6 +110,22 @@ const EditSingleProduct = () => {
               onChange={handleChange}
             />
           </div>
+          {/* featured */}
+          <div className='feature'>
+            <input
+              // onClick={() => dispatch(changeFeatureValue())}
+              type='checkbox'
+              name='feature'
+              value={product.feature}
+              onChange={() => dispatch(changeFeatureValue())}
+              defaultChecked={product.feature}
+            />
+            <label htmlFor='feature'>
+              {product.feature
+                ? `Product is Feature.`
+                : `Product is out of Feature.`}
+            </label>
+          </div>
         </div>
         {/* ===============div divider========= */}
         <div>
@@ -129,6 +153,12 @@ const Wrapper = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
     min-width: 800px;
+  }
+  .feature {
+    padding-top: 1rem;
+    label {
+      margin-left: 1rem;
+    }
   }
 `
 export default EditSingleProduct
