@@ -4,23 +4,36 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import { customFetch } from '../../../utils/axios'
-import { getUserFromLocalStorage } from '../../../utils/localStorage'
+import {
+  getItemFromLocalStorage,
+  getUserFromLocalStorage,
+  setItemInLocalStorage,
+} from '../../../utils/localStorage'
 import FormInput from '../../FormInput'
+import UploadImage from '../../UploadImage'
 const user = getUserFromLocalStorage()
+const LocalStorageUploadImage = getItemFromLocalStorage('sectionOneImage')
 
 const initialState = {
+  _id: 0,
   heading: '',
   buttonTitle: '',
-  desktopImage: '',
   paragraph: '',
+  uploadImage: LocalStorageUploadImage || '',
   isLoading: false,
 }
 const ContentSectionOne = () => {
   const [state, setState] = useState(initialState)
 
+  // ====Handle Submit ====
   const handleSubmit = async (e) => {
     e.preventDefault()
-
+    if (!state.uploadImage) {
+      return toast.error('please upload image first.')
+    }
+    if ((!state.heading, !state.buttonTitle, !state.paragraph)) {
+      return toast.error('Please fill all fields.')
+    }
     try {
       const result = await customFetch.post('/sectionOne', state, {
         headers: {
@@ -33,13 +46,24 @@ const ContentSectionOne = () => {
       console.log(error)
     }
   }
+  // ====handle Change=====
+
   const handleChange = (e) => {
     const value = e.target.value
     const name = e.target.name
     setState({ ...state, [name]: value })
   }
+  // ======cb Function======
+  const cbFunction = (result) => {
+    const name = 'sectionOneImage'
+    const uploadImage = result.data.uploadImage
+    setItemInLocalStorage(name, uploadImage)
+    setState({ ...state, uploadImage: result.data.uploadImage })
+  }
 
-  const getData = async () => {
+  // =====fetch Data=====
+
+  const fetchData = async () => {
     setState({ ...state, isLoading: true })
     try {
       const result = await customFetch('/sectionOne')
@@ -57,7 +81,7 @@ const ContentSectionOne = () => {
   }
 
   useEffect(() => {
-    getData()
+    fetchData()
     // eslint-disable-next-line
   }, [])
   if (state.isLoading) {
@@ -71,6 +95,12 @@ const ContentSectionOne = () => {
   return (
     <Wrapper>
       <h3>Section-1</h3>
+      <UploadImage
+        path={`/sectionOne/${state._id}`}
+        cbFunction={cbFunction}
+        state={state}
+        setState={setState}
+      />
       <form className='form' onSubmit={handleSubmit}>
         {/* heading  */}
         <div>
@@ -102,10 +132,11 @@ const ContentSectionOne = () => {
         {/* desktop Image */}
         <div>
           <FormInput
-            label={'Desktop Image'}
+            label={'Desktop Image Link'}
             name={'desktopImage'}
-            value={state.desktopImage}
+            value={state.uploadImage?.secure_url}
             onChange={handleChange}
+            disabled
           />
         </div>
 

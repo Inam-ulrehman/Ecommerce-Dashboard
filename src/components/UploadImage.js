@@ -32,11 +32,11 @@ const UploadImage = ({ path, cbFunction, state, setState }) => {
       })
       setState({ ...state, isLoading: false })
       cbFunction(result)
-      toast.success('Logo Updated.')
+      toast.success('Image Updated.')
       return
     } catch (error) {
       setState({ ...state, isLoading: false })
-      toast.error('Something went wrong.')
+      toast.error('Image is not uploaded.')
       console.log(error)
     }
   }
