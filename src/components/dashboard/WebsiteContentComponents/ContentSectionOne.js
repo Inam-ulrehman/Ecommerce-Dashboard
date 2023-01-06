@@ -40,20 +40,25 @@ const ContentSectionOne = () => {
   }
 
   const getData = async () => {
-    setState({ isLoading: true })
+    setState({ ...state, isLoading: true })
     try {
       const result = await customFetch('/sectionOne')
+
+      if (result.data.msg === 'folder is empty.') {
+        setState({ ...state, isLoading: false })
+        return
+      }
       const data = result?.data?.sectionOne
-      setState({ isLoading: false })
-      setState(data)
+      setState({ ...state, ...data, isLoading: false })
     } catch (error) {
-      setState({ isLoading: false })
+      setState({ ...state, isLoading: false })
       console.log(error)
     }
   }
 
   useEffect(() => {
     getData()
+    // eslint-disable-next-line
   }, [])
   if (state.isLoading) {
     return (
