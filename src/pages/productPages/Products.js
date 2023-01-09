@@ -52,6 +52,7 @@ const Products = () => {
             <th>TITLE</th>
             <th>CATEGORY</th>
             <th>AVAILABLE</th>
+            <th>Feature</th>
             <th>ACTIONS</th>
           </tr>
 
@@ -63,7 +64,8 @@ const Products = () => {
                 </td>
                 <td>{item.title}</td>
                 <td>{item.category}</td>
-                <td>{item.inStock ? 'In-Stock' : 'out-of-Stock'}</td>
+                <td>{item.inStock ? 'Available' : 'out-of-Stock'}</td>
+                <td>{item.feature ? 'Feature' : null}</td>
                 <td className='buttons'>
                   <Link className='btn' to={item._id}>
                     Edit
