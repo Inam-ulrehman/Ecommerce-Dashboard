@@ -5,8 +5,8 @@ import { customFetch } from '../utils/axios'
 import { getUserFromLocalStorage } from '../utils/localStorage'
 
 const initialState = {
-  showRequirements: true,
-  showHowToUpload: true,
+  showRequirements: false,
+  showHowToUpload: false,
 }
 const UploadImage = ({ path, cbFunction, state, setState, imageTitle }) => {
   const [file, setFile] = useState(null)
