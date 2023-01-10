@@ -126,7 +126,7 @@ const ContentSectionThree = () => {
       <hr />
       <div className='box'>
         <strong>Step-2. </strong>
-        <p>Fill details below</p>
+        <p>Fill details below and submit.</p>
       </div>
       <form className='form' onSubmit={handleSubmit}>
         <div className='box-1'>
