@@ -125,6 +125,15 @@ const ContentSectionOne = () => {
       </div>
       <form className='form' onSubmit={handleSubmit}>
         <div className='box-1'>
+          {/* heading  */}
+          <div>
+            <FormInput
+              label={'Heading'}
+              name={'heading'}
+              value={state.heading}
+              onChange={handleChange}
+            />
+          </div>
           {/* Button Title  */}
           <div>
             <FormInput

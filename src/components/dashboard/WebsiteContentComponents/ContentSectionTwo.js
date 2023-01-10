@@ -106,55 +106,69 @@ const ContentSectionTwo = () => {
   }
   return (
     <Wrapper>
-      <h3>Section-2</h3>
+      <div className='box'>
+        <strong>Step-1. </strong>
+        <p>Upload your Image</p>
+      </div>
+      <hr />
       <UploadImage
         path={`/sectionTwo/${state._id}`}
         cbFunction={cbFunction}
         state={state}
         setState={setState}
       />
+      <hr />
+      <div className='box'>
+        <strong>Step-1. </strong>
+        <p>Upload your Image</p>
+      </div>
       <form className='form' onSubmit={handleSubmit}>
-        {/* heading  */}
-        <div>
-          <FormInput
-            label={'Heading'}
-            name={'heading'}
-            value={state.heading}
-            onChange={handleChange}
-          />
-        </div>
-        {/* paragraph */}
-        <div>
-          <FormInput
-            label={'Paragraph'}
-            name={'paragraph'}
-            value={state.paragraph}
-            onChange={handleChange}
-          />
-        </div>
-        {/* Button Title  */}
-        <div>
-          <FormInput
-            label={'Button Title'}
-            name={'buttonTitle'}
-            value={state.buttonTitle}
-            onChange={handleChange}
-          />
-        </div>
-        {/* desktop Image */}
-        <div>
-          <FormInput
-            label={'Desktop Image Link'}
-            name={'desktopImage'}
-            value={state.uploadImage[0]?.secure_url}
-            onChange={handleChange}
-            disabled
-          />
-        </div>
+        <div className='box-1'>
+          {/* heading  */}
+          <div>
+            <FormInput
+              label={'Heading'}
+              name={'heading'}
+              value={state.heading}
+              onChange={handleChange}
+            />
+          </div>
 
-        <button type='submit' className='btn'>
-          Submit
-        </button>
+          {/* Button Title  */}
+          <div>
+            <FormInput
+              label={'Button Title'}
+              name={'buttonTitle'}
+              value={state.buttonTitle}
+              onChange={handleChange}
+            />
+          </div>
+          {/* desktop Image */}
+          <div>
+            <FormInput
+              label={'Desktop Image Link'}
+              name={'desktopImage'}
+              value={state.uploadImage[0]?.secure_url}
+              onChange={handleChange}
+              disabled
+            />
+          </div>
+
+          <button type='submit' className='btn'>
+            Submit
+          </button>
+        </div>
+        <div className='box-2'>
+          {/* paragraph */}
+          <div>
+            <FormInput
+              label={'Paragraph'}
+              name={'paragraph'}
+              value={state.paragraph}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
       </form>
       <div>
         <img src={state.uploadImage[0]?.secure_url} alt='' />
@@ -163,5 +177,19 @@ const ContentSectionTwo = () => {
   )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+  .box {
+    display: flex;
+    p {
+      margin: 0;
+      margin-left: 1rem;
+    }
+  }
+  .form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    max-width: 80vw;
+  }
+`
 export default ContentSectionTwo
