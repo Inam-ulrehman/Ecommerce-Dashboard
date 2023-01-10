@@ -71,7 +71,7 @@ const AboutUsHeading = () => {
     <Wrapper>
       <div className='box'>
         <strong>Step-1. </strong>
-        <p>Add title and heading then submit.</p>
+        <p>About Us Page Heading and Title.</p>
       </div>
       <hr />
       <form onSubmit={handleSubmit} className='form'>

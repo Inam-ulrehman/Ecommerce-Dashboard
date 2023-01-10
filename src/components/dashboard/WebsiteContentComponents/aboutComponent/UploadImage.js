@@ -39,7 +39,7 @@ const UploadImage = () => {
     <Wrapper>
       <div className='box'>
         <strong>Step-2. </strong>
-        <p>Upload your image.</p>
+        <p>Upload Image for About Us Card.</p>
       </div>
       <div className='file-upload-container'>
         <input

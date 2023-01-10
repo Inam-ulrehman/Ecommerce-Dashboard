@@ -34,7 +34,7 @@ const UploadAboutUs = () => {
       <hr />
       <div className='box'>
         <strong>Step-3. </strong>
-        <p>Fill all information and submit.</p>
+        <p>Fill information for about us card.</p>
       </div>
       <form className='form' onSubmit={handleSubmit}>
         {/* Name */}
