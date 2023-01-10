@@ -106,18 +106,23 @@ const ContentSectionOne = () => {
   }
   return (
     <Wrapper>
+      <strong className='top'>Section -1</strong>
+      <div className='top-image'>
+        <img src={state.uploadImage[0]?.secure_url} alt='' />
+      </div>
       <div className='box'>
         <strong>Step-1. </strong>
         <p>Upload your Image</p>
       </div>
       <hr />
-
-      <UploadImage
-        path={`/sectionOne/${state._id}`}
-        cbFunction={cbFunction}
-        state={state}
-        setState={setState}
-      />
+      <div className='upload-image'>
+        <UploadImage
+          path={`/sectionOne/${state._id}`}
+          cbFunction={cbFunction}
+          state={state}
+          setState={setState}
+        />
+      </div>
       <hr />
       <div className='box'>
         <strong>Step-2. </strong>
@@ -177,20 +182,34 @@ const ContentSectionOne = () => {
           </div>
         </div>
       </form>
-      <div>
-        <img src={state.uploadImage[0]?.secure_url} alt='' />
-      </div>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
+  .top {
+    position: absolute;
+    right: 5%;
+  }
+  .top-image {
+    max-width: 135px;
+    max-height: 135px;
+    position: absolute;
+    right: 10%;
+    top: 28%;
+    img {
+      width: 100%;
+    }
+  }
   .box {
     display: flex;
     p {
       margin: 0;
       margin-left: 1rem;
     }
+  }
+  .upload-image {
+    height: 120px;
   }
   .form {
     display: grid;

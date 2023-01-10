@@ -106,17 +106,24 @@ const ContentSectionThree = () => {
   }
   return (
     <Wrapper>
+      <strong className='top'>Section -3</strong>
+      <div className='top-image'>
+        <img src={state.uploadImage[0]?.secure_url} alt='' />
+      </div>
       <div className='box'>
         <strong>Step-1. </strong>
         <p>Upload your Image</p>
       </div>
       <hr />
-      <UploadImage
-        path={`/sectionThree/${state._id}`}
-        cbFunction={cbFunction}
-        state={state}
-        setState={setState}
-      />
+      <div className='upload-image'>
+        <UploadImage
+          path={`/sectionThree/${state._id}`}
+          cbFunction={cbFunction}
+          state={state}
+          setState={setState}
+        />
+      </div>
+      <hr />
       <div className='box'>
         <strong>Step-2. </strong>
         <p>Fill details below</p>
@@ -159,30 +166,50 @@ const ContentSectionThree = () => {
         </div>
         <div className='box-2'>
           {/* paragraph */}
-          <div>
-            <FormInput
-              label={'Paragraph'}
-              name={'paragraph'}
+          <div className='paragraph'>
+            <label className='form-label' htmlFor='paragraph'>
+              Paragraph
+            </label>
+            <textarea
+              className='form-input'
+              name='paragraph'
+              id='paragraph'
+              cols='30'
+              rows='10'
               value={state.paragraph}
               onChange={handleChange}
-            />
+            ></textarea>
           </div>
         </div>
       </form>
-      <div>
-        <img src={state.uploadImage[0]?.secure_url} alt='' />
-      </div>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
+  .top {
+    position: absolute;
+    right: 5%;
+  }
+  .top-image {
+    max-width: 135px;
+    max-height: 135px;
+    position: absolute;
+    right: 10%;
+    top: 28%;
+    img {
+      width: 100%;
+    }
+  }
   .box {
     display: flex;
     p {
       margin: 0;
       margin-left: 1rem;
     }
+  }
+  .upload-image {
+    height: 120px;
   }
   .form {
     display: grid;
