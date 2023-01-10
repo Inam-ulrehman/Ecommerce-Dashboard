@@ -69,6 +69,7 @@ const UploadImage = ({ path, cbFunction, state, setState, imageTitle }) => {
           {imageTitle ? imageTitle : 'Upload File'}
         </button>
       </div>
+      {/* =========Button show and hide========= */}
       <div className='heading'>
         <div className='box-1'>
           <button type='button' onClick={handleRequirements}>
@@ -76,7 +77,7 @@ const UploadImage = ({ path, cbFunction, state, setState, imageTitle }) => {
           </button>
           <ul className={value.showRequirements ? null : 'hide'}>
             <li>Size must be under 10MB</li>
-            <li>File must be Png format</li>
+            <li>File must be PNG format</li>
           </ul>
         </div>
         <div className='box-2'>
