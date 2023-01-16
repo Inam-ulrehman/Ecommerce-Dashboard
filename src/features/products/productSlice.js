@@ -13,7 +13,6 @@ const initialState = {
   amount: '',
   category: '',
   subCategory: '',
-  _id: '',
   sort: '-createdAt',
   limit: 10,
   page: 1,
@@ -77,7 +76,6 @@ export const deleteImageThunk = createAsyncThunk(
 
       return public_id
     } catch (error) {
-      console.log(error.response)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -117,7 +115,7 @@ export const getProductsThunk = createAsyncThunk(
       //   }
       // )
       const response = await customFetch.get('/products')
-      console.log(response)
+
       return response.data
     } catch (error) {
       console.log(error.response)
@@ -153,6 +151,10 @@ const productSlice = createSlice({
   reducers: {
     createFunction: (state, { payload }) => {
       console.log('function call')
+    },
+    queryProducts: (state, { payload }) => {
+      state.productsList = payload.result
+      state.nbHits = payload.totalOrders
     },
     getUploadProductAmount: (state, { payload }) => {
       state.amount = payload
@@ -264,5 +266,6 @@ export const {
   getStateValues,
   getProductDeleteId,
   getUploadProductAmount,
+  queryProducts,
 } = productSlice.actions
 export default productSlice.reducer
