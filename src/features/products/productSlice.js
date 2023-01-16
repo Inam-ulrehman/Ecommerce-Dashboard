@@ -7,13 +7,16 @@ import {
   removeImageFromLocalStorage,
   setImageInLocalStorage,
 } from '../../utils/localStorage'
-import paginate from '../../utils/paginate'
 
 const initialState = {
   title: '',
   amount: '',
   category: '',
   subCategory: '',
+  _id: '',
+  sort: '-createdAt',
+  limit: 10,
+  page: 1,
   inStock: true,
   feature: false,
   totalStock: 10,
@@ -103,12 +106,21 @@ export const uploadProductThunk = createAsyncThunk(
 // ========= Get products ========
 export const getProductsThunk = createAsyncThunk(
   'product/getProductsThunk',
-  async (_, thunkAPI) => {
+  async (query, thunkAPI) => {
     try {
-      const response = await customFetch.get('/products/static')
-
+      // const response = await customFetch.get(
+      //   `/products?title=${query?.title}&category=${query?.category}&_id=${query?._id}&subCategory=${query?.subCategory}&sort=${query?.sort}&page=${query?.page}&limit=${query.limit}`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${user?.token}`,
+      //     },
+      //   }
+      // )
+      const response = await customFetch.get('/products')
+      console.log(response)
       return response.data
     } catch (error) {
+      console.log(error.response)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -223,9 +235,9 @@ const productSlice = createSlice({
       state.isLoading = true
     },
     [getProductsThunk.fulfilled]: (state, { payload }) => {
-      const { nbHits, products } = payload
-      state.productsList = paginate(products)
-      state.nbHits = nbHits
+      const { totalOrders, result } = payload
+      state.productsList = result
+      state.nbHits = totalOrders
       state.isLoading = false
     },
     [getProductsThunk.rejected]: (state, { payload }) => {

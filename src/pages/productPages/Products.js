@@ -1,9 +1,10 @@
-import { React, useState, useEffect } from 'react'
+import { React, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { Pagination } from '../../components'
+import Search from '../../components/product/Search'
+import ServerSidePagination from '../../components/product/ServerSidePagination'
 
 import { showProductWarning } from '../../features/functions/functionSlice'
 import {
@@ -14,7 +15,7 @@ import {
 const Products = () => {
   const dispatch = useDispatch()
   const { product } = useSelector((state) => state)
-  const [index, setIndex] = useState(0)
+
   const { isLoading, productsList, nbHits, getProducts } = product
 
   const handleDelete = (_id) => {
@@ -43,8 +44,9 @@ const Products = () => {
       </Helmet>
       <h4>
         <strong>Total Products: {nbHits}</strong>{' '}
-        <strong>Page No: {index + 1}</strong>
       </h4>
+      {/* Search */}
+      <Search />
       <table>
         <tbody>
           <tr>
@@ -56,7 +58,7 @@ const Products = () => {
             <th>ACTIONS</th>
           </tr>
 
-          {productsList[index]?.map((item) => {
+          {productsList?.map((item) => {
             return (
               <tr key={item._id}>
                 <td className='image-holder'>
@@ -84,11 +86,7 @@ const Products = () => {
         </tbody>
       </table>
       {/* Pagination buttons */}
-      <Pagination
-        index={index}
-        setIndex={setIndex}
-        productsList={productsList}
-      />
+      <ServerSidePagination />
     </Wrapper>
   )
 }
