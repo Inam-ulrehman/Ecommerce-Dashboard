@@ -101,6 +101,28 @@ const Wrapper = styled.div`
   .limit-sort {
     display: flex;
     margin-bottom: 5px;
+    gap: 1rem;
+  }
+  .sort,
+  .limit {
+    select {
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  button {
+    border: transparent;
+
+    box-shadow: var(--shadow-1);
+    padding: 4px;
+    transition: var(--transition);
+    :hover {
+      cursor: pointer;
+      background-color: var(--primary-5);
+      color: var(--white);
+    }
   }
 `
 export default Search
