@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
+import styled from 'styled-components'
 import { queryProducts } from '../../features/products/productSlice'
 import { customFetch } from '../../utils/axios'
 
@@ -40,8 +41,8 @@ const Search = () => {
     window.location.reload()
   }
   return (
-    <div>
-      <button className='btn' type='button' onClick={handleClear}>
+    <Wrapper className='container'>
+      <button className='btn clear-filter' type='button' onClick={handleClear}>
         Clear Filter
       </button>
       <form onSubmit={handleSubmit}>
@@ -87,8 +88,19 @@ const Search = () => {
           </button>
         </div>
       </form>
-    </div>
+    </Wrapper>
   )
 }
-
+const Wrapper = styled.div`
+  position: relative;
+  .clear-filter {
+    position: absolute;
+    top: 0;
+    right: 5%;
+  }
+  .limit-sort {
+    display: flex;
+    margin-bottom: 5px;
+  }
+`
 export default Search

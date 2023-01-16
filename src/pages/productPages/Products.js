@@ -43,9 +43,9 @@ const Products = () => {
         <meta name='description' content='Welcome to our Product Page.' />
         <link rel='canonical' href='/product' />
       </Helmet>
-      <h4>
+      <span>
         <strong>Total Products: {nbHits}</strong>{' '}
-      </h4>
+      </span>
       {/* Search */}
       <Search />
       <table>
