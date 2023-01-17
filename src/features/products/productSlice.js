@@ -165,6 +165,15 @@ const productSlice = createSlice({
       const { name, value } = payload
       state[name] = value
     },
+    nextOrder: (state, { payload }) => {
+      state.page = state.page + 1
+    },
+    prevOrder: (state, { payload }) => {
+      state.page = state.page - 1
+    },
+    indexOrder: (state, { payload }) => {
+      state.page = payload
+    },
   },
   extraReducers: {
     [productThunk.pending]: (state, { payload }) => {
@@ -261,6 +270,9 @@ const productSlice = createSlice({
   },
 })
 export const {
+  nextOrder,
+  prevOrder,
+  indexOrder,
   createFunction,
   getStateValues,
   getProductDeleteId,

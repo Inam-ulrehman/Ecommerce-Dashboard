@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react'
 import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -46,6 +47,9 @@ const Search = () => {
     const value = e.target.value
     dispatch(getStateValues({ name, value }))
   }
+  useEffect(() => {
+    handleSubmit()
+  }, [])
   return (
     <Wrapper className='container'>
       <button className='btn clear-filter' type='button' onClick={handleClear}>
