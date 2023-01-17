@@ -172,7 +172,9 @@ const productSlice = createSlice({
       state.page = state.page - 1
     },
     indexOrder: (state, { payload }) => {
-      state.page = payload
+      const index = Number(payload)
+
+      state.page = index
     },
   },
   extraReducers: {

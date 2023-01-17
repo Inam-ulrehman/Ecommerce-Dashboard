@@ -27,10 +27,27 @@ const Search = () => {
     const subCategory = subCategoryRef.current.value
     const _id = _idRef.current.value
     const sort = sortRef.current.value
-
+    console.log('hello')
     try {
       const response = await customFetch.get(
-        `/products?title=${title}&category=${category}&subCategory=${subCategory}&_id=${_id}&feature=${feature}&limit=${product.limit}&sort=${sort}`
+        `/products?title=${title}&category=${category}&subCategory=${subCategory}&_id=${_id}&feature=${feature}&limit=${product.limit}&sort=${sort}&page=${product.page}`
+      )
+
+      dispatch(queryProducts(response.data))
+    } catch (error) {
+      console.log(error.response)
+    }
+  }
+  const nextPage = async (e) => {
+    const title = titleRef.current.value
+    const category = categoryRef.current.value
+    const subCategory = subCategoryRef.current.value
+    const _id = _idRef.current.value
+    const sort = sortRef.current.value
+    console.log('hello')
+    try {
+      const response = await customFetch.get(
+        `/products?title=${title}&category=${category}&subCategory=${subCategory}&_id=${_id}&feature=${feature}&limit=${product.limit}&sort=${sort}&page=${product.page}`
       )
 
       dispatch(queryProducts(response.data))
@@ -47,9 +64,12 @@ const Search = () => {
     const value = e.target.value
     dispatch(getStateValues({ name, value }))
   }
+
   useEffect(() => {
-    handleSubmit()
-  }, [])
+    nextPage()
+
+    // eslint-disable-next-line
+  }, [product.page])
   return (
     <Wrapper className='container'>
       <button className='btn clear-filter' type='button' onClick={handleClear}>

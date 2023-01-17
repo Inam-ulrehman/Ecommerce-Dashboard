@@ -32,9 +32,6 @@ const ServerPagination = () => {
   }
 
   const handlePrev = (e) => {
-    if (page <= 1) {
-      return
-    }
     dispatch(prevOrder())
   }
   return (
