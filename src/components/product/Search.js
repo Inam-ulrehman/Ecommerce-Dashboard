@@ -19,14 +19,15 @@ const Search = () => {
   const subCategoryRef = useRef()
   const _idRef = useRef()
   const sortRef = useRef()
+  const title = titleRef?.current?.value
+  const category = categoryRef?.current?.value
+  const subCategory = subCategoryRef?.current?.value
+  const _id = _idRef?.current?.value
+  const sort = sortRef?.current?.value
 
+  // =========handle Submit========
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const title = titleRef.current.value
-    const category = categoryRef.current.value
-    const subCategory = subCategoryRef.current.value
-    const _id = _idRef.current.value
-    const sort = sortRef.current.value
     console.log('hello')
     try {
       const response = await customFetch.get(
@@ -38,13 +39,8 @@ const Search = () => {
       console.log(error.response)
     }
   }
+  // =========handle NextPage============
   const nextPage = async (e) => {
-    const title = titleRef.current.value
-    const category = categoryRef.current.value
-    const subCategory = subCategoryRef.current.value
-    const _id = _idRef.current.value
-    const sort = sortRef.current.value
-    console.log('hello')
     try {
       const response = await customFetch.get(
         `/products?title=${title}&category=${category}&subCategory=${subCategory}&_id=${_id}&feature=${feature}&limit=${product.limit}&sort=${sort}&page=${product.page}`
@@ -55,6 +51,7 @@ const Search = () => {
       console.log(error.response)
     }
   }
+
   const handleClear = () => {
     window.location.reload()
   }
@@ -67,7 +64,7 @@ const Search = () => {
 
   useEffect(() => {
     nextPage()
-
+    window.scrollTo({ top: 0, left: 0 })
     // eslint-disable-next-line
   }, [product.page])
   return (
