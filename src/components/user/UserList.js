@@ -2,17 +2,13 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 import { getUsersThunk } from '../../features/user/userSlice'
 import { formatDate } from '../../utils/helper'
 
 const UserList = () => {
-  const dispatch = useDispatch()
   const { user } = useSelector((state) => state)
 
-  useEffect(() => {
-    dispatch(getUsersThunk())
-    // eslint-disable-next-line
-  }, [])
   if (user.isLoading) {
     return (
       <div>
@@ -22,7 +18,7 @@ const UserList = () => {
     )
   }
   return (
-    <div>
+    <Wrapper>
       <table>
         <tbody>
           <tr>
@@ -54,8 +50,12 @@ const UserList = () => {
           })}
         </tbody>
       </table>
-    </div>
+    </Wrapper>
   )
 }
-
+const Wrapper = styled.div`
+  tr {
+    text-align: center;
+  }
+`
 export default UserList
