@@ -89,7 +89,7 @@ const Search = () => {
           <div className='sort'>
             <label htmlFor='sort'>Sort</label>
             <select name='sort' id='sort' ref={sortRef}>
-              <option value='-createdAt'>SELECT OPTIONS</option>
+              <option>SELECT OPTIONS</option>
               <option value='-createdAt'>DATE NEW</option>
               <option value='createdAt'>DATE OLD</option>
               <option value='title'>NAME A-Z</option>

@@ -1,21 +1,17 @@
 import moment from 'moment/moment'
 import React from 'react'
-import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Pagination from '../../components/contact/Pagination'
 import Search from '../../components/contact/Search'
 
-import {
-  getContactDeleteId,
-  getContactThunk,
-} from '../../features/contact/contactSlice'
+import { getContactDeleteId } from '../../features/contact/contactSlice'
 import { showContactWarning } from '../../features/functions/functionSlice'
 
 const Contact = () => {
   const dispatch = useDispatch()
-  const { contactList, count, page, isLoading, getContacts } = useSelector(
+  const { contactList, count, page, isLoading } = useSelector(
     (state) => state.contact
   )
 
@@ -26,10 +22,6 @@ const Contact = () => {
     dispatch(getContactDeleteId(_id))
   }
 
-  useEffect(() => {
-    dispatch(getContactThunk())
-    // eslint-disable-next-line
-  }, [getContacts])
   if (isLoading) {
     return (
       <div>
