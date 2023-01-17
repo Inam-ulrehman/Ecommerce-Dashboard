@@ -1,39 +1,38 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { useState } from 'react'
 import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
   getStateValues,
   queryProducts,
-} from '../../features/products/productSlice'
+} from '../../features/contact/contactSlice'
 import { customFetch } from '../../utils/axios'
+import { getUserFromLocalStorage } from '../../utils/localStorage'
 
 const Search = () => {
-  const [feature, setFeature] = useState()
   const dispatch = useDispatch()
-  const { product } = useSelector((state) => state)
-  const titleRef = useRef()
-  const categoryRef = useRef()
-  const subCategoryRef = useRef()
-  const _idRef = useRef()
+  const { contact } = useSelector((state) => state)
+  const nameRef = useRef()
+  const phoneRef = useRef()
+  const emailRef = useRef()
   const sortRef = useRef()
-  const title = titleRef?.current?.value
-  const category = categoryRef?.current?.value
-  const subCategory = subCategoryRef?.current?.value
-  const _id = _idRef?.current?.value
-  const sort = sortRef?.current?.value
 
   // =========handle Submit========
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('hello')
+    const { token } = getUserFromLocalStorage()
+
     try {
       const response = await customFetch.get(
-        `/products?title=${title}&category=${category}&subCategory=${subCategory}&_id=${_id}&feature=${feature}&limit=${product.limit}&sort=${sort}&page=${product.page}`
+        `/contacts?name=${nameRef?.current?.value}&phone=${phoneRef?.current?.value}&email=${emailRef?.current?.value}&limit=${contact.limit}&sort=${sortRef?.current?.value}&page=${contact.page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
-
+      console.log(response)
       dispatch(queryProducts(response.data))
     } catch (error) {
       console.log(error.response)
@@ -41,9 +40,15 @@ const Search = () => {
   }
   // =========handle NextPage============
   const nextPage = async (e) => {
+    const { token } = getUserFromLocalStorage()
     try {
       const response = await customFetch.get(
-        `/products?title=${title}&category=${category}&subCategory=${subCategory}&_id=${_id}&feature=${feature}&limit=${product.limit}&sort=${sort}&page=${product.page}`
+        `/contacts?name=${nameRef?.current?.value}&phone=${phoneRef?.current?.value}&email=${emailRef?.current?.value}&limit=${contact.limit}&sort=${sortRef?.current?.value}&page=${contact.page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
 
       dispatch(queryProducts(response.data))
@@ -64,7 +69,7 @@ const Search = () => {
     nextPage()
     window.scrollTo({ top: 0, left: 0 })
     // eslint-disable-next-line
-  }, [product.page])
+  }, [contact.page])
   return (
     <Wrapper className='container'>
       <button className='btn clear-filter' type='button' onClick={handleClear}>
@@ -84,30 +89,19 @@ const Search = () => {
           <div className='sort'>
             <label htmlFor='sort'>Sort</label>
             <select name='sort' id='sort' ref={sortRef}>
+              <option value='createdAt'>SELECT OPTIONS</option>
               <option value='createdAt'>DATE NEW</option>
               <option value='-createdAt'>DATE OLD</option>
-              <option value='-amount'>PRICE HIGH</option>
-              <option value='amount'>PRICE LOW</option>
               <option value='title'>NAME A-Z</option>
               <option value='-title'>NAME Z-A</option>
             </select>
           </div>
-          <div className='feature'>
-            <button
-              type='button'
-              className={feature ? 'btn' : ''}
-              onClick={() => setFeature(true)}
-            >
-              Feature
-            </button>
-          </div>
         </div>
         {/* ============box divided */}
         <div className='search'>
-          <input type='text' ref={titleRef} placeholder='Title' />
-          <input type='text' ref={categoryRef} placeholder='Category' />
-          <input type='text' ref={subCategoryRef} placeholder='SubCategory' />
-          <input type='text' ref={_idRef} placeholder='id' />
+          <input type='text' ref={nameRef} placeholder='First Name' />
+          <input type='number' ref={phoneRef} placeholder='Phone Number' />
+          <input type='text' ref={emailRef} placeholder='Email' />
           <button className='btn' type='submit'>
             Search
           </button>
