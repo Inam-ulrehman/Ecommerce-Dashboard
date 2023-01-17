@@ -142,10 +142,6 @@ const productSlice = createSlice({
     createFunction: (state, { payload }) => {
       console.log('function call')
     },
-    queryProducts: (state, { payload }) => {
-      state.productsList = payload.result
-      state.nbHits = payload.totalOrders
-    },
     getUploadProductAmount: (state, { payload }) => {
       state.amount = payload
     },
@@ -155,6 +151,10 @@ const productSlice = createSlice({
     getStateValues: (state, { payload }) => {
       const { name, value } = payload
       state[name] = value
+    },
+    queryProducts: (state, { payload }) => {
+      state.productsList = payload.result
+      state.nbHits = payload.totalOrders
     },
     nextOrder: (state, { payload }) => {
       state.page = state.page + 1
@@ -263,6 +263,7 @@ const productSlice = createSlice({
   },
 })
 export const {
+  queryProducts,
   nextOrder,
   prevOrder,
   indexOrder,
@@ -270,6 +271,5 @@ export const {
   getStateValues,
   getProductDeleteId,
   getUploadProductAmount,
-  queryProducts,
 } = productSlice.actions
 export default productSlice.reducer
