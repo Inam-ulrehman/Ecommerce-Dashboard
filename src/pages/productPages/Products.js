@@ -11,7 +11,7 @@ import {
   getProductDeleteId,
   getProductsThunk,
 } from '../../features/products/productSlice'
-import { formatPrice } from '../../utils/helper'
+import { formatDate, formatPrice } from '../../utils/helper'
 
 const Products = () => {
   const dispatch = useDispatch()
@@ -61,6 +61,7 @@ const Products = () => {
             <th>CATEGORY</th>
             <th>SUBCATEGORY</th>
             <th>AVAILABLE</th>
+            <th>Created At</th>
             <th>FEATURE</th>
             <th>PRICE</th>
             <th>ACTIONS</th>
@@ -76,6 +77,7 @@ const Products = () => {
                 <td>{item.category}</td>
                 <td>{item.subCategory}</td>
                 <td>{item.inStock ? 'Available' : 'out-of-Stock'}</td>
+                <td>{formatDate(item.createdAt)}</td>
                 <td>{item.feature ? 'Feature' : null}</td>
                 <td>{formatPrice(item.amount)}</td>
                 <td className='buttons'>
