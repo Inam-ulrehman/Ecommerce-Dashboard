@@ -17,7 +17,7 @@ const Products = () => {
   const dispatch = useDispatch()
   const { product } = useSelector((state) => state)
 
-  const { isLoading, productsList, nbHits, getProducts } = product
+  const { isLoading, productsList, nbHits, getProducts, page } = product
 
   const handleDelete = (_id) => {
     dispatch(showProductWarning())
@@ -43,9 +43,14 @@ const Products = () => {
         <meta name='description' content='Welcome to our Product Page.' />
         <link rel='canonical' href='/product' />
       </Helmet>
-      <span>
-        <strong>Total Products: {nbHits}</strong>{' '}
-      </span>
+      <div className='span'>
+        <span>
+          Total Products: <strong>{nbHits}</strong>
+        </span>
+        <span>
+          Page No: <strong>{page}</strong>
+        </span>
+      </div>
       {/* Search */}
       <Search />
       <table>
@@ -96,6 +101,11 @@ const Products = () => {
   )
 }
 const Wrapper = styled.div`
+  .span {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 2rem;
+  }
   text-align: center;
   .image-holder {
     max-width: 150px;
@@ -103,10 +113,7 @@ const Wrapper = styled.div`
   img {
     width: 100px;
   }
-  h4 {
-    display: flex;
-    justify-content: space-between;
-  }
+
   td {
     text-transform: capitalize;
   }
