@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import {
   getStateValues,
   queryProducts,
+  resetPage,
 } from '../../features/products/productSlice'
 import { customFetch } from '../../utils/axios'
 
@@ -34,6 +35,7 @@ const Search = () => {
         `/products?title=${title}&category=${category}&subCategory=${subCategory}&_id=${_id}&feature=${feature}&limit=${product.limit}&sort=${sort}&page=${product.page}`
       )
       console.log(response.data)
+      dispatch(resetPage())
       dispatch(queryProducts(response.data))
     } catch (error) {
       console.log(error.response)

@@ -3,7 +3,11 @@ import { useEffect } from 'react'
 import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { getStateValues, queryProducts } from '../../features/user/userSlice'
+import {
+  getStateValues,
+  queryProducts,
+  resetPage,
+} from '../../features/user/userSlice'
 import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 
@@ -32,6 +36,7 @@ const Search = () => {
           },
         }
       )
+      dispatch(resetPage())
       dispatch(queryProducts(response.data))
     } catch (error) {
       console.log(error.response)

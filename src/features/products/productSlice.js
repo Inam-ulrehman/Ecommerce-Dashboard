@@ -152,6 +152,9 @@ const productSlice = createSlice({
       const { name, value } = payload
       state[name] = value
     },
+    resetPage: (state, { payload }) => {
+      state.page = 1
+    },
     queryProducts: (state, { payload }) => {
       state.productsList = payload.result
       state.nbHits = payload.totalOrders
@@ -263,6 +266,7 @@ const productSlice = createSlice({
   },
 })
 export const {
+  resetPage,
   queryProducts,
   nextOrder,
   prevOrder,

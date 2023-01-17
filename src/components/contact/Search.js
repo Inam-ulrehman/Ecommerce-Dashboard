@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import {
   getStateValues,
   queryProducts,
+  resetPage,
 } from '../../features/contact/contactSlice'
 import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
@@ -32,7 +33,7 @@ const Search = () => {
           },
         }
       )
-      console.log(response)
+      dispatch(resetPage())
       dispatch(queryProducts(response.data))
     } catch (error) {
       console.log(error.response)
