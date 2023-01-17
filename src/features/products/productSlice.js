@@ -105,16 +105,7 @@ export const getProductsThunk = createAsyncThunk(
   'product/getProductsThunk',
   async (query, thunkAPI) => {
     try {
-      // const response = await customFetch.get(
-      //   `/products?title=${query?.title}&category=${query?.category}&_id=${query?._id}&subCategory=${query?.subCategory}&sort=${query?.sort}&page=${query?.page}&limit=${query.limit}`,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${user?.token}`,
-      //     },
-      //   }
-      // )
       const response = await customFetch.get('/products')
-
       return response.data
     } catch (error) {
       console.log(error.response)
