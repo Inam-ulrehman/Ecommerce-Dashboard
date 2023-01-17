@@ -1,20 +1,22 @@
 import React from 'react'
 import { useState } from 'react'
 import { useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { queryProducts } from '../../features/products/productSlice'
+import {
+  getStateValues,
+  queryProducts,
+} from '../../features/products/productSlice'
 import { customFetch } from '../../utils/axios'
 
 const Search = () => {
   const [feature, setFeature] = useState()
   const dispatch = useDispatch()
+  const { product } = useSelector((state) => state)
   const titleRef = useRef()
   const categoryRef = useRef()
   const subCategoryRef = useRef()
   const _idRef = useRef()
-
-  const limitRef = useRef()
   const sortRef = useRef()
 
   const handleSubmit = async (e) => {
@@ -23,13 +25,11 @@ const Search = () => {
     const category = categoryRef.current.value
     const subCategory = subCategoryRef.current.value
     const _id = _idRef.current.value
-
-    const limit = limitRef.current.value
     const sort = sortRef.current.value
 
     try {
       const response = await customFetch.get(
-        `/products?title=${title}&category=${category}&subCategory=${subCategory}&_id=${_id}&feature=${feature}&limit=${limit}&sort=${sort}`
+        `/products?title=${title}&category=${category}&subCategory=${subCategory}&_id=${_id}&feature=${feature}&limit=${product.limit}&sort=${sort}`
       )
 
       dispatch(queryProducts(response.data))
@@ -40,6 +40,12 @@ const Search = () => {
   const handleClear = () => {
     window.location.reload()
   }
+
+  const handleChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+    dispatch(getStateValues({ name, value }))
+  }
   return (
     <Wrapper className='container'>
       <button className='btn clear-filter' type='button' onClick={handleClear}>
@@ -49,7 +55,7 @@ const Search = () => {
         <div className='limit-sort'>
           <div className='limit'>
             <label htmlFor='limit'>Limit</label>
-            <select name='limit' id='limit' ref={limitRef}>
+            <select name='limit' id='limit' onChange={handleChange}>
               <option value={10}>10</option>
               <option value={20}>20</option>
               <option value={30}>30</option>

@@ -1,7 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const ServerSidePagination = () => {
-  return <div>ServerSidePagination</div>
+  const { product } = useSelector((state) => state)
+
+  return <div></div>
 }
 
 export default ServerSidePagination
