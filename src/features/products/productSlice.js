@@ -105,7 +105,7 @@ export const getProductsThunk = createAsyncThunk(
   'product/getProductsThunk',
   async (query, thunkAPI) => {
     try {
-      const response = await customFetch.get('/products')
+      const response = await customFetch.get('/products?sort=-createdAt')
       return response.data
     } catch (error) {
       console.log(error.response)

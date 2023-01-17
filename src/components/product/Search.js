@@ -85,8 +85,8 @@ const Search = () => {
             <label htmlFor='sort'>Sort</label>
             <select name='sort' id='sort' ref={sortRef}>
               <option value='-createdAt'>SELECT OPTIONS</option>
-              <option value='-createdAt'>DATE NEW</option>
-              <option value='createdAt'>DATE OLD</option>
+              <option value='createdAt'>DATE NEW</option>
+              <option value='-createdAt'>DATE OLD</option>
               <option value='-amount'>PRICE HIGH</option>
               <option value='amount'>PRICE LOW</option>
               <option value='title'>NAME A-Z</option>
