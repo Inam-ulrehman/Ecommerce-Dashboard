@@ -142,13 +142,12 @@ const Wrapper = styled.div`
     }
   }
   .image-container {
-    margin-top: 1rem;
     box-shadow: var(--shadow-2);
     .img {
       display: flex;
       gap: 1rem;
-      width: 150px;
-      height: 150px;
+      width: 100px;
+      height: 100px;
       img {
         max-width: 100%;
       }
