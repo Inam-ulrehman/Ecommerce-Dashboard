@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { customFetch } from '../../utils/axios'
 import { formatDate, formatPrice } from '../../utils/helper'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
+import SingleOrderUser from './SingleOrderUser'
 const initialState = {
   cart: [],
   createdAt: '',
@@ -78,7 +79,6 @@ const SingleOrder = () => {
 
       <div className='cart-container'>
         {state.cart.map((item, index) => {
-          console.log(item)
           return (
             <div key={index}>
               <div className='item-heading'>
@@ -109,7 +109,8 @@ const SingleOrder = () => {
           )
         })}
       </div>
-      {/* ===========customer details============ */}
+      {/* =============User holder====== */}
+      <SingleOrderUser _id={state.createdBy} />
     </Wrapper>
   )
 }
