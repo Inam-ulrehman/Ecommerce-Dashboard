@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import SingleOrderUser from '../../components/order/SingleOrderUser'
 import { customFetch } from '../../utils/axios'
 import { formatDate, formatPrice } from '../../utils/helper'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
@@ -110,6 +111,7 @@ const SingleOrder = () => {
         })}
       </div>
       {/* =============User holder====== */}
+      <SingleOrderUser _id={state.createdBy} />
     </Wrapper>
   )
 }
