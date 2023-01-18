@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { customFetch } from '../../utils/axios'
 import { formatDate, formatPrice } from '../../utils/helper'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
-import SingleOrderUser from './SingleOrderUser'
+
 const initialState = {
   cart: [],
   createdAt: '',
@@ -100,8 +100,8 @@ const SingleOrder = () => {
               </div>
               <div className='image-container'>
                 <div className='img'>
-                  {item.uploadImage.map((item) => (
-                    <img src={item.secure_url} alt='products' />
+                  {item.uploadImage.map((item, index) => (
+                    <img key={index} src={item.secure_url} alt='products' />
                   ))}
                 </div>
               </div>
@@ -110,7 +110,6 @@ const SingleOrder = () => {
         })}
       </div>
       {/* =============User holder====== */}
-      <SingleOrderUser _id={state.createdBy} />
     </Wrapper>
   )
 }
