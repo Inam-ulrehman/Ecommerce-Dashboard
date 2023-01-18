@@ -149,16 +149,18 @@ const SingleUser = () => {
       <hr />
       <CreateUserNotes />
       <hr />
-      <HoldUserNotes />
+      <HoldUserNotes notes={state.notes} />
     </Wrapper>
   )
 }
 const Wrapper = styled.div`
-  form {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 1fr 1fr;
-    max-width: 80vw;
+  .single-user {
+    form {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr 1fr;
+      max-width: 80vw;
+    }
   }
 `
 export default SingleUser
