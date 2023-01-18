@@ -4,10 +4,9 @@ import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import FormInput from '../../components/FormInput'
+import { CreateUserNotes, HoldUserNotes } from '../../components/user'
 import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
-import CreateUserNotes from './CreateUserNotes'
-import HoldUserNotes from './HoldUserNotes'
 
 const initialState = {
   name: '',
