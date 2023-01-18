@@ -24,6 +24,7 @@ const CreateUserNotes = () => {
           Authorization: `Bearer ${token}`,
         },
       })
+
       toast.success(result.statusText)
       setState({ ...state, isLoading: false, note: '' })
     } catch (error) {
