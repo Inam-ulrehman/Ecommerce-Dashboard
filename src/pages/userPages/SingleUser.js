@@ -18,6 +18,7 @@ const initialState = {
   province: '',
   postalCode: '',
   isLoading: false,
+  refreshData: false,
 }
 
 const SingleUser = () => {
@@ -74,11 +75,14 @@ const SingleUser = () => {
     }
   }
 
+  const cbFunction = () => {
+    setState({ ...state, refreshData: !state.refreshData })
+  }
   // use Effect=
   useEffect(() => {
     fetchSingleUser()
     // eslint-disable-next-line
-  }, [])
+  }, [state.refreshData])
 
   if (state.isLoading) {
     return (
@@ -146,7 +150,7 @@ const SingleUser = () => {
         </form>
       </div>
       <hr />
-      <CreateUserNotes />
+      <CreateUserNotes cbFunction={cbFunction} />
       <hr />
       <HoldUserNotes notes={state.notes} />
     </Wrapper>

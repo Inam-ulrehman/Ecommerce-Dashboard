@@ -10,7 +10,7 @@ const initialState = {
   note: '',
   isLoading: false,
 }
-const CreateUserNotes = () => {
+const CreateUserNotes = ({ cbFunction }) => {
   const [state, setState] = useState(initialState)
   const { _id } = useParams()
 
@@ -24,9 +24,9 @@ const CreateUserNotes = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-
       toast.success(result.statusText)
       setState({ ...state, isLoading: false, note: '' })
+      cbFunction()
     } catch (error) {
       setState({ ...state, isLoading: false })
       toast.error(error.response.data.msg)
