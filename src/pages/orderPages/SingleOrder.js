@@ -18,11 +18,33 @@ const initialState = {
   total: '',
   updatedAt: '',
   isLoading: false,
+  refreshData: false,
 }
 
 const SingleOrder = () => {
   const [state, setState] = useState(initialState)
   const { _id } = useParams()
+
+  // ============Handle COMPLETE Order=========
+  const handleCompleteOrder = async () => {
+    const { token } = getUserFromLocalStorage()
+
+    try {
+      await customFetch.post(
+        `/admin/orders/${_id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      setState({ ...state, refreshData: !state.refreshData })
+    } catch (error) {
+      console.log(error.response)
+    }
+  }
 
   const fetchData = async (e) => {
     const { token } = getUserFromLocalStorage()
@@ -41,7 +63,7 @@ const SingleOrder = () => {
   useEffect(() => {
     fetchData()
     // eslint-disable-next-line
-  }, [])
+  }, [state.refreshData])
   if (state.isLoading) {
     return (
       <div>
@@ -63,11 +85,16 @@ const SingleOrder = () => {
             Payment Status: <strong>{state.redirect_status}</strong>
           </p>
         </div>
-        <div>
+        <div className='shipment-container'>
           <p>
             Shipment Status:
-            <strong>{state.shipment ? 'Shipped' : 'Processing'}</strong>
+            <strong>{state.shipment ? 'Completed' : 'Processing'}</strong>
           </p>
+          {!state.shipment && (
+            <button onClick={handleCompleteOrder} type='button' className='btn'>
+              Complete Order
+            </button>
+          )}
         </div>
         <div>
           <p>
@@ -132,6 +159,9 @@ const Wrapper = styled.div`
         margin-left: 1rem;
       }
     }
+  }
+  .shipment-container {
+    display: grid;
   }
   /* ======= cart=========== */
   .item-heading {
