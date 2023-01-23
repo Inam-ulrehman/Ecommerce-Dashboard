@@ -11,6 +11,7 @@ import {
   ContentSectionThree,
   ContentSectionTwo,
   ContentSocialLinks,
+  Slots,
 } from './components/dashboard/WebsiteContentComponents'
 import { EditAboutUs } from './components/dashboard/WebsiteContentComponents/aboutComponent'
 import ScrollToTopHook from './hooks/ScrollToTopHook'
@@ -103,6 +104,10 @@ const App = () => {
               <Route
                 path='/dashboard/websiteContent/SocialLinks'
                 element={<ContentSocialLinks />}
+              />
+              <Route
+                path='/dashboard/websiteContent/Slots'
+                element={<Slots />}
               />
             </Route>
             {/* ============update Content Route=======================Finish */}

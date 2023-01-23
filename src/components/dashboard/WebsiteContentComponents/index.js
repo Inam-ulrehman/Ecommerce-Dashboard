@@ -6,7 +6,9 @@ import ContentSectionThree from './ContentSectionThree'
 import ContentSectionTwo from './ContentSectionTwo'
 import ContentSideBar from './ContentSideBar'
 import ContentSocialLinks from './ContentSocialLinks'
+import Slots from './Slots'
 export {
+  Slots,
   ContentLogo,
   ContentSideBar,
   ContentSectionOne,

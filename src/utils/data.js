@@ -71,6 +71,11 @@ export const WebsiteContentSideBar = [
     title: 'Social Links',
     path: '/dashboard/websiteContent/socialLinks',
   },
+  {
+    id: 8,
+    title: 'Slots',
+    path: '/dashboard/websiteContent/slots',
+  },
 ]
 
 // ==================footer //============
