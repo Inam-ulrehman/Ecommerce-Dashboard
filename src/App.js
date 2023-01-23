@@ -11,6 +11,7 @@ import {
   ContentSectionThree,
   ContentSectionTwo,
   ContentSocialLinks,
+  EditSlot,
   Slots,
 } from './components/dashboard/WebsiteContentComponents'
 import { EditAboutUs } from './components/dashboard/WebsiteContentComponents/aboutComponent'
@@ -108,6 +109,10 @@ const App = () => {
               <Route
                 path='/dashboard/websiteContent/Slots'
                 element={<Slots />}
+              />
+              <Route
+                path='/dashboard/websiteContent/Slots/:_id'
+                element={<EditSlot />}
               />
             </Route>
             {/* ============update Content Route=======================Finish */}

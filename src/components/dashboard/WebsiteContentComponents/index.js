@@ -6,8 +6,10 @@ import ContentSectionThree from './ContentSectionThree'
 import ContentSectionTwo from './ContentSectionTwo'
 import ContentSideBar from './ContentSideBar'
 import ContentSocialLinks from './ContentSocialLinks'
+import EditSlot from './EditSlot'
 import Slots from './Slots'
 export {
+  EditSlot,
   Slots,
   ContentLogo,
   ContentSideBar,

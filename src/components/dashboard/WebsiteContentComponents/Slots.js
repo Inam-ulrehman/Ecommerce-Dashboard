@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import { customFetch } from '../../../utils/axios'
@@ -107,7 +108,9 @@ const Slots = () => {
                   <td>{item.endTime}</td>
                   <td>{item.available ? 'Available' : 'Not-Available'}</td>
                   <td className='btn-holder'>
-                    <button className='btn'>Edit</button>
+                    <Link to={`${item._id}`} className='btn'>
+                      Edit
+                    </Link>
                     <button
                       onClick={() => handleDelete(item._id)}
                       className='btn'
@@ -132,6 +135,10 @@ const Wrapper = styled.div`
     width: 160px;
     button {
       margin: 5px;
+      height: 40px;
+    }
+    a {
+      height: 40px;
     }
   }
 `
