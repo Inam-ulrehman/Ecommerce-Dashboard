@@ -42,6 +42,12 @@ export const DashboardSidebarNav = [
     title: 'Users',
     icon: <FaRegAddressBook />,
   },
+  {
+    id: 5,
+    path: '/dashboard/booking',
+    title: 'Bookings',
+    icon: <FaRegAddressBook />,
+  },
 ]
 // =======Dashboard========
 
