@@ -6,25 +6,23 @@ import { getUserFromLocalStorage } from '../../utils/localStorage'
 const initialState = {
   name: '',
   email: '',
-  password: '',
+  list: [],
+  count: '',
   isLoading: false,
 }
 
 export const appointmentThunk = createAsyncThunk(
   'appointment/appointmentThunk',
-  async (data, thunkAPI) => {
+  async (_, thunkAPI) => {
     const user = getUserFromLocalStorage()
     try {
-      const response = await customFetch.post(
-        '/contentAboutUs/uploadImage',
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      )
+      const response = await customFetch.get(`/appointments`, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
       console.log('hello Thunk')
+      console.log(response)
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
@@ -46,7 +44,8 @@ const appointmentSlice = createSlice({
       state.isLoading = true
     },
     [appointmentThunk.fulfilled]: (state, { payload }) => {
-      console.log('promise full filled')
+      state.list = payload.result
+      state.count = payload.totalOrders
       state.isLoading = false
     },
     [appointmentThunk.rejected]: (state, { payload }) => {
