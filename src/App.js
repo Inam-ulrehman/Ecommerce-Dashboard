@@ -17,7 +17,11 @@ import {
 import { EditAboutUs } from './components/dashboard/WebsiteContentComponents/aboutComponent'
 import ScrollToTopHook from './hooks/ScrollToTopHook'
 import { SharedLayout, ErrorPage, ProtectedRoute, Register } from './pages'
-import { Booking, RegisterBooking, SingleBooking } from './pages/bookingPages'
+import {
+  Appointment,
+  RegisterAppointment,
+  SingleAppointment,
+} from './pages/appointmentPages'
 
 import { Contact, SingleContact } from './pages/contactPages'
 import {
@@ -65,14 +69,14 @@ const App = () => {
                 path='/dashboard/users/register'
                 element={<RegisterUser />}
               />
-              <Route path='/dashboard/booking' element={<Booking />} />
+              <Route path='/dashboard/Appointment' element={<Appointment />} />
               <Route
-                path='/dashboard/booking/:_id'
-                element={<SingleBooking />}
+                path='/dashboard/Appointment/:_id'
+                element={<SingleAppointment />}
               />
               <Route
-                path='/dashboard/booking/register'
-                element={<RegisterBooking />}
+                path='/dashboard/Appointment/register'
+                element={<RegisterAppointment />}
               />
             </Route>
             {/* ===============Dashboard inside route===============Finish */}
