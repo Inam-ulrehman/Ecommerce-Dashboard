@@ -4,23 +4,32 @@ import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 
 const initialState = {
-  name: '',
-  email: '',
+  searchName: '',
+  searchEmail: '',
+  searchPhone: '',
+  searchDate: '',
   list: [],
+  page: 1,
+  limit: 10,
+  sort: '-createdAt',
+  searchConfirmed: false,
   count: '',
   isLoading: false,
 }
 
 export const appointmentThunk = createAsyncThunk(
   'appointment/appointmentThunk',
-  async (_, thunkAPI) => {
+  async (state, thunkAPI) => {
     const user = getUserFromLocalStorage()
     try {
-      const response = await customFetch.get(`/appointments`, {
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      })
+      const response = await customFetch.get(
+        `/appointments?name=${state?.searchName}&email=${state?.searchEmail}&phone=${state?.searchPhone}&sort=${state?.sort}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      )
       console.log('hello Thunk')
       console.log(response)
       return response.data
@@ -36,6 +45,10 @@ const appointmentSlice = createSlice({
   reducers: {
     createFunction: (state, { payload }) => {
       console.log('function call')
+    },
+    getStateValues: (state, { payload }) => {
+      const { name, value } = payload
+      state[name] = value
     },
   },
   extraReducers: {
@@ -55,5 +68,5 @@ const appointmentSlice = createSlice({
     },
   },
 })
-export const { createFunction } = appointmentSlice.actions
+export const { createFunction, getStateValues } = appointmentSlice.actions
 export default appointmentSlice.reducer
