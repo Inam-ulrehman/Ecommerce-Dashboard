@@ -10,17 +10,16 @@ const initialState = {
   isLoading: false,
 }
 
-export const userThunk = createAsyncThunk(
-  'user/userThunk',
-  async (file, thunkAPI) => {
+export const appointmentThunk = createAsyncThunk(
+  'appointment/appointmentThunk',
+  async (data, thunkAPI) => {
     const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.post(
         '/contentAboutUs/uploadImage',
-        file,
+        data,
         {
           headers: {
-            'content-type': 'multipart/form-data',
             Authorization: `Bearer ${user?.token}`,
           },
         }
@@ -33,8 +32,8 @@ export const userThunk = createAsyncThunk(
   }
 )
 
-const userSlice = createSlice({
-  name: 'user',
+const appointmentSlice = createSlice({
+  name: 'appointment',
   initialState,
   reducers: {
     createFunction: (state, { payload }) => {
@@ -42,20 +41,20 @@ const userSlice = createSlice({
     },
   },
   extraReducers: {
-    [userThunk.pending]: (state, { payload }) => {
+    [appointmentThunk.pending]: (state, { payload }) => {
       console.log('promise pending')
       state.isLoading = true
     },
-    [userThunk.fulfilled]: (state, { payload }) => {
+    [appointmentThunk.fulfilled]: (state, { payload }) => {
       console.log('promise full filled')
       state.isLoading = false
     },
-    [userThunk.rejected]: (state, { payload }) => {
+    [appointmentThunk.rejected]: (state, { payload }) => {
       console.log('promise rejected')
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
   },
 })
-export const { createFunction } = userSlice.actions
-export default userSlice.reducer
+export const { createFunction } = appointmentSlice.actions
+export default appointmentSlice.reducer
