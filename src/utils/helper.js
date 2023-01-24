@@ -14,6 +14,24 @@ export const getUniqueValues = (data, type) => {
   return ['all', ...new Set(unique)]
 }
 
+// ======Difference Between 2 Arrays (Note-Don't use _id)========
+export function arrayDiffByKey(key, ...arrays) {
+  return [].concat(
+    ...arrays.map((arr, i) => {
+      const others = arrays.slice(0)
+      others.splice(i, 1)
+      const unique = [...new Set([].concat(...others))]
+      return arr.filter((x) => !unique.some((y) => x[key] === y[key]))
+    })
+  )
+}
+// Example:
+
+// const a = [{k:1}, {k:2}, {k:3}];
+// const b = [{k:1}, {k:4}, {k:5}, {k:6}];
+// const c = [{k:3}, {k:5}, {k:7}];
+// arrayDiffByKey('k', a, b, c); // (4) [{k:2}, {k:4}, {k:6}, {k:7}]
+// =====================================================================
 //=================payments============
 
 // format price for payments like stripe
