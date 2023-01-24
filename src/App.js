@@ -66,9 +66,12 @@ const App = () => {
                 element={<RegisterUser />}
               />
               <Route path='/dashboard/booking' element={<Booking />} />
-              <Route path='/dashboard/users/:_id' element={<SingleBooking />} />
               <Route
-                path='/dashboard/users/register'
+                path='/dashboard/booking/:_id'
+                element={<SingleBooking />}
+              />
+              <Route
+                path='/dashboard/booking/register'
                 element={<RegisterBooking />}
               />
             </Route>
