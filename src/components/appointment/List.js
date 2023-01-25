@@ -9,7 +9,7 @@ const List = () => {
   const { appointment } = useSelector((state) => state)
 
   const handleDelete = (_id) => {
-    // dispatch(deleteAppointmentThunk(_id))
+    dispatch(deleteAppointmentThunk(_id))
   }
 
   if (appointment.isLoading) {
