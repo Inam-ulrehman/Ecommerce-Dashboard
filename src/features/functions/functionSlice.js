@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { customFetch } from '../../utils/axios'
 
 const initialState = {
-  warning: true,
+  warning: false,
   productWarning: false,
   contactWarning: false,
   orderWarning: false,
