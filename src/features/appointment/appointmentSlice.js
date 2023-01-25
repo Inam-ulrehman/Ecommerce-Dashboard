@@ -28,6 +28,7 @@ const initialState = {
   availableTimes: '',
   slot: [],
 }
+
 // Get appointments
 export const appointmentThunk = createAsyncThunk(
   'appointment/appointmentThunk',
