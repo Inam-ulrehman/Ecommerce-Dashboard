@@ -11,9 +11,9 @@ const initialState = {
   list: [],
   page: 1,
   limit: 10,
+  count: '',
   sort: '-createdAt',
   searchConfirmed: false,
-  count: '',
   isLoading: false,
 }
 
@@ -49,6 +49,17 @@ const appointmentSlice = createSlice({
       const { name, value } = payload
       state[name] = value
     },
+    //======pagination=======
+    next: (state, { payload }) => {
+      state.page = state.page + 1
+    },
+    prev: (state, { payload }) => {
+      state.page = state.page - 1
+    },
+    index: (state, { payload }) => {
+      const index = Number(payload)
+      state.page = index
+    },
   },
   extraReducers: {
     [appointmentThunk.pending]: (state, { payload }) => {
@@ -66,5 +77,6 @@ const appointmentSlice = createSlice({
     },
   },
 })
-export const { createFunction, getStateValues } = appointmentSlice.actions
+export const { createFunction, getStateValues, next, prev, index } =
+  appointmentSlice.actions
 export default appointmentSlice.reducer

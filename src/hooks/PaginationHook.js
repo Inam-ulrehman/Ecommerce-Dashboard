@@ -27,7 +27,7 @@ const PaginationHook = ({ page, count, limit, next, prev, index }) => {
     }
     dispatch(prev())
   }
-  console.log(page > 1)
+
   return (
     <Wrapper className='title'>
       <button className='btn' type='button' onClick={handlePrev}>

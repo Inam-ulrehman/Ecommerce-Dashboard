@@ -192,7 +192,6 @@ const userSlice = createSlice({
     },
     index: (state, { payload }) => {
       const index = Number(payload)
-
       state.page = index
     },
   },
