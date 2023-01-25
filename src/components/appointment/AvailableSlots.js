@@ -6,7 +6,7 @@ import { customFetch } from '../../utils/axios'
 import styled from 'styled-components'
 import { getStateValues } from '../../features/appointment/appointmentSlice'
 const initialState = {
-  slot: [],
+  slots: [],
   count: '',
 }
 const AvailableSlots = () => {
@@ -15,8 +15,8 @@ const AvailableSlots = () => {
   const { appointment } = useSelector((state) => state)
 
   const handleSlotId = (_id) => {
-    const name = 'slotId'
-    const value = _id
+    const value = state.slots.find((item) => item._id === _id)
+    const name = 'slot'
     dispatch(getStateValues({ name, value }))
   }
 
@@ -25,9 +25,8 @@ const AvailableSlots = () => {
       const freeSlots = await customFetch.post('/slots/available', {
         date: appointment.date,
       })
-      console.log(freeSlots)
       const { count, result } = freeSlots.data
-      setState({ ...state, slot: result, count: count })
+      setState({ ...state, slots: result, count: count })
     } catch (error) {
       console.log(error.freeSlots)
     }
@@ -36,7 +35,7 @@ const AvailableSlots = () => {
   useEffect(() => {
     fetchData()
     // eslint-disable-next-line
-  }, [appointment.date])
+  }, [appointment.date, appointment.name])
   return (
     <Wrapper>
       {/* close sunday text */}
@@ -46,31 +45,37 @@ const AvailableSlots = () => {
 
       {/* open days text  */}
 
-      {moment(appointment.date).format('dddd') !== 'Sunday' && (
-        <div className='day-container'>
-          <div className='date-holder'>
-            <span>{moment(appointment.date).format('dddd')} </span>
-            <span>
-              Total Available Dates: <strong>{state.count}</strong>
-            </span>
-          </div>
-          <div className='day-body'>
-            {state.slot.map((item, index) => {
-              return (
-                <div
-                  className={
-                    item._id === appointment.slotId
-                      ? 'day-holder active'
-                      : 'day-holder'
-                  }
-                  onClick={() => handleSlotId(item._id)}
-                  key={index}
-                >
-                  {item.startTime} - {item.endTime}
-                </div>
-              )
-            })}
-          </div>
+      {state.count === 0 ? (
+        <div>Sorry no availability.</div>
+      ) : (
+        <div>
+          {moment(appointment.date).format('dddd') !== 'Sunday' && (
+            <div className='day-container'>
+              <div className='date-holder'>
+                <span>{moment(appointment.date).format('dddd')} </span>
+                <span>
+                  Total Available Dates: <strong>{state.count}</strong>
+                </span>
+              </div>
+              <div className='day-body'>
+                {state.slots.map((item, index) => {
+                  return (
+                    <div
+                      className={
+                        item._id === appointment.slot._id
+                          ? 'day-holder active'
+                          : 'day-holder'
+                      }
+                      onClick={() => handleSlotId(item._id)}
+                      key={index}
+                    >
+                      {item.startTime} - {item.endTime}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </Wrapper>

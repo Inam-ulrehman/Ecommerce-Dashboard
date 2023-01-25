@@ -4,6 +4,15 @@ import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 
 const initialState = {
+  // register
+  name: '',
+  email: '',
+  phone: '',
+  note: '',
+  category: '',
+  date: new Date().toLocaleDateString('en-ca'),
+  availableTimes: '',
+  slot: {},
   // search
   searchName: '',
   searchEmail: '',
@@ -17,16 +26,6 @@ const initialState = {
   sort: '-createdAt',
   searchConfirmed: false,
   isLoading: false,
-  // register
-  name: '',
-  email: '',
-  phone: '',
-  note: '',
-  category: '',
-  date: new Date().toLocaleDateString('en-ca'),
-  slotId: '',
-  availableTimes: '',
-  slot: [],
 }
 
 // Get appointments
@@ -51,19 +50,21 @@ export const appointmentThunk = createAsyncThunk(
   }
 )
 
-// get Slots
-
-export const availableSlotsThunk = createAsyncThunk(
-  'appointment/availableSlotsThunk',
+// Create Appointments
+export const createAppointmentThunk = createAsyncThunk(
+  'appointment/createAppointmentThunk',
   async (state, thunkAPI) => {
+    const { token } = getUserFromLocalStorage()
+
     try {
-      const response = await customFetch.post('/slots/available', {
-        date: state.date,
+      const response = await customFetch.post('/appointments', state, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       console.log(response)
       return response.data
     } catch (error) {
-      console.log(error.response)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -106,16 +107,26 @@ const appointmentSlice = createSlice({
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
-    // available slot
-    [availableSlotsThunk.pending]: (state, { payload }) => {
+
+    // create Appointment
+    [createAppointmentThunk.pending]: (state, { payload }) => {
       console.log('promise pending')
       state.isLoading = true
     },
-    [availableSlotsThunk.fulfilled]: (state, { payload }) => {
-      console.log('promise full filled')
+    [createAppointmentThunk.fulfilled]: (state, { payload }) => {
+      toast.success('Appointment created.')
+      state.name = ''
+      state.email = ''
+      state.email = ''
+      state.phone = ''
+      state.note = ''
+      state.category = ''
+      state.date = new Date().toLocaleDateString('en-ca')
+      state.availableTimes = ''
+      state.slot = {}
       state.isLoading = false
     },
-    [availableSlotsThunk.rejected]: (state, { payload }) => {
+    [createAppointmentThunk.rejected]: (state, { payload }) => {
       console.log('promise rejected')
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
