@@ -24,7 +24,7 @@ const initialState = {
   note: '',
   category: '',
   date: new Date().toLocaleDateString('en-ca'),
-  bookingId: '',
+  slotId: '',
   availableTimes: '',
   slot: [],
 }
