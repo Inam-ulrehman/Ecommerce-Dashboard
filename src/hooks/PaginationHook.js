@@ -27,6 +27,9 @@ const PaginationHook = ({ page, count, limit, next, prev, index }) => {
     }
     dispatch(prev())
   }
+  if (count === 0) {
+    return
+  }
 
   return (
     <Wrapper className='title'>
