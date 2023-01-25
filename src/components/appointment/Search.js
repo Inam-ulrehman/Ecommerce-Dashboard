@@ -10,7 +10,14 @@ import {
 const Search = () => {
   const dispatch = useDispatch()
   const { appointment } = useSelector((state) => state)
-  const { searchName, searchEmail, searchPhone, sort, searchDate } = appointment
+  const {
+    searchName,
+    searchEmail,
+    searchPhone,
+    sort,
+    searchDate,
+    refreshData,
+  } = appointment
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -37,7 +44,7 @@ const Search = () => {
     )
 
     // eslint-disable-next-line
-  }, [searchName, searchEmail, searchPhone, sort, searchDate])
+  }, [searchName, searchEmail, searchPhone, sort, searchDate, refreshData])
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0 })

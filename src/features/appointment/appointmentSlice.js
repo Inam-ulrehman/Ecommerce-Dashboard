@@ -26,6 +26,9 @@ const initialState = {
   sort: '-createdAt',
   searchConfirmed: false,
   isLoading: false,
+  // delete Id
+  deleteId: '',
+  refreshData: false,
 }
 
 // Get appointments
@@ -82,7 +85,7 @@ export const deleteAppointmentThunk = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       })
-      console.log(response)
+
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
@@ -155,6 +158,8 @@ const appointmentSlice = createSlice({
     },
     [deleteAppointmentThunk.fulfilled]: (state, { payload }) => {
       toast.success('Appointment Deleted.')
+      state.deleteId = ''
+      state.refreshData = !state.refreshData
 
       state.isLoading = false
     },

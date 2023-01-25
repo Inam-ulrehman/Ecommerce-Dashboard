@@ -3,13 +3,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../utils/helper'
 import styled from 'styled-components'
-import { deleteAppointmentThunk } from '../../features/appointment/appointmentSlice'
+import {
+  deleteAppointmentThunk,
+  getStateValues,
+} from '../../features/appointment/appointmentSlice'
+import Warning from '../Warning'
+
+import { showWarning } from '../../features/functions/functionSlice'
+
 const List = () => {
   const dispatch = useDispatch()
-  const { appointment } = useSelector((state) => state)
+  const { appointment, function: warningHolder } = useSelector((state) => state)
 
   const handleDelete = (_id) => {
-    dispatch(deleteAppointmentThunk(_id))
+    const name = 'deleteId'
+    const value = _id
+    dispatch(getStateValues({ name, value }))
+    dispatch(showWarning())
   }
 
   if (appointment.isLoading) {
@@ -22,6 +32,13 @@ const List = () => {
   }
   return (
     <Wrapper>
+      {/* Show warning  */}
+      {warningHolder.warning && (
+        <Warning
+          action={() => dispatch(deleteAppointmentThunk(appointment.deleteId))}
+        />
+      )}
+      {/* show table */}
       <table>
         <tbody>
           <tr>

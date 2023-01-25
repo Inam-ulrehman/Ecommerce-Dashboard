@@ -7,16 +7,14 @@ import Footer from '../components/footer/Footer'
 import DesktopNavbar from '../components/navbar/DesktopNavbar'
 import OrderWarning from '../components/order/OrderWarning'
 import ProductWarning from '../components/product/ProductWarning'
-import Warning from '../components/Warning'
 
 const SharedLayout = () => {
-  const { warning, productWarning, contactWarning, orderWarning } = useSelector(
+  const { productWarning, contactWarning, orderWarning } = useSelector(
     (state) => state.function
   )
   return (
     <main>
       <DesktopNavbar />
-      {warning && <Warning />}
       {productWarning && <ProductWarning />}
       {contactWarning && <ContactWarning />}
       {orderWarning && <OrderWarning />}

@@ -3,10 +3,11 @@ import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { hideWarning } from '../features/functions/functionSlice'
 
-const Warning = ({ action, id }) => {
+const Warning = ({ action }) => {
   const dispatch = useDispatch()
-  const handleYes = () => {
-    dispatch(action)
+  const handleYes = async () => {
+    action()
+    dispatch(hideWarning())
   }
   return (
     <Wrapper>
@@ -27,7 +28,7 @@ const Warning = ({ action, id }) => {
 }
 
 const Wrapper = styled.div`
-  .background {
+  /* .background {
     position: fixed;
     background-color: var(--grey-8);
     height: 100vh;
@@ -48,6 +49,6 @@ const Wrapper = styled.div`
   .button {
     display: flex;
     justify-content: space-around;
-  }
+  } */
 `
 export default Warning
