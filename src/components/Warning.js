@@ -28,7 +28,11 @@ const Warning = ({ action }) => {
 }
 
 const Wrapper = styled.div`
-  /* .background {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+
+  .background {
     position: fixed;
     background-color: var(--grey-8);
     height: 100vh;
@@ -49,6 +53,6 @@ const Wrapper = styled.div`
   .button {
     display: flex;
     justify-content: space-around;
-  } */
+  }
 `
 export default Warning
