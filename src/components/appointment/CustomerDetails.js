@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import FormInput from '../../components/FormInput'
 import {
+  clearState,
   createAppointmentThunk,
   getStateValues,
 } from '../../features/appointment/appointmentSlice'
@@ -22,6 +23,7 @@ const CustomerDetails = () => {
     dispatch(
       createAppointmentThunk({ name, email, phone, note, category, date, slot })
     )
+    dispatch(clearState())
   }
 
   const handleChange = (e) => {

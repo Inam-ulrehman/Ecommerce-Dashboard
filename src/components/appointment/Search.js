@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
   appointmentThunk,
+  clearState,
   getStateValues,
 } from '../../features/appointment/appointmentSlice'
 
@@ -14,13 +15,15 @@ const Search = () => {
     searchName,
     searchEmail,
     searchPhone,
-    sort,
     searchDate,
+    sort,
+    limit,
     refreshData,
   } = appointment
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    dispatch(clearState())
   }
 
   const handleChange = (e) => {
@@ -29,7 +32,7 @@ const Search = () => {
     dispatch(getStateValues({ name, value }))
   }
   const handleClear = () => {
-    window.location.reload()
+    dispatch(clearState())
   }
 
   useEffect(() => {
@@ -40,11 +43,20 @@ const Search = () => {
         searchPhone,
         sort,
         searchDate,
+        limit,
       })
     )
 
     // eslint-disable-next-line
-  }, [searchName, searchEmail, searchPhone, sort, searchDate, refreshData])
+  }, [
+    searchName,
+    searchEmail,
+    searchPhone,
+    sort,
+    searchDate,
+    refreshData,
+    limit,
+  ])
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0 })
@@ -122,6 +134,9 @@ const Search = () => {
             onChange={handleChange}
           />
         </div>
+        <button type='submit' className='btn'>
+          submit
+        </button>
       </form>
     </Wrapper>
   )

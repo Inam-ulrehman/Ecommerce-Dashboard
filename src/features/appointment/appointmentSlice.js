@@ -36,9 +36,10 @@ export const appointmentThunk = createAsyncThunk(
   'appointment/appointmentThunk',
   async (state, thunkAPI) => {
     const user = getUserFromLocalStorage()
+    console.log(state.limit)
     try {
       const response = await customFetch.get(
-        `/appointments?name=${state?.searchName}&email=${state?.searchEmail}&phone=${state?.searchPhone}&date=${state?.searchDate}&sort=${state?.sort}`,
+        `/appointments?name=${state?.searchName}&email=${state?.searchEmail}&phone=${state?.searchPhone}&date=${state?.searchDate}&sort=${state?.sort}&limit=${state?.limit}`,
         {
           headers: {
             Authorization: `Bearer ${user?.token}`,
@@ -104,6 +105,27 @@ const appointmentSlice = createSlice({
       const { name, value } = payload
       state[name] = value
     },
+    clearState: (state, { payload }) => {
+      // register
+      state.name = ''
+      state.email = ''
+      state.email = ''
+      state.phone = ''
+      state.note = ''
+      state.category = ''
+      state.date = new Date().toLocaleDateString('en-ca')
+      state.availableTimes = ''
+      state.slot = {}
+      // search
+      state.searchName = ''
+      state.searchEmail = ''
+      state.searchPhone = ''
+      state.searchDate = ''
+      // pagination
+      state.page = 1
+      state.limit = 10
+      state.sort = '-createdAt'
+    },
     //======pagination=======
     next: (state, { payload }) => {
       state.page = state.page + 1
@@ -136,16 +158,6 @@ const appointmentSlice = createSlice({
     },
     [createAppointmentThunk.fulfilled]: (state, { payload }) => {
       toast.success('Appointment created.')
-      state.name = ''
-      state.email = ''
-      state.email = ''
-      state.phone = ''
-      state.note = ''
-      state.category = ''
-      state.date = new Date().toLocaleDateString('en-ca')
-      state.availableTimes = ''
-      state.slot = {}
-      state.isLoading = false
     },
     [createAppointmentThunk.rejected]: (state, { payload }) => {
       toast.error(`${payload?.msg ? payload.msg : payload}`)
@@ -169,6 +181,6 @@ const appointmentSlice = createSlice({
     },
   },
 })
-export const { createFunction, getStateValues, next, prev, index } =
+export const { createFunction, getStateValues, next, prev, index, clearState } =
   appointmentSlice.actions
 export default appointmentSlice.reducer
