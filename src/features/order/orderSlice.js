@@ -78,13 +78,13 @@ const orderSlice = createSlice({
     createFunction: (state, { payload }) => {
       console.log('function call')
     },
-    nextOrder: (state, { payload }) => {
+    next: (state, { payload }) => {
       state.page = state.page + 1
     },
-    prevOrder: (state, { payload }) => {
+    prev: (state, { payload }) => {
       state.page = state.page - 1
     },
-    indexOrder: (state, { payload }) => {
+    index: (state, { payload }) => {
       const index = Number(payload)
 
       state.page = index
@@ -169,9 +169,9 @@ const orderSlice = createSlice({
 })
 export const {
   createFunction,
-  nextOrder,
-  prevOrder,
-  indexOrder,
+  next,
+  prev,
+  index,
   searchOrderByPhone,
   searchOrderByEmail,
   searchOrderById,
