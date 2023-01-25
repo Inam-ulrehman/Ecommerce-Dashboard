@@ -70,6 +70,26 @@ export const createAppointmentThunk = createAsyncThunk(
   }
 )
 
+// Delete Appointments
+export const deleteAppointmentThunk = createAsyncThunk(
+  'appointment/deleteAppointmentThunk',
+  async (_id, thunkAPI) => {
+    const { token } = getUserFromLocalStorage()
+
+    try {
+      const response = await customFetch.delete(`/appointments/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      console.log(response)
+      return response.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
+
 const appointmentSlice = createSlice({
   name: 'appointment',
   initialState,
@@ -103,14 +123,12 @@ const appointmentSlice = createSlice({
       state.isLoading = false
     },
     [appointmentThunk.rejected]: (state, { payload }) => {
-      console.log('promise rejected')
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
 
     // create Appointment
     [createAppointmentThunk.pending]: (state, { payload }) => {
-      console.log('promise pending')
       state.isLoading = true
     },
     [createAppointmentThunk.fulfilled]: (state, { payload }) => {
@@ -127,7 +145,20 @@ const appointmentSlice = createSlice({
       state.isLoading = false
     },
     [createAppointmentThunk.rejected]: (state, { payload }) => {
-      console.log('promise rejected')
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
+      state.isLoading = false
+    },
+
+    // delete Appointment
+    [deleteAppointmentThunk.pending]: (state, { payload }) => {
+      state.isLoading = true
+    },
+    [deleteAppointmentThunk.fulfilled]: (state, { payload }) => {
+      toast.success('Appointment Deleted.')
+
+      state.isLoading = false
+    },
+    [deleteAppointmentThunk.rejected]: (state, { payload }) => {
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },

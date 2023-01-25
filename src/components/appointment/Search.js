@@ -35,7 +35,7 @@ const Search = () => {
         searchDate,
       })
     )
-    console.log(searchDate)
+
     // eslint-disable-next-line
   }, [searchName, searchEmail, searchPhone, sort, searchDate])
 
