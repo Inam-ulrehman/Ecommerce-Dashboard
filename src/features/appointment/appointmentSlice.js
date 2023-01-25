@@ -4,10 +4,12 @@ import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 
 const initialState = {
+  // search
   searchName: '',
   searchEmail: '',
   searchPhone: '',
   searchDate: '',
+  // pagination
   list: [],
   page: 1,
   limit: 10,
@@ -15,8 +17,18 @@ const initialState = {
   sort: '-createdAt',
   searchConfirmed: false,
   isLoading: false,
+  // register
+  name: '',
+  email: '',
+  phone: '',
+  note: '',
+  category: '',
+  date: new Date().toLocaleDateString('en-ca'),
+  bookingId: '',
+  availableTimes: '',
+  slot: [],
 }
-
+// Get appointments
 export const appointmentThunk = createAsyncThunk(
   'appointment/appointmentThunk',
   async (state, thunkAPI) => {
@@ -33,6 +45,24 @@ export const appointmentThunk = createAsyncThunk(
 
       return response.data
     } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
+
+// get Slots
+
+export const availableSlotsThunk = createAsyncThunk(
+  'appointment/availableSlotsThunk',
+  async (state, thunkAPI) => {
+    try {
+      const response = await customFetch.post('/slots/available', {
+        date: state.date,
+      })
+      console.log(response)
+      return response.data
+    } catch (error) {
+      console.log(error.response)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -71,6 +101,20 @@ const appointmentSlice = createSlice({
       state.isLoading = false
     },
     [appointmentThunk.rejected]: (state, { payload }) => {
+      console.log('promise rejected')
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
+      state.isLoading = false
+    },
+    // available slot
+    [availableSlotsThunk.pending]: (state, { payload }) => {
+      console.log('promise pending')
+      state.isLoading = true
+    },
+    [availableSlotsThunk.fulfilled]: (state, { payload }) => {
+      console.log('promise full filled')
+      state.isLoading = false
+    },
+    [availableSlotsThunk.rejected]: (state, { payload }) => {
       console.log('promise rejected')
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false

@@ -11,7 +11,7 @@ const Appointment = () => {
     <Wrapper>
       <div className='container-heading'>
         <Link className='btn' to={'register'}>
-          Register New User
+          Register New Appointment
         </Link>
 
         <span>
