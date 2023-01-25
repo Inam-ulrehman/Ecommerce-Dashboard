@@ -18,6 +18,7 @@ const Search = () => {
     searchDate,
     sort,
     limit,
+    page,
     refreshData,
   } = appointment
 
@@ -44,6 +45,7 @@ const Search = () => {
         sort,
         searchDate,
         limit,
+        page,
       })
     )
 
@@ -56,12 +58,9 @@ const Search = () => {
     searchDate,
     refreshData,
     limit,
+    page,
   ])
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 })
-    // eslint-disable-next-line
-  }, [appointment.page])
   return (
     <Wrapper className='container'>
       <button className='btn clear-filter' type='button' onClick={handleClear}>
