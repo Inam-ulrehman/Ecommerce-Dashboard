@@ -1,10 +1,16 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../utils/helper'
 import styled from 'styled-components'
+import { deleteAppointmentThunk } from '../../features/appointment/appointmentSlice'
 const List = () => {
+  const dispatch = useDispatch()
   const { appointment } = useSelector((state) => state)
+
+  const handleDelete = (_id) => {
+    // dispatch(deleteAppointmentThunk(_id))
+  }
 
   if (appointment.isLoading) {
     return (
@@ -42,7 +48,12 @@ const List = () => {
                   <Link className='btn' to={`${item._id}`}>
                     Edit
                   </Link>
-                  <button className='btn'>Delete</button>
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className='btn'
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             )
