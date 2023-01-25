@@ -6,6 +6,7 @@ import AvailableSlots from '../../components/appointment/AvailableSlots'
 import Category from '../../components/appointment/Category'
 import CustomerDetails from '../../components/appointment/CustomerDetails'
 import { clearState } from '../../features/appointment/appointmentSlice'
+import { createAppointmentThunk } from '../../features/appointment/appointmentSlice'
 
 const RegisterAppointment = () => {
   const dispatch = useDispatch()
@@ -18,7 +19,7 @@ const RegisterAppointment = () => {
       <Category />
       <AppointmentDate />
       <AvailableSlots />
-      <CustomerDetails />
+      <CustomerDetails action={createAppointmentThunk} />
     </div>
   )
 }

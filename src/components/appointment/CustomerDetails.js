@@ -5,11 +5,10 @@ import styled from 'styled-components'
 import FormInput from '../../components/FormInput'
 import {
   clearState,
-  createAppointmentThunk,
   getStateValues,
 } from '../../features/appointment/appointmentSlice'
 
-const CustomerDetails = () => {
+const CustomerDetails = ({ action }) => {
   const dispatch = useDispatch()
   const { name, email, phone, note, category, date, slot } = useSelector(
     (state) => state.appointment
@@ -20,9 +19,7 @@ const CustomerDetails = () => {
     if (!date || !slot || !name || !email || !phone) {
       return toast.warning('Please fill all details.')
     }
-    dispatch(
-      createAppointmentThunk({ name, email, phone, note, category, date, slot })
-    )
+    dispatch(action({ name, email, phone, note, category, date, slot }))
     dispatch(clearState())
   }
 

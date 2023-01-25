@@ -35,7 +35,7 @@ const AvailableSlots = () => {
   useEffect(() => {
     fetchData()
     // eslint-disable-next-line
-  }, [appointment.date, appointment.name])
+  }, [appointment.date, appointment.refreshSlotData])
   return (
     <Wrapper>
       {/* close sunday text */}

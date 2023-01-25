@@ -29,6 +29,7 @@ const initialState = {
   // delete Id
   deleteId: '',
   refreshData: false,
+  refreshSlotData: false,
 }
 
 // Get appointments
@@ -66,7 +67,7 @@ export const createAppointmentThunk = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       })
-      console.log(response)
+
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
@@ -93,7 +94,49 @@ export const deleteAppointmentThunk = createAsyncThunk(
     }
   }
 )
+// Single Appointment
+export const singleAppointmentThunk = createAsyncThunk(
+  'appointment/singleAppointmentThunk',
+  async (_id, thunkAPI) => {
+    const { token } = getUserFromLocalStorage()
 
+    try {
+      const response = await customFetch.get(`/appointments/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      return response.data.appointment
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
+
+// update Appointments
+export const updateAppointmentThunk = createAsyncThunk(
+  'appointment/updateAppointmentThunk',
+  async (state, thunkAPI) => {
+    const { token } = getUserFromLocalStorage()
+
+    try {
+      const response = await customFetch.patch(
+        `/appointments/${state.updateId}`,
+        state,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      console.log(response)
+      return response.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
 const appointmentSlice = createSlice({
   name: 'appointment',
   initialState,
@@ -158,6 +201,7 @@ const appointmentSlice = createSlice({
     },
     [createAppointmentThunk.fulfilled]: (state, { payload }) => {
       toast.success('Appointment created.')
+      state.refreshSlotData = !state.refreshSlotData
     },
     [createAppointmentThunk.rejected]: (state, { payload }) => {
       toast.error(`${payload?.msg ? payload.msg : payload}`)
@@ -176,6 +220,35 @@ const appointmentSlice = createSlice({
       state.isLoading = false
     },
     [deleteAppointmentThunk.rejected]: (state, { payload }) => {
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
+      state.isLoading = false
+    },
+    // single Appointment
+    [singleAppointmentThunk.pending]: (state, { payload }) => {
+      state.isLoading = true
+    },
+    [singleAppointmentThunk.fulfilled]: (state, { payload }) => {
+      state.name = payload.name
+      state.email = payload.email
+      state.phone = payload.phone
+      state.note = payload.note
+      state.slot = payload.slot
+      state.date = payload.date.split('T')[0]
+      state.category = payload.category
+      state.isLoading = false
+    },
+    [singleAppointmentThunk.rejected]: (state, { payload }) => {
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
+      state.isLoading = false
+    },
+    // update Appointment
+    [updateAppointmentThunk.pending]: (state, { payload }) => {
+      state.isLoading = true
+    },
+    [updateAppointmentThunk.fulfilled]: (state, { payload }) => {
+      state.isLoading = false
+    },
+    [updateAppointmentThunk.rejected]: (state, { payload }) => {
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },

@@ -57,8 +57,8 @@ const List = () => {
                 <td>{item.name}</td>
                 <td>{item.email}</td>
                 <td>{item.phone}</td>
-                <td>{item.slot.startTime}</td>
-                <td>{item.slot.endTime}</td>
+                <td>{item.slot?.startTime}</td>
+                <td>{item.slot?.endTime}</td>
                 <td>{item.confirmed ? 'confirmed' : 'pending'}</td>
                 <td>{formatDate(item.date.split('T')[0])}</td>
                 <td>
