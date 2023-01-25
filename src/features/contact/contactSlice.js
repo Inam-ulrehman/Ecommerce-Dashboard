@@ -107,13 +107,13 @@ const contactSlice = createSlice({
       state.nbHits = payload.total
       state.count = payload.total
     },
-    nextOrder: (state, { payload }) => {
+    next: (state, { payload }) => {
       state.page = state.page + 1
     },
-    prevOrder: (state, { payload }) => {
+    prev: (state, { payload }) => {
       state.page = state.page - 1
     },
-    indexOrder: (state, { payload }) => {
+    index: (state, { payload }) => {
       const index = Number(payload)
 
       state.page = index
@@ -178,9 +178,9 @@ export const {
   resetPage,
   getStateValues,
   queryProducts,
-  nextOrder,
-  prevOrder,
-  indexOrder,
+  next,
+  prev,
+  index,
   createFunction,
   getContactDeleteId,
 } = contactSlice.actions
