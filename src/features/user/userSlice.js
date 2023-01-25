@@ -17,7 +17,7 @@ const initialState = {
   userList: [],
   nbHits: '',
   page: 1,
-  limit: 3,
+  limit: 10,
 }
 
 export const userThunk = createAsyncThunk(
@@ -183,13 +183,14 @@ const userSlice = createSlice({
       state.userList = payload.result
       state.nbHits = payload.total
     },
-    nextOrder: (state, { payload }) => {
+    //======pagination=======
+    next: (state, { payload }) => {
       state.page = state.page + 1
     },
-    prevOrder: (state, { payload }) => {
+    prev: (state, { payload }) => {
       state.page = state.page - 1
     },
-    indexOrder: (state, { payload }) => {
+    index: (state, { payload }) => {
       const index = Number(payload)
 
       state.page = index
@@ -310,9 +311,9 @@ export const {
   getStateValues,
   resetPage,
   queryProducts,
-  nextOrder,
-  prevOrder,
-  indexOrder,
+  next,
+  prev,
+  index,
   createFunction,
   logOut,
   forgetPasswordToggle,
