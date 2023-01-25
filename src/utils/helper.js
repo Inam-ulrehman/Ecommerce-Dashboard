@@ -53,5 +53,5 @@ export const capitalizeFirstLetter = (string) => {
 
 // ==========formate date============
 export const formatDate = (date) => {
-  return moment(date).format('MMM Do YY')
+  return moment(date).format('MMMM Do YYYY')
 }

@@ -23,15 +23,14 @@ export const appointmentThunk = createAsyncThunk(
     const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.get(
-        `/appointments?name=${state?.searchName}&email=${state?.searchEmail}&phone=${state?.searchPhone}&sort=${state?.sort}`,
+        `/appointments?name=${state?.searchName}&email=${state?.searchEmail}&phone=${state?.searchPhone}&date=${state?.searchDate}&sort=${state?.sort}`,
         {
           headers: {
             Authorization: `Bearer ${user?.token}`,
           },
         }
       )
-      console.log('hello Thunk')
-      console.log(response)
+
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
@@ -53,7 +52,6 @@ const appointmentSlice = createSlice({
   },
   extraReducers: {
     [appointmentThunk.pending]: (state, { payload }) => {
-      console.log('promise pending')
       state.isLoading = true
     },
     [appointmentThunk.fulfilled]: (state, { payload }) => {

@@ -40,8 +40,8 @@ const OrderList = () => {
             <th>NAME</th>
             <th>QUANTITY</th>
             <th>PAYMENT</th>
-            <th>DATE</th>
             <th>TOTAL</th>
+            <th>DATE</th>
             <th>ACTION</th>
           </tr>
           {orderList?.map((item) => {
@@ -68,10 +68,10 @@ const OrderList = () => {
                 <td className='name'>{name}</td>
                 <td className='quantity'>{quantity}</td>
                 <td>{item.redirect_status}</td>
-                <td className='date'>
-                  {moment(item.createdAt).format('MMM Do YYYY')}
-                </td>
                 <td>{formatPrice(item.total)}</td>
+                <td className='date'>
+                  {moment(item.createdAt).format('MMMM Do YYYY')}
+                </td>
                 <td className='buttons'>
                   <Link to={item._id} type='button' className='btn'>
                     Select

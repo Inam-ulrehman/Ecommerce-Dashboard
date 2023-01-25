@@ -5,7 +5,6 @@ import { formatDate } from '../../utils/helper'
 import styled from 'styled-components'
 const List = () => {
   const { appointment } = useSelector((state) => state)
-  console.log(appointment)
 
   if (appointment.isLoading) {
     return (
@@ -20,25 +19,25 @@ const List = () => {
       <table>
         <tbody>
           <tr>
-            <th>Date</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
             <th>StartTime</th>
             <th>EndTime</th>
             <th>Status</th>
+            <th>Date</th>
             <th>Actions</th>
           </tr>
           {appointment.list?.map((item) => {
             return (
               <tr key={item._id}>
-                <td>{formatDate(item.date)}</td>
                 <td>{item.name}</td>
                 <td>{item.email}</td>
                 <td>{item.phone}</td>
                 <td>{item.slot.startTime}</td>
                 <td>{item.slot.endTime}</td>
                 <td>{item.confirmed ? 'confirmed' : 'pending'}</td>
+                <td>{formatDate(item.date.split('T')[0])}</td>
                 <td>
                   <Link className='btn' to={`${item._id}`}>
                     Edit

@@ -1,4 +1,3 @@
-import moment from 'moment/moment'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -8,6 +7,7 @@ import Search from '../../components/contact/Search'
 
 import { getContactDeleteId } from '../../features/contact/contactSlice'
 import { showContactWarning } from '../../features/functions/functionSlice'
+import { formatDate } from '../../utils/helper'
 
 const Contact = () => {
   const dispatch = useDispatch()
@@ -55,7 +55,7 @@ const Contact = () => {
                 <td>{item.phone}</td>
                 <td>{item.email}</td>
                 <td>{item.subject}</td>
-                <td>{moment(item.createdAt).format('MMM Do YY')}</td>
+                <td>{formatDate(item.createdAt)}</td>
                 <td className='buttons'>
                   <Link className='btn' to={`${item._id}`}>
                     Read

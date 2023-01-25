@@ -35,6 +35,7 @@ const Search = () => {
         searchDate,
       })
     )
+    console.log(searchDate)
     // eslint-disable-next-line
   }, [searchName, searchEmail, searchPhone, sort, searchDate])
 
@@ -107,6 +108,12 @@ const Search = () => {
             onChange={handleChange}
           />
           {/* date */}
+          <input
+            type='date'
+            name='searchDate'
+            value={appointment.searchDate}
+            onChange={handleChange}
+          />
         </div>
       </form>
     </Wrapper>
