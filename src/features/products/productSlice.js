@@ -159,13 +159,13 @@ const productSlice = createSlice({
       state.productsList = payload.result
       state.nbHits = payload.totalOrders
     },
-    nextOrder: (state, { payload }) => {
+    next: (state, { payload }) => {
       state.page = state.page + 1
     },
-    prevOrder: (state, { payload }) => {
+    prev: (state, { payload }) => {
       state.page = state.page - 1
     },
-    indexOrder: (state, { payload }) => {
+    index: (state, { payload }) => {
       const index = Number(payload)
 
       state.page = index
@@ -268,9 +268,9 @@ const productSlice = createSlice({
 export const {
   resetPage,
   queryProducts,
-  nextOrder,
-  prevOrder,
-  indexOrder,
+  next,
+  prev,
+  index,
   createFunction,
   getStateValues,
   getProductDeleteId,
