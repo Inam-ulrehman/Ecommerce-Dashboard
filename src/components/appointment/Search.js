@@ -22,11 +22,6 @@ const Search = () => {
     refreshData,
   } = appointment
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(clearState())
-  }
-
   const handleChange = (e) => {
     const name = e.target.name
     const value = e.target.value
@@ -66,7 +61,7 @@ const Search = () => {
       <button className='btn clear-filter' type='button' onClick={handleClear}>
         Clear Filter
       </button>
-      <form onSubmit={handleSubmit}>
+      <div>
         <div className='limit-sort'>
           <div className='limit'>
             <label htmlFor='limit'>Limit</label>
@@ -133,10 +128,7 @@ const Search = () => {
             onChange={handleChange}
           />
         </div>
-        <button type='submit' className='btn'>
-          submit
-        </button>
-      </form>
+      </div>
     </Wrapper>
   )
 }

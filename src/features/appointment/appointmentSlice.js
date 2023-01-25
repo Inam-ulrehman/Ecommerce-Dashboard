@@ -36,7 +36,7 @@ export const appointmentThunk = createAsyncThunk(
   'appointment/appointmentThunk',
   async (state, thunkAPI) => {
     const user = getUserFromLocalStorage()
-    console.log(state.limit)
+
     try {
       const response = await customFetch.get(
         `/appointments?name=${state?.searchName}&email=${state?.searchEmail}&phone=${state?.searchPhone}&date=${state?.searchDate}&sort=${state?.sort}&limit=${state?.limit}&page=${state?.page}`,
