@@ -24,26 +24,50 @@ const Pagination = () => {
   }
 
   const handlePrev = (e) => {
+    if (page <= 1) {
+      return
+    }
     dispatch(prevOrder())
   }
+  console.log(page > 1)
   return (
     <Wrapper className='title'>
       <button className='btn' type='button' onClick={handlePrev}>
         Prev
       </button>
-      {pages.map((item, index) => {
-        return (
-          <button
-            key={index}
-            className={Number(page) === index + 1 ? `btn active` : 'btn'}
-            type='button'
-            onClick={handleIndex}
-            value={item}
-          >
-            {item}
+      {/* Page Pagination */}
+      {page > 1 && (
+        <>
+          <button className='btn' onClick={handleIndex} value={1}>
+            1
           </button>
-        )
-      })}
+          <span>....</span>
+        </>
+      )}
+
+      {pages
+        .map((item, index) => {
+          return (
+            <button
+              key={index}
+              className={Number(page) === index + 1 ? `btn active` : 'btn'}
+              type='button'
+              onClick={handleIndex}
+              value={item}
+            >
+              {item}
+            </button>
+          )
+        })
+        .slice(page - 1, page + 4)}
+      {page !== pages.length && (
+        <>
+          <span>....</span>
+          <button className='btn' onClick={handleIndex} value={pages.length}>
+            {pages.length}
+          </button>
+        </>
+      )}
       <button className='btn' type='button' onClick={handleNext}>
         Next
       </button>

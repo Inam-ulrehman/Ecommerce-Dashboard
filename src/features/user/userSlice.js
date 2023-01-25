@@ -17,7 +17,7 @@ const initialState = {
   userList: [],
   nbHits: '',
   page: 1,
-  limit: 10,
+  limit: 3,
 }
 
 export const userThunk = createAsyncThunk(
