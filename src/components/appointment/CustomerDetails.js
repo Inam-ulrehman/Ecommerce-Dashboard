@@ -7,7 +7,6 @@ import {
   clearState,
   getStateValues,
 } from '../../features/appointment/appointmentSlice'
-import { isObjectEmpty } from '../../utils/helper'
 
 const CustomerDetails = ({ action }) => {
   const dispatch = useDispatch()
@@ -19,7 +18,7 @@ const CustomerDetails = ({ action }) => {
     if (!date || !slot || !name || !email || !phone) {
       return toast.warning('Please fill all details.')
     }
-    if (isObjectEmpty(updateId)) {
+    if (updateId === '') {
       dispatch(clearState())
     }
     dispatch(

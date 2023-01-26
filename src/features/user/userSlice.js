@@ -229,7 +229,6 @@ const userSlice = createSlice({
       state.isLoading = true
     },
     [loginUserThunk.fulfilled]: (state, { payload }) => {
-      console.log(payload)
       setUserInLocalStorage(payload)
       state.token = payload.token
       state.userName = payload.user.name

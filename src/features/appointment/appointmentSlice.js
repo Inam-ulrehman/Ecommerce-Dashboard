@@ -28,6 +28,8 @@ const initialState = {
   isLoading: false,
   // delete Id
   deleteId: '',
+  // update Id
+  updateId: '',
   refreshData: false,
   refreshSlotData: false,
 }
