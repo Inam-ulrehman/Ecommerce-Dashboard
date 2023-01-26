@@ -107,21 +107,11 @@ const contactSlice = createSlice({
     createFunction: (state, { payload }) => {
       console.log('function call')
     },
-    getContactDeleteId: (state, { payload }) => {
-      state.deleteId = payload
-    },
     getStateValues: (state, { payload }) => {
       const { name, value } = payload
       state[name] = value
     },
-    resetPage: (state, { payload }) => {
-      state.page = 1
-    },
-    queryProducts: (state, { payload }) => {
-      state.contactList = payload.result
-      state.nbHits = payload.total
-      state.count = payload.total
-    },
+
     next: (state, { payload }) => {
       state.page = state.page + 1
     },
@@ -189,9 +179,7 @@ const contactSlice = createSlice({
   },
 })
 export const {
-  resetPage,
   getStateValues,
-  queryProducts,
   next,
   prev,
   index,

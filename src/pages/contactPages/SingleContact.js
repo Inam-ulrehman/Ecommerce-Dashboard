@@ -3,11 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import {
-  getContactDeleteId,
-  getSingleContactThunk,
-} from '../../features/contact/contactSlice'
-import { showContactWarning } from '../../features/functions/functionSlice'
+import { getSingleContactThunk } from '../../features/contact/contactSlice'
 
 const SingleContact = () => {
   const dispatch = useDispatch()
@@ -16,10 +12,7 @@ const SingleContact = () => {
 
   // handleDelete
 
-  const handleDelete = () => {
-    dispatch(showContactWarning())
-    dispatch(getContactDeleteId(_id))
-  }
+  const handleDelete = () => {}
   useEffect(() => {
     dispatch(getSingleContactThunk(_id))
     // eslint-disable-next-line

@@ -4,7 +4,6 @@ import { customFetch } from '../../utils/axios'
 const initialState = {
   warning: false,
   productWarning: false,
-  contactWarning: false,
   orderWarning: false,
   isLoading: false,
 }
@@ -41,12 +40,6 @@ const functionSlice = createSlice({
     hideProductWarning: (state, { payload }) => {
       state.productWarning = false
     },
-    showContactWarning: (state, { payload }) => {
-      state.contactWarning = true
-    },
-    hideContactWarning: (state, { payload }) => {
-      state.contactWarning = false
-    },
     showOrderWarning: (state, { payload }) => {
       state.orderWarning = true
     },
@@ -75,8 +68,6 @@ export const {
   showWarning,
   hideProductWarning,
   showProductWarning,
-  hideContactWarning,
-  showContactWarning,
   showOrderWarning,
   hideOrderWarning,
 } = functionSlice.actions

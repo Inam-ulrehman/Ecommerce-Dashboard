@@ -2,21 +2,19 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
-import { ContactWarning } from '../components/contact'
 import Footer from '../components/footer/Footer'
 import DesktopNavbar from '../components/navbar/DesktopNavbar'
 import OrderWarning from '../components/order/OrderWarning'
 import ProductWarning from '../components/product/ProductWarning'
 
 const SharedLayout = () => {
-  const { productWarning, contactWarning, orderWarning } = useSelector(
+  const { productWarning, orderWarning } = useSelector(
     (state) => state.function
   )
   return (
     <main>
       <DesktopNavbar />
       {productWarning && <ProductWarning />}
-      {contactWarning && <ContactWarning />}
       {orderWarning && <OrderWarning />}
       <Wrapper>
         <Outlet />

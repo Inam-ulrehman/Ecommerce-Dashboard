@@ -1,5 +1,5 @@
-import ContactWarning from './ContactWarning'
+import List from './List'
 import Pagination from './Pagination'
 import Search from './Search'
 
-export { Search, Pagination, ContactWarning }
+export { List, Search, Pagination }
