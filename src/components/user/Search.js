@@ -1,63 +1,24 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import {
-  getStateValues,
-  queryProducts,
-  resetPage,
-} from '../../features/user/userSlice'
-import { customFetch } from '../../utils/axios'
-import { getUserFromLocalStorage } from '../../utils/localStorage'
+import { getStateValues, getUsersThunk } from '../../features/user/userSlice'
 
 const Search = () => {
   const dispatch = useDispatch()
-  const { user } = useSelector((state) => state)
-  const nameRef = useRef()
-  const phoneRef = useRef()
-  const emailRef = useRef()
-  const addressRef = useRef()
-  const postalCodeRef = useRef()
-  const _idRef = useRef()
-  const sortRef = useRef()
+  const {
+    searchName,
+    searchPhone,
+    searchEmail,
+    searchAddress,
+    searchPostalCode,
+    searchId,
+    sort,
+    page,
+    limit,
+  } = useSelector((state) => state.user)
 
   // =========handle Submit========
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const { token } = getUserFromLocalStorage()
-
-    try {
-      const response = await customFetch.get(
-        `/auth/users?name=${nameRef?.current?.value}&phone=${phoneRef?.current?.value}&email=${emailRef?.current?.value}&postalCode=${postalCodeRef?.current?.value}&address=${addressRef?.current?.value}&_id=${_idRef?.current?.value}&limit=${user.limit}&sort=${sortRef?.current?.value}&page=${user.page}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      dispatch(resetPage())
-      dispatch(queryProducts(response.data))
-    } catch (error) {
-      console.log(error.response)
-    }
-  }
-  // =========handle NextPage============
-  const nextPage = async (e) => {
-    const { token } = getUserFromLocalStorage()
-    try {
-      const response = await customFetch.get(
-        `/auth/users?name=${nameRef?.current?.value}&phone=${phoneRef?.current?.value}&email=${emailRef?.current?.value}&postalCode=${postalCodeRef?.current?.value}&address=${addressRef?.current?.value}&_id=${_idRef?.current?.value}&limit=${user.limit}&sort=${sortRef?.current?.value}&page=${user.page}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-
-      dispatch(queryProducts(response.data))
-    } catch (error) {}
-  }
 
   const handleClear = () => {
     window.location.reload()
@@ -70,50 +31,109 @@ const Search = () => {
   }
 
   useEffect(() => {
-    nextPage()
-    window.scrollTo({ top: 0, left: 0 })
+    dispatch(
+      getUsersThunk({
+        searchName,
+        searchPhone,
+        searchEmail,
+        searchAddress,
+        searchPostalCode,
+        searchId,
+        sort,
+        page,
+        limit,
+      })
+    )
     // eslint-disable-next-line
-  }, [user.page])
+  }, [
+    searchName,
+    searchPhone,
+    searchEmail,
+    searchAddress,
+    searchPostalCode,
+    searchId,
+    sort,
+    page,
+    limit,
+  ])
   return (
     <Wrapper className='container'>
       <button className='btn clear-filter' type='button' onClick={handleClear}>
         Clear Filter
       </button>
-      <form onSubmit={handleSubmit}>
-        <div className='limit-sort'>
-          <div className='limit'>
-            <label htmlFor='limit'>Limit</label>
-            <select name='limit' id='limit' onChange={handleChange}>
-              <option value={10}>10</option>
-              <option value={20}>20</option>
-              <option value={30}>30</option>
-              <option value={40}>40</option>
-            </select>
-          </div>
-          <div className='sort'>
-            <label htmlFor='sort'>Sort</label>
-            <select name='sort' id='sort' ref={sortRef}>
-              <option value='-createdAt'>SELECT OPTIONS</option>
-              <option value='-createdAt'>DATE NEW</option>
-              <option value='createdAt'>DATE OLD</option>
-              <option value='title'>NAME A-Z</option>
-              <option value='-title'>NAME Z-A</option>
-            </select>
-          </div>
+
+      <div className='limit-sort'>
+        <div className='limit'>
+          <label htmlFor='limit'>Limit</label>
+          <select name='limit' id='limit' value={limit} onChange={handleChange}>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={30}>30</option>
+            <option value={40}>40</option>
+          </select>
         </div>
-        {/* ============box divided */}
-        <div className='search'>
-          <input type='text' ref={nameRef} placeholder='First Name' />
-          <input type='number' ref={phoneRef} placeholder='Phone Number' />
-          <input type='text' ref={emailRef} placeholder='Email' />
-          <input type='text' ref={addressRef} placeholder='Address' />
-          <input type='text' ref={postalCodeRef} placeholder='Postal Code' />
-          <input type='text' ref={_idRef} placeholder='id' />
-          <button className='btn' type='submit'>
-            Search
-          </button>
+        <div className='sort'>
+          <label htmlFor='sort'>Sort</label>
+          <select name='sort' id='sort' value={sort} onChange={handleChange}>
+            <option value='-createdAt'>SELECT OPTIONS</option>
+            <option value='-createdAt'>DATE NEW</option>
+            <option value='createdAt'>DATE OLD</option>
+            <option value='title'>NAME A-Z</option>
+            <option value='-title'>NAME Z-A</option>
+          </select>
         </div>
-      </form>
+      </div>
+      {/* ============box divided */}
+      <div className='search'>
+        {/* name */}
+        <input
+          type='text'
+          name='searchName'
+          placeholder='Name'
+          value={searchName}
+          onChange={handleChange}
+        />
+        {/* email */}
+        <input
+          type='email'
+          name='searchEmail'
+          placeholder='Email'
+          value={searchEmail}
+          onChange={handleChange}
+        />
+        {/* address */}
+        <input
+          type='text'
+          name='searchAddress'
+          placeholder='Address'
+          value={searchAddress}
+          onChange={handleChange}
+        />
+        {/* PostalCode */}
+        <input
+          type='text'
+          name='searchPostalCode'
+          placeholder='Postal Code'
+          value={searchPostalCode}
+          onChange={handleChange}
+        />
+        {/* phone */}
+        <input
+          type='number'
+          name='searchPhone'
+          placeholder='Phone'
+          value={searchPhone}
+          onChange={handleChange}
+        />
+        {/* user Id */}
+        <input
+          type='text'
+          name='searchId'
+          placeholder='User Id'
+          value={searchId}
+          onChange={handleChange}
+        />
+      </div>
     </Wrapper>
   )
 }

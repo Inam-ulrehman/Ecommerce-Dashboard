@@ -9,15 +9,25 @@ import { toast } from 'react-toastify'
 
 const user = getUserFromLocalStorage()
 const initialState = {
+  // Authentication User
   token: user?.token || '',
   userName: user?.user?.name || '',
   isMember: user?.isAdmin ? true : false,
   isLoading: false,
   forgetPassword: false,
-  list: [],
-  count: '',
+  // Search User
+  searchName: '',
+  searchPhone: '',
+  searchEmail: '',
+  searchAddress: '',
+  searchPostalCode: '',
+  searchId: '',
+  sort: '-createdAt',
   page: 1,
   limit: 10,
+  // List of user
+  list: [],
+  count: '',
 }
 
 export const userThunk = createAsyncThunk(
@@ -140,16 +150,18 @@ export const changePasswordThunk = createAsyncThunk(
 // ========= Get users ========
 export const getUsersThunk = createAsyncThunk(
   'user/getUsersThunk',
-  async (query, thunkAPI) => {
+  async (state, thunkAPI) => {
     const user = getUserFromLocalStorage()
-    console.log('hello')
     try {
-      const response = await customFetch.get('auth/users', {
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      })
-      console.log(response)
+      const response = await customFetch.get(
+        `/auth/users?name=${state?.searchName}&phone=${state?.searchPhone}&email=${state?.searchEmail}&postalCode=${state?.searchPostalCode}&address=${state?.searchAddress}&_id=${state?.searchId}&limit=${state?.limit}&sort=${state?.sort}&page=${state?.page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      )
+
       return response.data
     } catch (error) {
       console.log(error.response)
@@ -177,13 +189,7 @@ const userSlice = createSlice({
       const { name, value } = payload
       state[name] = value
     },
-    resetPage: (state, { payload }) => {
-      state.page = 1
-    },
-    queryProducts: (state, { payload }) => {
-      state.userList = payload.result
-      state.nbHits = payload.total
-    },
+
     //======pagination=======
     next: (state, { payload }) => {
       state.page = state.page + 1
@@ -309,8 +315,6 @@ const userSlice = createSlice({
 })
 export const {
   getStateValues,
-  resetPage,
-  queryProducts,
   next,
   prev,
   index,
