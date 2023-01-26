@@ -47,7 +47,6 @@ const List = () => {
             <th>Phone</th>
             <th>StartTime</th>
             <th>EndTime</th>
-            <th>Status</th>
             <th>Date</th>
             <th>Actions</th>
           </tr>
@@ -59,7 +58,6 @@ const List = () => {
                 <td>{item.phone}</td>
                 <td>{item.slot?.startTime}</td>
                 <td>{item.slot?.endTime}</td>
-                <td>{item.confirmed ? 'confirmed' : 'pending'}</td>
                 <td>{formatDate(item.date.split('T')[0])}</td>
                 <td>
                   <Link className='btn' to={`${item._id}`}>
@@ -81,6 +79,10 @@ const List = () => {
   )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+  table {
+    text-align: center;
+  }
+`
 
 export default List

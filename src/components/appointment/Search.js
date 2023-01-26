@@ -85,14 +85,7 @@ const Search = () => {
               <option value='createdAt'>DATE OLD</option>
             </select>
           </div>
-          <div className='feature'>
-            <button
-              type='button'
-              className={appointment.searchConfirm ? 'btn' : ''}
-            >
-              Feature
-            </button>
-          </div>
+          <div className='feature'></div>
         </div>
         {/* ============box divided */}
         <div className='search'>
