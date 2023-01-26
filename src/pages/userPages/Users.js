@@ -14,7 +14,7 @@ const Users = () => {
         </Link>
 
         <span>
-          Total Users:
+          Total Result:
           <strong>{nbHits}</strong>
         </span>
         <span>
