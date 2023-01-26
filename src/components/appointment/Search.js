@@ -93,14 +93,14 @@ const Search = () => {
             type='text'
             name='searchName'
             placeholder='Name'
-            value={appointment.searchName}
+            value={searchName}
             onChange={handleChange}
           />
           <input
             type='email'
             name='searchEmail'
             placeholder='Email'
-            value={appointment.searchEmail}
+            value={searchEmail}
             onChange={handleChange}
           />
 
@@ -110,14 +110,14 @@ const Search = () => {
             type='number'
             placeholder='Phone'
             name='searchPhone'
-            value={appointment.searchPhone}
+            value={searchPhone}
             onChange={handleChange}
           />
           {/* date */}
           <input
             type='date'
             name='searchDate'
-            value={appointment.searchDate}
+            value={searchDate}
             onChange={handleChange}
           />
         </div>

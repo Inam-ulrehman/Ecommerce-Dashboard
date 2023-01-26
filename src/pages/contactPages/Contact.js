@@ -11,9 +11,7 @@ import { formatDate } from '../../utils/helper'
 
 const Contact = () => {
   const dispatch = useDispatch()
-  const { contactList, count, page, isLoading } = useSelector(
-    (state) => state.contact
-  )
+  const { page, count, list } = useSelector((state) => state.contact)
 
   //=== handle Delete button
 
@@ -22,20 +20,18 @@ const Contact = () => {
     dispatch(getContactDeleteId(_id))
   }
 
-  if (isLoading) {
-    return (
-      <div>
-        <h1>Loading...</h1>
-        <div className='div'></div>
-      </div>
-    )
-  }
   return (
     <Wrapper>
-      <h4>
-        <strong>Total forms: {count}</strong>
-        <strong>Page No: {page}</strong>
-      </h4>
+      <div className='container-heading'>
+        <span></span>
+        <span>
+          Total Results:
+          <strong> {count}</strong>
+        </span>
+        <span>
+          Page No:<strong>{page}</strong>
+        </span>
+      </div>
       <Search />
       <table>
         <tbody>
@@ -48,7 +44,7 @@ const Contact = () => {
             <th>Actions</th>
           </tr>
 
-          {contactList?.map((item, itemIndex) => {
+          {list?.map((item, itemIndex) => {
             return (
               <tr className='tr' key={itemIndex}>
                 <td>{item.name}</td>
@@ -78,6 +74,13 @@ const Contact = () => {
   )
 }
 const Wrapper = styled.div`
+  .container-heading {
+    display: flex;
+    justify-content: space-between;
+    span {
+      padding: 0 2rem;
+    }
+  }
   h4 {
     display: flex;
     justify-content: space-between;

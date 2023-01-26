@@ -1,60 +1,25 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
+  getContactThunk,
   getStateValues,
-  queryProducts,
-  resetPage,
 } from '../../features/contact/contactSlice'
-import { customFetch } from '../../utils/axios'
-import { getUserFromLocalStorage } from '../../utils/localStorage'
 
 const Search = () => {
   const dispatch = useDispatch()
-  const { contact } = useSelector((state) => state)
-  const nameRef = useRef()
-  const phoneRef = useRef()
-  const emailRef = useRef()
-  const sortRef = useRef()
-
-  // =========handle Submit========
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const { token } = getUserFromLocalStorage()
-
-    try {
-      const response = await customFetch.get(
-        `/contacts?name=${nameRef?.current?.value}&phone=${phoneRef?.current?.value}&email=${emailRef?.current?.value}&limit=${contact.limit}&sort=${sortRef?.current?.value}&page=${contact.page}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      dispatch(resetPage())
-      dispatch(queryProducts(response.data))
-    } catch (error) {
-      console.log(error.response)
-    }
-  }
-  // =========handle NextPage============
-  const nextPage = async (e) => {
-    const { token } = getUserFromLocalStorage()
-    try {
-      const response = await customFetch.get(
-        `/contacts?name=${nameRef?.current?.value}&phone=${phoneRef?.current?.value}&email=${emailRef?.current?.value}&limit=${contact.limit}&sort=${sortRef?.current?.value}&page=${contact.page}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-
-      dispatch(queryProducts(response.data))
-    } catch (error) {}
-  }
+  const {
+    searchName,
+    searchEmail,
+    searchPhone,
+    sort,
+    limit,
+    page,
+    refreshData,
+    count,
+    list,
+  } = useSelector((state) => state.contact)
 
   const handleClear = () => {
     window.location.reload()
@@ -65,49 +30,74 @@ const Search = () => {
     const value = e.target.value
     dispatch(getStateValues({ name, value }))
   }
-
   useEffect(() => {
-    nextPage()
-    window.scrollTo({ top: 0, left: 0 })
+    console.log('hello')
+    dispatch(
+      getContactThunk({
+        searchName,
+        searchEmail,
+        searchPhone,
+        sort,
+        limit,
+        page,
+        count,
+        list,
+      })
+    )
     // eslint-disable-next-line
-  }, [contact.page])
+  }, [searchName, searchEmail, searchPhone, sort, limit, page, refreshData])
+
   return (
     <Wrapper className='container'>
       <button className='btn clear-filter' type='button' onClick={handleClear}>
         Clear Filter
       </button>
-      <form onSubmit={handleSubmit}>
-        <div className='limit-sort'>
-          <div className='limit'>
-            <label htmlFor='limit'>Limit</label>
-            <select name='limit' id='limit' onChange={handleChange}>
-              <option value={10}>10</option>
-              <option value={20}>20</option>
-              <option value={30}>30</option>
-              <option value={40}>40</option>
-            </select>
-          </div>
-          <div className='sort'>
-            <label htmlFor='sort'>Sort</label>
-            <select name='sort' id='sort' ref={sortRef}>
-              <option value='-createdAt'>SELECT OPTIONS</option>
-              <option value='-createdAt'>DATE NEW</option>
-              <option value='createdAt'>DATE OLD</option>
-              <option value='title'>NAME A-Z</option>
-              <option value='-title'>NAME Z-A</option>
-            </select>
-          </div>
+
+      <div className='limit-sort'>
+        <div className='limit'>
+          <label htmlFor='limit'>Limit</label>
+          <select name='limit' id='limit' onChange={handleChange}>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={30}>30</option>
+            <option value={40}>40</option>
+          </select>
         </div>
-        {/* ============box divided */}
-        <div className='search'>
-          <input type='text' ref={nameRef} placeholder='First Name' />
-          <input type='number' ref={phoneRef} placeholder='Phone Number' />
-          <input type='text' ref={emailRef} placeholder='Email' />
-          <button className='btn' type='submit'>
-            Search
-          </button>
+        <div className='sort'>
+          <label htmlFor='sort'>Sort</label>
+          <select name='sort' id='sort' value={sort} onChange={handleChange}>
+            <option value='-createdAt'>SELECT OPTIONS</option>
+            <option value='-createdAt'>DATE NEW</option>
+            <option value='createdAt'>DATE OLD</option>
+            <option value='title'>NAME A-Z</option>
+            <option value='-title'>NAME Z-A</option>
+          </select>
         </div>
-      </form>
+      </div>
+      {/* ============box divided */}
+      <div className='search'>
+        <input
+          type='text'
+          placeholder='First Name'
+          name='searchName'
+          value={searchName}
+          onChange={handleChange}
+        />
+        <input
+          type='email'
+          placeholder='Email'
+          name='searchEmail'
+          value={searchEmail}
+          onChange={handleChange}
+        />
+        <input
+          type='number'
+          placeholder='Phone Number'
+          name='searchPhone'
+          value={searchPhone}
+          onChange={handleChange}
+        />
+      </div>
     </Wrapper>
   )
 }

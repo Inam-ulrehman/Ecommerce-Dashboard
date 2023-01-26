@@ -4,11 +4,22 @@ import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 
 const initialState = {
-  contactList: [],
-  singleContact: [],
-  count: '',
+  // Search
+  searchName: '',
+  searchEmail: '',
+  searchPhone: '',
+  // pagination
+  list: [],
   page: 1,
   limit: 10,
+  count: '',
+  sort: '-createdAt',
+
+  // Single Contact
+  refreshData: 1,
+  // ===========
+  contactList: [],
+  singleContact: [],
   nbHits: '',
   deleteId: '',
   getContacts: false,
@@ -31,14 +42,18 @@ export const contactThunk = createAsyncThunk(
 
 export const getContactThunk = createAsyncThunk(
   'contact/getContactThunk',
-  async (_, thunkAPI) => {
+  async (state, thunkAPI) => {
     const user = getUserFromLocalStorage()
+
     try {
-      const response = await customFetch.get('contacts', {
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      })
+      const response = await customFetch.get(
+        `/contacts?name=${state?.searchName}&phone=${state?.searchPhone}&email=${state?.searchEmail}&limit=${state?.limit}&sort=${state?.sort}&page=${state?.page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      )
 
       return response.data
     } catch (error) {
@@ -138,16 +153,15 @@ const contactSlice = createSlice({
     },
     [getContactThunk.fulfilled]: (state, { payload }) => {
       const { result, total } = payload
-      state.contactList = result
+      state.list = result
       state.count = total
-      state.nbHits = total
       state.isLoading = false
     },
     [getContactThunk.rejected]: (state, { payload }) => {
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
-    // === GET Single CONTACT LIST
+    // === GET Single CONTACT
     [getSingleContactThunk.pending]: (state, { payload }) => {
       state.isLoading = true
     },
