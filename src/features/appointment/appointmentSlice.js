@@ -130,7 +130,7 @@ export const updateAppointmentThunk = createAsyncThunk(
           },
         }
       )
-      console.log(response)
+
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
@@ -246,6 +246,8 @@ const appointmentSlice = createSlice({
       state.isLoading = true
     },
     [updateAppointmentThunk.fulfilled]: (state, { payload }) => {
+      state.refreshSlotData = !state.refreshSlotData
+      toast.success('Updated.')
       state.isLoading = false
     },
     [updateAppointmentThunk.rejected]: (state, { payload }) => {

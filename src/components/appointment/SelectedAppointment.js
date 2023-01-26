@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { objectIsEmpty } from '../../utils/helper'
+import { isObjectEmpty } from '../../utils/helper'
 
 const SelectedAppointment = () => {
   const { slot } = useSelector((state) => state.appointment)
-  if (objectIsEmpty(slot)) {
+  if (isObjectEmpty(slot)) {
     return
   }
   return (

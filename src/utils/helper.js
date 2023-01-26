@@ -53,7 +53,7 @@ export const capitalizeFirstLetter = (string) => {
 export const formatDate = (date) => {
   return moment(date).format('MMMM Do YYYY')
 }
-// =========ObjectIsEmpty==========
-export const objectIsEmpty = (obj) => {
+// =========is Object Empty==========
+export const isObjectEmpty = (obj) => {
   return Object.keys(obj).length === 0
 }
