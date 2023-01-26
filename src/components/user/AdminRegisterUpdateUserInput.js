@@ -1,12 +1,12 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
-import { getStateValues } from '../../features/user/userSlice'
-import { customFetch } from '../../utils/axios'
+import { clearState, getStateValues } from '../../features/user/userSlice'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 import FormInput from '../FormInput'
 
-const AdminRegisterUpdateUserInput = () => {
+const AdminRegisterUpdateUserInput = ({ method }) => {
+  console.log(method)
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state)
 
@@ -17,14 +17,14 @@ const AdminRegisterUpdateUserInput = () => {
     }
     const { token } = getUserFromLocalStorage()
     try {
-      const result = await customFetch.post('/auth/users', user, {
+      const result = await method('/auth/users', user, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
+      dispatch(clearState())
       toast.success(result.statusText)
     } catch (error) {
-      toast.error(error.response.data.msg)
       console.log(error.response)
     }
   }
@@ -42,6 +42,7 @@ const AdminRegisterUpdateUserInput = () => {
       </div>
     )
   }
+
   return (
     <>
       <form className='form' onSubmit={handleSubmit}>

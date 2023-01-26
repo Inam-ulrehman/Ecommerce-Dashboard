@@ -2,7 +2,11 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { getStateValues, getUsersThunk } from '../../features/user/userSlice'
+import {
+  clearState,
+  getStateValues,
+  getUsersThunk,
+} from '../../features/user/userSlice'
 
 const Search = () => {
   const dispatch = useDispatch()
@@ -18,10 +22,8 @@ const Search = () => {
     limit,
   } = useSelector((state) => state.user)
 
-  // =========handle Submit========
-
   const handleClear = () => {
-    window.location.reload()
+    dispatch(clearState())
   }
 
   const handleChange = (e) => {

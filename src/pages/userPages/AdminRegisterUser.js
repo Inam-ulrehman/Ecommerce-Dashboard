@@ -2,14 +2,15 @@ import React from 'react'
 
 import styled from 'styled-components'
 import AdminRegisterUpdateUserInput from '../../components/user/AdminRegisterUpdateUserInput'
+import { customFetch } from '../../utils/axios'
 
 const AdminRegisterUser = () => {
-  // handle Submit ===
+  const method = customFetch.post
 
   return (
     <Wrapper>
       <h3 className='title'>Register New User Form</h3>
-      <AdminRegisterUpdateUserInput />
+      <AdminRegisterUpdateUserInput method={method} />
     </Wrapper>
   )
 }

@@ -199,6 +199,16 @@ const userSlice = createSlice({
       state.city = ''
       state.province = ''
       state.postalCode = ''
+      // clear search
+      state.searchName = ''
+      state.searchPhone = ''
+      state.searchEmail = ''
+      state.searchAddress = ''
+      state.searchPostalCode = ''
+      state.searchId = ''
+      state.sort = '-createdAt'
+      state.page = 1
+      state.limit = 10
     },
     logOut: (state, { payload }) => {
       removeUserFromLocalStorage('user')
@@ -338,6 +348,7 @@ const userSlice = createSlice({
 })
 export const {
   getStateValues,
+  clearState,
   next,
   prev,
   index,
