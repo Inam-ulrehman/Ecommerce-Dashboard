@@ -16,6 +16,7 @@ const DashboardHome = () => {
     dispatch(getOrdersThunk(order))
     dispatch(getContactThunk())
     dispatch(getUsersThunk())
+
     // eslint-disable-next-line
   }, [])
   return (

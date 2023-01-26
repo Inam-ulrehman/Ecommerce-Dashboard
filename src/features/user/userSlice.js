@@ -14,8 +14,8 @@ const initialState = {
   isMember: user?.isAdmin ? true : false,
   isLoading: false,
   forgetPassword: false,
-  userList: [],
-  nbHits: '',
+  list: [],
+  count: '',
   page: 1,
   limit: 10,
 }
@@ -142,13 +142,14 @@ export const getUsersThunk = createAsyncThunk(
   'user/getUsersThunk',
   async (query, thunkAPI) => {
     const user = getUserFromLocalStorage()
+    console.log('hello')
     try {
       const response = await customFetch.get('auth/users', {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
       })
-
+      console.log(response)
       return response.data
     } catch (error) {
       console.log(error.response)
@@ -296,8 +297,9 @@ const userSlice = createSlice({
     [getUsersThunk.fulfilled]: (state, { payload }) => {
       state.isLoading = false
       const { result, total } = payload
-      state.userList = result
-      state.nbHits = total
+
+      state.list = result
+      state.count = total
     },
     [getUsersThunk.rejected]: (state, { payload }) => {
       state.isLoading = false

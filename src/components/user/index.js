@@ -1,7 +1,7 @@
 import CreateUserNotes from './CreateUserNotes'
 import HoldUserNotes from './HoldUserNotes'
+import List from './List'
 import Pagination from './Pagination'
 import Search from './Search'
-import UserList from './UserList'
 
-export { HoldUserNotes, CreateUserNotes, Search, UserList, Pagination }
+export { HoldUserNotes, CreateUserNotes, Search, List, Pagination }

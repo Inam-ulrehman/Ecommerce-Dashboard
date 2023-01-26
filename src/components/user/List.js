@@ -1,14 +1,11 @@
 import React from 'react'
-
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { formatDate } from '../../utils/helper'
 import styled from 'styled-components'
 
-import { formatDate } from '../../utils/helper'
-
-const UserList = () => {
+const List = () => {
   const { user } = useSelector((state) => state)
-
   if (user.isLoading) {
     return (
       <div>
@@ -19,6 +16,7 @@ const UserList = () => {
   }
   return (
     <Wrapper>
+      {/* show table */}
       <table>
         <tbody>
           <tr>
@@ -30,8 +28,7 @@ const UserList = () => {
             <th>Member Since</th>
             <th>Action</th>
           </tr>
-
-          {user.userList.map((item, index) => {
+          {user.list?.map((item) => {
             return (
               <tr key={item._id}>
                 <td>{item.name}</td>
@@ -53,9 +50,11 @@ const UserList = () => {
     </Wrapper>
   )
 }
+
 const Wrapper = styled.div`
-  tr {
+  table {
     text-align: center;
   }
 `
-export default UserList
+
+export default List

@@ -2,9 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import Pagination from '../../components/user/Pagination'
-import Search from '../../components/user/Search'
-import UserList from '../../components/user/UserList'
+import { List, Pagination, Search } from '../../components/user'
 
 const Users = () => {
   const { nbHits, page } = useSelector((state) => state.user)
@@ -24,7 +22,7 @@ const Users = () => {
         </span>
       </div>
       <Search />
-      <UserList />
+      <List />
       <Pagination />
     </Wrapper>
   )
