@@ -6,6 +6,7 @@ import {
   setUserInLocalStorage,
 } from '../../utils/localStorage'
 import { toast } from 'react-toastify'
+import { addObjectInState } from '../../utils/helper'
 
 const user = getUserFromLocalStorage()
 const initialState = {
@@ -39,6 +40,14 @@ const initialState = {
   // List of user
   list: [],
   count: '',
+  // single User
+  createdAt: '',
+  updatedAt: '',
+  notes: [],
+  role: '',
+  verified: '',
+  updateId: '',
+  refreshSingleUser: 0,
 }
 
 export const userThunk = createAsyncThunk(
@@ -175,7 +184,24 @@ export const getUsersThunk = createAsyncThunk(
 
       return response.data
     } catch (error) {
-      console.log(error.response)
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
+// ========= Get Single user ========
+export const getSingleUserThunk = createAsyncThunk(
+  'user/getSingleUserThunk',
+  async (_id, thunkAPI) => {
+    const user = getUserFromLocalStorage()
+    try {
+      const response = await customFetch.get(`/auth/users/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
+
+      return response.data
+    } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -341,6 +367,20 @@ const userSlice = createSlice({
       state.count = total
     },
     [getUsersThunk.rejected]: (state, { payload }) => {
+      state.isLoading = false
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
+    },
+    // get Single user
+    [getSingleUserThunk.pending]: (state, { payload }) => {
+      state.isLoading = true
+    },
+    [getSingleUserThunk.fulfilled]: (state, { payload }) => {
+      const dateOfBirth = payload.dateOfBirth.split('T')[0]
+      payload.dateOfBirth = dateOfBirth
+      addObjectInState(payload, state)
+      state.isLoading = false
+    },
+    [getSingleUserThunk.rejected]: (state, { payload }) => {
       state.isLoading = false
       toast.error(`${payload?.msg ? payload.msg : payload}`)
     },

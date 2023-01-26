@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
+import { getStateValues } from '../../features/user/userSlice'
 import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 
@@ -10,8 +12,9 @@ const initialState = {
   note: '',
   isLoading: false,
 }
-const CreateUserNotes = ({ cbFunction }) => {
+const CreateUserNotes = () => {
   const [state, setState] = useState(initialState)
+  const dispatch = useDispatch()
   const { _id } = useParams()
 
   const handleSubmit = async (e) => {
@@ -26,7 +29,9 @@ const CreateUserNotes = ({ cbFunction }) => {
       })
       toast.success(result.statusText)
       setState({ ...state, isLoading: false, note: '' })
-      cbFunction()
+      dispatch(
+        getStateValues({ name: 'refreshSingleUser', value: Math.random() })
+      )
     } catch (error) {
       setState({ ...state, isLoading: false })
       toast.error(error.response.data.msg)
@@ -39,14 +44,6 @@ const CreateUserNotes = ({ cbFunction }) => {
     setState({ ...state, [name]: value })
   }
 
-  if (state.isLoading) {
-    return (
-      <div>
-        <h1 className='title'>Loading...</h1>
-        <div className='loading'></div>
-      </div>
-    )
-  }
   return (
     <Wrapper>
       <form onSubmit={handleSubmit} className='form note'>

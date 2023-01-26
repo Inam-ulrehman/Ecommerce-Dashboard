@@ -6,7 +6,6 @@ import { getUserFromLocalStorage } from '../../utils/localStorage'
 import FormInput from '../FormInput'
 
 const AdminRegisterUpdateUserInput = ({ method }) => {
-  console.log(method)
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state)
 

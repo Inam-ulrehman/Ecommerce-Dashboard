@@ -57,3 +57,10 @@ export const formatDate = (date) => {
 export const isObjectEmpty = (obj) => {
   return Object.keys(obj).length === 0
 }
+// ==========addObjectInState=======
+export const addObjectInState = (payload, state) => {
+  const objectArray = Object.entries(payload)
+  return objectArray.forEach(([key, value]) => {
+    state[key] = value
+  })
+}

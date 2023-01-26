@@ -1,8 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { formatDate } from '../../utils/helper'
 
-const HoldUserNotes = ({ notes }) => {
+const HoldUserNotes = () => {
+  const { notes } = useSelector((state) => state.user)
   return (
     <Wrapper>
       {notes

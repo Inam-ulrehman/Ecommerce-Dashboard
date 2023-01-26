@@ -1,11 +1,18 @@
-import React from 'react'
-
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import AdminRegisterUpdateUserInput from '../../components/user/AdminRegisterUpdateUserInput'
+import { clearState } from '../../features/user/userSlice'
 import { customFetch } from '../../utils/axios'
 
 const AdminRegisterUser = () => {
+  const dispatch = useDispatch()
   const method = customFetch.post
+
+  useEffect(() => {
+    dispatch(clearState())
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <Wrapper>
