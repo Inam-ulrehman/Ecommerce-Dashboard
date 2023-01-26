@@ -375,7 +375,7 @@ const userSlice = createSlice({
       state.isLoading = true
     },
     [getSingleUserThunk.fulfilled]: (state, { payload }) => {
-      const dateOfBirth = payload.dateOfBirth.split('T')[0]
+      const dateOfBirth = payload.dateOfBirth?.split('T')[0]
       payload.dateOfBirth = dateOfBirth
       addObjectInState(payload, state)
       state.isLoading = false
