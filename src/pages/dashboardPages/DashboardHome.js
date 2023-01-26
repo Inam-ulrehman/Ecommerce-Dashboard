@@ -6,9 +6,12 @@ import { getProductsThunk } from '../../features/products/productSlice'
 import { getOrdersThunk } from '../../features/order/orderSlice'
 import { getContactThunk } from '../../features/contact/contactSlice'
 import { getUsersThunk } from '../../features/user/userSlice'
+import { appointmentThunk } from '../../features/appointment/appointmentSlice'
 
 const DashboardHome = () => {
-  const { product, order, contact, user } = useSelector((state) => state)
+  const { product, order, contact, user, appointment } = useSelector(
+    (state) => state
+  )
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -16,6 +19,7 @@ const DashboardHome = () => {
     dispatch(getOrdersThunk(order))
     dispatch(getContactThunk(contact))
     dispatch(getUsersThunk(user))
+    dispatch(appointmentThunk(appointment))
 
     // eslint-disable-next-line
   }, [])
@@ -44,6 +48,12 @@ const DashboardHome = () => {
         title={`Users`}
         total={user?.count}
         navigateLink={'/dashboard/users'}
+      />
+      {/* User Card */}
+      <DashboardTotalCard
+        title={`Appointment`}
+        total={appointment?.count}
+        navigateLink={'/dashboard/appointments'}
       />
     </Wrapper>
   )

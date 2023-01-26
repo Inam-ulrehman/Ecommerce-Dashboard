@@ -29,8 +29,7 @@ const Wrapper = styled.div`
   .product-container {
     background: var(--white);
     color: var(--primary-9);
-    width: 200px;
-    height: 100px;
+    min-width: 300px;
     box-shadow: var(--shadow-2);
     transition: var(--transition);
     :hover {
