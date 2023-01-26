@@ -5,7 +5,7 @@ import { index, next, prev } from '../../features/user/userSlice'
 import PaginationHook from '../../hooks/PaginationHook'
 
 const Pagination = () => {
-  const { page, nbHits: count, limit } = useSelector((state) => state.user)
+  const { page, count, limit } = useSelector((state) => state.user)
 
   return (
     <Wrapper className='title'>
