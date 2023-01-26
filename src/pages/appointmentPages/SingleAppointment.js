@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { SelectedAppointment } from '../../components/appointment'
 import AppointmentDate from '../../components/appointment/AppointmentDate'
 import AvailableSlots from '../../components/appointment/AvailableSlots'
 import Category from '../../components/appointment/Category'
@@ -27,6 +28,7 @@ const SingleAppointment = () => {
     <div>
       <Category />
       <AppointmentDate />
+      <SelectedAppointment />
       <AvailableSlots />
       <CustomerDetails action={updateAppointmentThunk} />
     </div>

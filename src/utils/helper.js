@@ -45,13 +45,15 @@ export const formatPrice = (number) => {
 
 // ============Scroll up============
 window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-
 //================Capitalize first Letter========
 export const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
-
 // ==========formate date============
 export const formatDate = (date) => {
   return moment(date).format('MMMM Do YYYY')
+}
+// =========ObjectIsEmpty==========
+export const objectIsEmpty = (obj) => {
+  return Object.keys(obj).length === 0
 }

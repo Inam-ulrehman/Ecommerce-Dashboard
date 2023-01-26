@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { SelectedAppointment } from '../../components/appointment'
 import AppointmentDate from '../../components/appointment/AppointmentDate'
 import AvailableSlots from '../../components/appointment/AvailableSlots'
 import Category from '../../components/appointment/Category'
@@ -18,6 +19,7 @@ const RegisterAppointment = () => {
     <div>
       <Category />
       <AppointmentDate />
+      <SelectedAppointment />
       <AvailableSlots />
       <CustomerDetails action={createAppointmentThunk} />
     </div>
