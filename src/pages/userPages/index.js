@@ -1,5 +1,5 @@
-import RegisterUser from './RegisterUser'
+import AdminRegisterUser from './AdminRegisterUser'
 import SingleUser from './SingleUser'
 import Users from './Users'
 
-export { RegisterUser, SingleUser, Users }
+export { AdminRegisterUser, SingleUser, Users }

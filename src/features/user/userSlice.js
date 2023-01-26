@@ -9,6 +9,17 @@ import { toast } from 'react-toastify'
 
 const user = getUserFromLocalStorage()
 const initialState = {
+  // register user
+  name: '',
+  lastName: '',
+  dateOfBirth: '',
+  phone: '',
+  email: '',
+  address: '',
+  city: '',
+  province: '',
+  postalCode: '',
+
   // Authentication User
   token: user?.token || '',
   userName: user?.user?.name || '',
@@ -176,6 +187,18 @@ const userSlice = createSlice({
   reducers: {
     createFunction: (state, { payload }) => {
       console.log('function call')
+    },
+
+    clearState: (state, { payload }) => {
+      state.name = ''
+      state.lastName = ''
+      state.dateOfBirth = ''
+      state.phone = ''
+      state.email = ''
+      state.address = ''
+      state.city = ''
+      state.province = ''
+      state.postalCode = ''
     },
     logOut: (state, { payload }) => {
       removeUserFromLocalStorage('user')
