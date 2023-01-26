@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { List, Pagination, Search } from '../../components/user'
 
 const Users = () => {
-  const { nbHits, page } = useSelector((state) => state.user)
+  const { count, page } = useSelector((state) => state.user)
   return (
     <Wrapper>
       <div className='container-heading'>
@@ -15,7 +15,7 @@ const Users = () => {
 
         <span>
           Total Result:
-          <strong>{nbHits}</strong>
+          <strong>{count}</strong>
         </span>
         <span>
           Page No:<strong>{page}</strong>
