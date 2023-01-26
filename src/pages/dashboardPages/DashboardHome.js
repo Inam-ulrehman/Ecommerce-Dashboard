@@ -14,8 +14,8 @@ const DashboardHome = () => {
   useEffect(() => {
     dispatch(getProductsThunk())
     dispatch(getOrdersThunk(order))
-    dispatch(getContactThunk())
-    dispatch(getUsersThunk())
+    dispatch(getContactThunk(contact))
+    dispatch(getUsersThunk(user))
 
     // eslint-disable-next-line
   }, [])
@@ -42,7 +42,7 @@ const DashboardHome = () => {
       {/* User Card */}
       <DashboardTotalCard
         title={`Users`}
-        total={user.nbHits}
+        total={user?.count}
         navigateLink={'/dashboard/users'}
       />
     </Wrapper>

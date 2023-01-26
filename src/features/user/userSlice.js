@@ -362,7 +362,6 @@ const userSlice = createSlice({
     [getUsersThunk.fulfilled]: (state, { payload }) => {
       state.isLoading = false
       const { result, total } = payload
-
       state.list = result
       state.count = total
     },
