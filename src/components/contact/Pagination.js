@@ -5,7 +5,7 @@ import { index, next, prev } from '../../features/contact/contactSlice'
 import PaginationHook from '../../hooks/PaginationHook'
 
 const Pagination = () => {
-  const { page, nbHits: count, limit } = useSelector((state) => state.contact)
+  const { page, count, limit } = useSelector((state) => state.contact)
 
   return (
     <Wrapper className='title'>
