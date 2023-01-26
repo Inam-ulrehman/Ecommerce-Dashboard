@@ -1,16 +1,46 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 import { getStateValues } from '../../features/user/userSlice'
+import { customFetch } from '../../utils/axios'
+import { getUserFromLocalStorage } from '../../utils/localStorage'
 import FormInput from '../FormInput'
 
-const AdminRegisterUpdateUserInput = ({ handleSubmit }) => {
+const AdminRegisterUpdateUserInput = () => {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!user.name || !user.email) {
+      return toast.error('Please Provide Name and Email.')
+    }
+    const { token } = getUserFromLocalStorage()
+    try {
+      const result = await customFetch.post('/auth/users', user, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      toast.success(result.statusText)
+    } catch (error) {
+      toast.error(error.response.data.msg)
+      console.log(error.response)
+    }
+  }
 
   const handleChange = (e) => {
     const name = e.target.name
     const value = e.target.value
     dispatch(getStateValues({ name, value }))
+  }
+  if (user.isLoading) {
+    return (
+      <div>
+        <h1 className='title'>Loading...</h1>
+        <div className='loading'></div>
+      </div>
+    )
   }
   return (
     <>
