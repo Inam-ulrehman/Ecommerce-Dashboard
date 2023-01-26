@@ -13,7 +13,7 @@ const AdminRegisterUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!user.name || !user.email) {
-      toast.error('Please Provide Name and Email.')
+      return toast.error('Please Provide Name and Email.')
     }
     const { token } = getUserFromLocalStorage()
     try {

@@ -16,42 +16,50 @@ const AdminRegisterUpdateUserInput = ({ handleSubmit }) => {
     <>
       <form className='form' onSubmit={handleSubmit}>
         <div className='box-1'>
-          {/* name input */}
+          {/* name  */}
           <FormInput name='name' value={user.name} onChange={handleChange} />
-          {/* lastName input */}
+          {/* lastName  */}
           <FormInput
             name='lastName'
             label='Last Name'
             value={user.lastName}
             onChange={handleChange}
           />
-          {/* phone input */}
+          {/* phone */}
+          <FormInput
+            label={'Date Of Birth'}
+            name='dateOfBirth'
+            type='date'
+            value={user.dateOfBirth}
+            onChange={handleChange}
+          />
+          {/* phone */}
           <FormInput
             name='phone'
             type='number'
             value={user.phone}
             onChange={handleChange}
           />
-          {/* email input */}
+          {/* email */}
           <FormInput name='email' value={user.email} onChange={handleChange} />
         </div>
         {/* ====================Box Divider=============*/}
         <div className='box-2'>
-          {/* addaddress input */}
+          {/* addaddress  */}
           <FormInput
             name='address'
             value={user.address}
             onChange={handleChange}
           />
-          {/* city input */}
+          {/* city  */}
           <FormInput name='city' value={user.city} onChange={handleChange} />
-          {/* province input */}
+          {/* province */}
           <FormInput
             name='province'
             value={user.province}
             onChange={handleChange}
           />
-          {/* postalCode  input */}
+          {/* postalCode */}
           <FormInput
             name='postalCode'
             label='Postal Code'
