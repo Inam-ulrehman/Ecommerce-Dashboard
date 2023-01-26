@@ -5,8 +5,10 @@ import CustomerDetails from './CustomerDetails'
 import List from './List'
 import Pagination from './Pagination'
 import Search from './Search'
+import SelectedAppointment from './SelectedAppointment'
 
 export {
+  SelectedAppointment,
   Category,
   AppointmentDate,
   AvailableSlots,

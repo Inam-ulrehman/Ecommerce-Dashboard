@@ -10,16 +10,17 @@ import {
 
 const CustomerDetails = ({ action }) => {
   const dispatch = useDispatch()
-  const { name, email, phone, note, category, date, slot } = useSelector(
-    (state) => state.appointment
-  )
+  const { name, email, phone, note, category, date, slot, updateId } =
+    useSelector((state) => state.appointment)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!date || !slot || !name || !email || !phone) {
       return toast.warning('Please fill all details.')
     }
-    dispatch(action({ name, email, phone, note, category, date, slot }))
+    dispatch(
+      action({ name, email, phone, note, category, date, slot, updateId })
+    )
     dispatch(clearState())
   }
 
