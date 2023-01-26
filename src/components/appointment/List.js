@@ -8,7 +8,6 @@ import {
   getStateValues,
 } from '../../features/appointment/appointmentSlice'
 import Warning from '../Warning'
-
 import { showWarning } from '../../features/functions/functionSlice'
 
 const List = () => {

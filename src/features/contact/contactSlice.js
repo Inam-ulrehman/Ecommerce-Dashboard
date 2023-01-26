@@ -14,15 +14,10 @@ const initialState = {
   limit: 10,
   count: '',
   sort: '-createdAt',
-
   // Single Contact
-  refreshData: 1,
-  // ===========
-  contactList: [],
+  refreshData: false,
   singleContact: [],
-  nbHits: '',
   deleteId: '',
-  getContacts: false,
   isLoading: false,
 }
 
@@ -169,7 +164,7 @@ const contactSlice = createSlice({
     },
     [deleteSingleContactThunk.fulfilled]: (state, { payload }) => {
       toast.success('Form deleted.')
-      state.getContacts = !state.getContacts
+      state.refreshData = !state.refreshData
       state.isLoading = false
     },
     [deleteSingleContactThunk.rejected]: (state, { payload }) => {
