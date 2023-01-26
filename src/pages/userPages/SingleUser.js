@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
 import styled from 'styled-components'
-import FormInput from '../../components/FormInput'
 import { CreateUserNotes, HoldUserNotes } from '../../components/user'
 import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
@@ -84,14 +82,6 @@ const SingleUser = () => {
     // eslint-disable-next-line
   }, [state.refreshData])
 
-  if (state.isLoading) {
-    return (
-      <div>
-        <h1 className='title'>Loading...</h1>
-        <div className='loading'></div>
-      </div>
-    )
-  }
   return (
     <Wrapper>
       <div className='single-user'>
