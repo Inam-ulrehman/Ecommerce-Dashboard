@@ -8,7 +8,7 @@ const HeadingWrapper = styled.div`
     padding: 0 5px;
     border-radius: 0;
   }
-  margin-bottom: 1rem;
+
   border-bottom: 2px solid black;
   clear: auto;
   display: flex;

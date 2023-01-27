@@ -74,7 +74,7 @@ const Search = () => {
       <button className='btn clear-filter' type='button' onClick={handleClear}>
         Clear Filter
       </button>
-      <div>
+      <div className='limit-sort-input'>
         <div className='limit-sort'>
           <div className='limit'>
             <label htmlFor='limit'>Limit</label>
@@ -95,7 +95,7 @@ const Search = () => {
           </div>
           <div className='feature'>
             <button
-              className={searchFeature === '' ? null : 'btn'}
+              className={searchFeature === '' ? 'btn' : 'btn active'}
               onClick={handleFeature}
             >
               Feature
@@ -149,32 +149,41 @@ const Wrapper = styled.div`
   .clear-filter {
     position: absolute;
     top: 0;
-    right: 5%;
+    right: 0;
+    border-radius: 0;
+  }
+  .limit-sort-input {
   }
   .limit-sort {
     display: flex;
-    margin-bottom: 5px;
-    gap: 1rem;
-  }
-  .sort,
-  .limit {
+    padding: 0 1rem;
+    div {
+      margin: 0 1rem;
+    }
+    label {
+      margin: 0 5px;
+    }
     select {
+      border: transparent;
+      background: var(--primary-5);
+      color: var(--white);
+      transition: var(--transition-1);
+      padding: 0 5px;
       :hover {
         cursor: pointer;
       }
     }
-  }
-
-  button {
-    border: transparent;
-
-    box-shadow: var(--shadow-1);
-    padding: 4px;
-    transition: var(--transition);
-    :hover {
-      cursor: pointer;
-      background-color: var(--primary-6);
-      color: var(--white);
+    option {
+      background-color: var(--white);
+      color: var(--black);
+    }
+    .feature {
+      Button {
+        border-radius: 0;
+      }
+    }
+    .active {
+      background-color: var(--primary-7);
     }
   }
 `

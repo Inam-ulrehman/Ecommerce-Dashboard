@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import HeadingWrapper from '../../Wrapper/HeadingWrapper'
+import HeadingWrapper from '../../Wrapper/dashboard/HeadingWrapper'
 
 const Heading = () => {
   const { count, page } = useSelector((state) => state.appointment)

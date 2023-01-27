@@ -90,6 +90,9 @@ const Wrapper = styled.div`
   table {
     text-align: center;
   }
+  img {
+    max-width: 70px;
+  }
 `
 
 export default List
