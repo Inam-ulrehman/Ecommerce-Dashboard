@@ -2,7 +2,11 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { getOrdersThunk, getStateValues } from '../../features/order/orderSlice'
+import {
+  clearState,
+  getOrdersThunk,
+  getStateValues,
+} from '../../features/order/orderSlice'
 
 const Search = () => {
   const dispatch = useDispatch()
@@ -23,7 +27,9 @@ const Search = () => {
     dispatch(getStateValues({ name, value }))
   }
 
-  const handleClear = () => {}
+  const handleClear = () => {
+    dispatch(clearState())
+  }
 
   useEffect(() => {
     dispatch(getOrdersThunk(order))
@@ -105,5 +111,25 @@ const Search = () => {
   )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+  position: relative;
+  .clear-filter {
+    position: absolute;
+    top: 0;
+    right: 5%;
+  }
+  .limit-sort {
+    display: flex;
+    margin-bottom: 5px;
+    gap: 1rem;
+  }
+  .sort,
+  .limit {
+    select {
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
+`
 export default Search

@@ -19,7 +19,7 @@ const initialState = {
   // ======Single Order
   deleteId: '',
   updateId: '',
-  refreshData: '',
+  refreshData: false,
   isLoading: false,
 }
 
@@ -82,6 +82,22 @@ const orderSlice = createSlice({
     createFunction: (state, { payload }) => {
       console.log('function call')
     },
+    // clear state
+    clearState: (state, { payload }) => {
+      // Search
+      state.searchPhone = ''
+      state.searchEmail = ''
+      state.searchOrderId = ''
+      state.searchStripeId = ''
+      // pagination
+      state.page = 1
+      state.limit = 10
+      state.sort = '-createdAt'
+
+      // ======Single Order
+      state.deleteId = ''
+      state.updateId = ''
+    },
     // state value
     getStateValues: (state, { payload }) => {
       const { name, value } = payload
@@ -142,6 +158,6 @@ const orderSlice = createSlice({
     },
   },
 })
-export const { createFunction, getStateValues, next, prev, index } =
+export const { clearState, createFunction, getStateValues, next, prev, index } =
   orderSlice.actions
 export default orderSlice.reducer
