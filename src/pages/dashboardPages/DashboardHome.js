@@ -15,7 +15,7 @@ const DashboardHome = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getProductsThunk())
+    dispatch(getProductsThunk(product))
     dispatch(getOrdersThunk(order))
     dispatch(getContactThunk(contact))
     dispatch(getUsersThunk(user))
@@ -28,7 +28,7 @@ const DashboardHome = () => {
       {/* Product Card */}
       <DashboardTotalCard
         title={`Products`}
-        total={product.nbHits}
+        total={product.count}
         navigateLink={'/dashboard/products'}
       />
       {/* Order Card */}

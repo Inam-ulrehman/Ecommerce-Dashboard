@@ -14,7 +14,7 @@ const initialState = {
   searchCategory: '',
   searchSubCategory: '',
   searchProductId: '',
-  searchFeature: false,
+  searchFeature: '',
   // Pagination
   // pagination
   list: [],
@@ -22,9 +22,11 @@ const initialState = {
   limit: 10,
   count: '',
   sort: '-createdAt',
-  searchConfirmed: false,
   // uploadImage
   uploadImage: getImageFromLocalStorage('uploadImage') || [],
+
+  // single product
+  refreshData: '',
   // =========
   title: '',
   amount: '',
@@ -113,12 +115,14 @@ export const uploadProductThunk = createAsyncThunk(
     }
   }
 )
-// ========= Get products ========
+// ========= Get all products ========
 export const getProductsThunk = createAsyncThunk(
   'product/getProductsThunk',
-  async (query, thunkAPI) => {
+  async (state, thunkAPI) => {
     try {
-      const response = await customFetch.get('/products?sort=-createdAt')
+      const response = await customFetch.get(
+        `/products?title=${state?.searchTitle}&category=${state?.searchCategory}&subCategory=${state?.searchSubCategory}&_id=${state?.searchProductId}&feature=${state?.searchFeature}&sort=${state?.sort}&limit=${state?.limit}&page=${state?.page}`
+      )
       return response.data
     } catch (error) {
       console.log(error.response)
@@ -158,20 +162,26 @@ const productSlice = createSlice({
     getUploadProductAmount: (state, { payload }) => {
       state.amount = payload
     },
-    getProductDeleteId: (state, { payload }) => {
-      state.productDeleteId = payload
+    // clear state
+    clearState: (state, { payload }) => {
+      // Search
+      state.searchTitle = ''
+      state.searchCategory = ''
+      state.searchSubCategory = ''
+      state.searchProductId = ''
+      state.searchFeature = ''
+      // pagination
+      state.page = 1
+      state.limit = 10
+      state.sort = '-createdAt'
     },
+    // ========
     getStateValues: (state, { payload }) => {
       const { name, value } = payload
       state[name] = value
     },
-    resetPage: (state, { payload }) => {
-      state.page = 1
-    },
-    queryProducts: (state, { payload }) => {
-      state.productsList = payload.result
-      state.nbHits = payload.totalOrders
-    },
+
+    // pagination
     next: (state, { payload }) => {
       state.page = state.page + 1
     },
@@ -180,7 +190,6 @@ const productSlice = createSlice({
     },
     index: (state, { payload }) => {
       const index = Number(payload)
-
       state.page = index
     },
   },
@@ -258,7 +267,6 @@ const productSlice = createSlice({
       state.list = result
       state.count = totalOrders
       // delete this
-      state.productsList = result
       state.isLoading = false
     },
     [getProductsThunk.rejected]: (state, { payload }) => {
@@ -270,7 +278,7 @@ const productSlice = createSlice({
       state.isLoading = true
     },
     [deleteProductsThunk.fulfilled]: (state, { payload }) => {
-      state.getProducts = !state.getProducts
+      state.refreshData = !state.refreshData
       toast.success('product is deleted.')
       state.isLoading = false
     },
@@ -281,14 +289,12 @@ const productSlice = createSlice({
   },
 })
 export const {
-  resetPage,
-  queryProducts,
+  clearState,
   next,
   prev,
   index,
   createFunction,
   getStateValues,
-  getProductDeleteId,
   getUploadProductAmount,
 } = productSlice.actions
 export default productSlice.reducer

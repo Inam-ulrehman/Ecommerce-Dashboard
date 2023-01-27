@@ -3,24 +3,25 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
-  appointmentThunk,
   clearState,
+  getProductsThunk,
   getStateValues,
-} from '../../features/appointment/appointmentSlice'
+} from '../../features/products/productSlice'
 
 const Search = () => {
   const dispatch = useDispatch()
-  const { appointment } = useSelector((state) => state)
+  const { product } = useSelector((state) => state)
   const {
-    searchName,
-    searchEmail,
-    searchPhone,
-    searchDate,
+    searchTitle,
+    searchCategory,
+    searchSubCategory,
+    searchProductId,
+    searchFeature,
     sort,
     limit,
     page,
     refreshData,
-  } = appointment
+  } = product
 
   const handleChange = (e) => {
     const name = e.target.name
@@ -31,29 +32,42 @@ const Search = () => {
     dispatch(clearState())
   }
 
+  const handleFeature = () => {
+    const name = 'searchFeature'
+
+    if (searchFeature) {
+      dispatch(getStateValues({ name, value: '' }))
+    } else {
+      dispatch(getStateValues({ name, value: true }))
+    }
+  }
+
   useEffect(() => {
     dispatch(
-      appointmentThunk({
-        searchName,
-        searchEmail,
-        searchPhone,
+      getProductsThunk({
+        searchTitle,
+        searchCategory,
+        searchSubCategory,
+        searchProductId,
+        searchFeature,
         sort,
-        searchDate,
         limit,
         page,
+        refreshData,
       })
     )
 
     // eslint-disable-next-line
   }, [
-    searchName,
-    searchEmail,
-    searchPhone,
+    searchTitle,
+    searchCategory,
+    searchSubCategory,
+    searchProductId,
+    searchFeature,
     sort,
-    searchDate,
-    refreshData,
     limit,
     page,
+    refreshData,
   ])
 
   return (
@@ -74,50 +88,56 @@ const Search = () => {
           </div>
           <div className='sort'>
             <label htmlFor='sort'>Sort</label>
-            <select
-              name='sort'
-              id='sort'
-              value={appointment.sort}
-              onChange={handleChange}
-            >
+            <select name='sort' id='sort' value={sort} onChange={handleChange}>
               <option value='-createdAt'>SELECT OPTIONS</option>
               <option value='-createdAt'>DATE NEW</option>
               <option value='createdAt'>DATE OLD</option>
             </select>
           </div>
-          <div className='feature'></div>
+          <div className='feature'>
+            <button
+              className={searchFeature === '' ? null : 'btn'}
+              onClick={handleFeature}
+            >
+              Feature
+            </button>
+          </div>
         </div>
         {/* ============box divided */}
         <div className='search'>
+          {/* title */}
           <input
             type='text'
-            name='searchName'
-            placeholder='Name'
-            value={searchName}
+            name='searchTitle'
+            placeholder='Title'
+            value={searchTitle}
             onChange={handleChange}
           />
+          {/* category */}
           <input
-            type='email'
-            name='searchEmail'
-            placeholder='Email'
-            value={searchEmail}
+            type='text'
+            name='searchCategory'
+            placeholder='Category'
+            value={searchCategory}
             onChange={handleChange}
           />
 
-          {/* phone */}
+          {/* SubCategory */}
 
           <input
-            type='number'
-            placeholder='Phone'
-            name='searchPhone'
-            value={searchPhone}
+            type='text'
+            placeholder='SubCategory'
+            name='searchSubCategory'
+            value={searchSubCategory}
             onChange={handleChange}
           />
-          {/* date */}
+          {/* ProductId */}
+
           <input
-            type='date'
-            name='searchDate'
-            value={searchDate}
+            type='text'
+            placeholder='Product Id'
+            name='searchProductId'
+            value={searchProductId}
             onChange={handleChange}
           />
         </div>
@@ -154,7 +174,7 @@ const Wrapper = styled.div`
     transition: var(--transition);
     :hover {
       cursor: pointer;
-      background-color: var(--primary-5);
+      background-color: var(--primary-6);
       color: var(--white);
     }
   }

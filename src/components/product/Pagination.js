@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import { index, next, prev } from '../../features/products/productSlice'
 import PaginationHook from '../../hooks/PaginationHook'
 
-const ServerPagination = () => {
-  const { page, nbHits: count, limit } = useSelector((state) => state.product)
+const Pagination = () => {
+  const { page, count, limit } = useSelector((state) => state.product)
 
   return (
     <Wrapper className='title'>
@@ -25,4 +25,4 @@ const Wrapper = styled.div`
     background-color: var(--primary-8);
   }
 `
-export default ServerPagination
+export default Pagination
