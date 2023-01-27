@@ -34,7 +34,6 @@ const Search = () => {
 
   const handleFeature = () => {
     const name = 'searchFeature'
-
     if (searchFeature) {
       dispatch(getStateValues({ name, value: '' }))
     } else {
