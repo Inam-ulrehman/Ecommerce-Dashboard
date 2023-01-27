@@ -1,16 +1,16 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import HeadingWrapper from '../../Wrapper/HeadingWrapper'
 
 const Heading = () => {
   const { count, page } = useSelector((state) => state.order)
   return (
-    <Wrapper className='container-heading'>
+    <HeadingWrapper className='container-heading'>
       <Link className='btn' to={'register'}>
         New Order
       </Link>
-
+      <span></span>
       <span>
         Total Results:
         <strong> {count}</strong>
@@ -18,16 +18,8 @@ const Heading = () => {
       <span>
         Page No:<strong>{page}</strong>
       </span>
-    </Wrapper>
+    </HeadingWrapper>
   )
 }
-const Wrapper = styled.div`
-  .container-heading {
-    display: flex;
-    justify-content: space-between;
-    span {
-      padding: 0 2rem;
-    }
-  }
-`
+
 export default Heading
