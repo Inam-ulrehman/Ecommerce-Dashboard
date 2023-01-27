@@ -139,7 +139,7 @@ const orderSlice = createSlice({
       state.isLoading = false
     },
     [getOrdersThunk.rejected]: (state, { payload }) => {
-      toast.error(`${payload?.msg ? payload.msg : payload}`)
+      state.list = []
 
       state.isLoading = false
     },
