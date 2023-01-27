@@ -12,7 +12,7 @@ const Orders = () => {
     <Wrapper>
       <div className='container-heading'>
         <Link className='btn' to={'register'}>
-          Register New Order
+          New Order
         </Link>
 
         <span>

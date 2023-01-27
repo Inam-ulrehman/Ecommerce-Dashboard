@@ -10,7 +10,7 @@ const Users = () => {
     <Wrapper>
       <div className='container-heading'>
         <Link className='btn' to={'register'}>
-          Register New User
+          New User
         </Link>
 
         <span>

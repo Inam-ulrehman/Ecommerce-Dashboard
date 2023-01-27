@@ -1,5 +1,4 @@
 import { React, useEffect } from 'react'
-import { Helmet } from 'react-helmet-async'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -17,7 +16,7 @@ const Products = () => {
   const dispatch = useDispatch()
   const { product } = useSelector((state) => state)
 
-  const { isLoading, productsList, nbHits, getProducts, page } = product
+  const { productsList, getProducts, page, count } = product
 
   const handleDelete = (_id) => {
     dispatch(showProductWarning())
@@ -28,30 +27,22 @@ const Products = () => {
     dispatch(getProductsThunk())
     // eslint-disable-next-line
   }, [getProducts])
-  if (isLoading) {
-    return (
-      <div>
-        <h1>Loading...</h1>
-        <div className='loading'></div>
-      </div>
-    )
-  }
+
   return (
     <Wrapper>
-      <Helmet>
-        <title>Product</title>
-        <meta name='description' content='Welcome to our Product Page.' />
-        <link rel='canonical' href='/product' />
-      </Helmet>
-      <div className='span'>
+      <div className='container-heading'>
+        <Link className='btn' to={'register'}>
+          New Product
+        </Link>
+
         <span>
-          Total Products: <strong>{nbHits}</strong>
+          Total Results:
+          <strong> {count}</strong>
         </span>
         <span>
-          Page No: <strong>{page}</strong>
+          Page No:<strong>{page}</strong>
         </span>
       </div>
-      {/* Search */}
       <Search />
       <table>
         <tbody>
@@ -103,27 +94,16 @@ const Products = () => {
   )
 }
 const Wrapper = styled.div`
-  .span {
+  .container-heading {
     display: flex;
     justify-content: space-between;
-    margin: 0 2rem;
+    span {
+      padding: 0 2rem;
+    }
   }
-  text-align: center;
   .image-holder {
-    max-width: 150px;
-  }
-  img {
-    width: 100px;
-  }
-
-  td {
-    text-transform: capitalize;
-  }
-  .buttons {
-    width: 160px;
-    a {
-      padding: 1px 10px;
-      margin-right: 5px;
+    img {
+      max-width: 70px;
     }
   }
 `

@@ -26,8 +26,8 @@ export const DashboardSidebarNav = [
   },
   {
     id: 2,
-    path: '/dashboard/contact',
-    title: 'Contact Form',
+    path: '/dashboard/appointment',
+    title: 'Appointments',
     icon: <FaRegAddressBook />,
   },
   {
@@ -44,8 +44,8 @@ export const DashboardSidebarNav = [
   },
   {
     id: 5,
-    path: '/dashboard/appointment',
-    title: 'Appointments',
+    path: '/dashboard/contact',
+    title: 'Contact Form',
     icon: <FaRegAddressBook />,
   },
 ]

@@ -9,20 +9,33 @@ import {
 } from '../../utils/localStorage'
 
 const initialState = {
+  // Search
+  searchTitle: '',
+  searchCategory: '',
+  searchSubCategory: '',
+  searchProductId: '',
+  searchFeature: false,
+  // Pagination
+  // pagination
+  list: [],
+  page: 1,
+  limit: 10,
+  count: '',
+  sort: '-createdAt',
+  searchConfirmed: false,
+  // uploadImage
+  uploadImage: getImageFromLocalStorage('uploadImage') || [],
+  // =========
   title: '',
   amount: '',
   category: '',
   subCategory: '',
-  page: 1,
-  limit: 10,
   inStock: true,
-  feature: false,
+
   totalStock: 10,
   value: [],
-  uploadImage: getImageFromLocalStorage('uploadImage') || [],
   description: '',
   productsList: [],
-  nbHits: '',
   productDeleteId: '',
   getProducts: false,
   isLoading: false,
@@ -236,14 +249,16 @@ const productSlice = createSlice({
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
-    // ====== Get Products ======
+    // ====== Get All Products ======
     [getProductsThunk.pending]: (state, { payload }) => {
       state.isLoading = true
     },
     [getProductsThunk.fulfilled]: (state, { payload }) => {
       const { totalOrders, result } = payload
+      state.list = result
+      state.count = totalOrders
+      // delete this
       state.productsList = result
-      state.nbHits = totalOrders
       state.isLoading = false
     },
     [getProductsThunk.rejected]: (state, { payload }) => {

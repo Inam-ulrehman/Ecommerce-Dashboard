@@ -1,78 +1,67 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { useState } from 'react'
-import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
+  appointmentThunk,
+  clearState,
   getStateValues,
-  queryProducts,
-  resetPage,
-} from '../../features/products/productSlice'
-import { customFetch } from '../../utils/axios'
+} from '../../features/appointment/appointmentSlice'
 
 const Search = () => {
-  const [feature, setFeature] = useState()
   const dispatch = useDispatch()
-  const { product } = useSelector((state) => state)
-  const titleRef = useRef()
-  const categoryRef = useRef()
-  const subCategoryRef = useRef()
-  const _idRef = useRef()
-  const sortRef = useRef()
-  const title = titleRef?.current?.value
-  const category = categoryRef?.current?.value
-  const subCategory = subCategoryRef?.current?.value
-  const _id = _idRef?.current?.value
-  const sort = sortRef?.current?.value
-
-  // =========handle Submit========
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    console.log('hello')
-    try {
-      const response = await customFetch.get(
-        `/products?title=${title}&category=${category}&subCategory=${subCategory}&_id=${_id}&feature=${feature}&limit=${product.limit}&sort=${sort}&page=${product.page}`
-      )
-      console.log(response.data)
-      dispatch(resetPage())
-      dispatch(queryProducts(response.data))
-    } catch (error) {
-      console.log(error.response)
-    }
-  }
-  // =========handle NextPage============
-  const nextPage = async (e) => {
-    try {
-      const response = await customFetch.get(
-        `/products?title=${title}&category=${category}&subCategory=${subCategory}&_id=${_id}&feature=${feature}&limit=${product.limit}&sort=${sort}&page=${product.page}`
-      )
-
-      dispatch(queryProducts(response.data))
-    } catch (error) {}
-  }
-
-  const handleClear = () => {
-    window.location.reload()
-  }
+  const { appointment } = useSelector((state) => state)
+  const {
+    searchName,
+    searchEmail,
+    searchPhone,
+    searchDate,
+    sort,
+    limit,
+    page,
+    refreshData,
+  } = appointment
 
   const handleChange = (e) => {
     const name = e.target.name
     const value = e.target.value
     dispatch(getStateValues({ name, value }))
   }
+  const handleClear = () => {
+    dispatch(clearState())
+  }
 
   useEffect(() => {
-    nextPage()
-    window.scrollTo({ top: 0, left: 0 })
+    dispatch(
+      appointmentThunk({
+        searchName,
+        searchEmail,
+        searchPhone,
+        sort,
+        searchDate,
+        limit,
+        page,
+      })
+    )
+
     // eslint-disable-next-line
-  }, [product.page])
+  }, [
+    searchName,
+    searchEmail,
+    searchPhone,
+    sort,
+    searchDate,
+    refreshData,
+    limit,
+    page,
+  ])
+
   return (
     <Wrapper className='container'>
       <button className='btn clear-filter' type='button' onClick={handleClear}>
         Clear Filter
       </button>
-      <form onSubmit={handleSubmit}>
+      <div>
         <div className='limit-sort'>
           <div className='limit'>
             <label htmlFor='limit'>Limit</label>
@@ -85,37 +74,54 @@ const Search = () => {
           </div>
           <div className='sort'>
             <label htmlFor='sort'>Sort</label>
-            <select name='sort' id='sort' ref={sortRef}>
+            <select
+              name='sort'
+              id='sort'
+              value={appointment.sort}
+              onChange={handleChange}
+            >
               <option value='-createdAt'>SELECT OPTIONS</option>
               <option value='-createdAt'>DATE NEW</option>
               <option value='createdAt'>DATE OLD</option>
-              <option value='-amount'>PRICE HIGH</option>
-              <option value='amount'>PRICE LOW</option>
-              <option value='title'>NAME A-Z</option>
-              <option value='-title'>NAME Z-A</option>
             </select>
           </div>
-          <div className='feature'>
-            <button
-              type='button'
-              className={feature ? 'btn' : ''}
-              onClick={() => setFeature(true)}
-            >
-              Feature
-            </button>
-          </div>
+          <div className='feature'></div>
         </div>
         {/* ============box divided */}
         <div className='search'>
-          <input type='text' ref={titleRef} placeholder='Title' />
-          <input type='text' ref={categoryRef} placeholder='Category' />
-          <input type='text' ref={subCategoryRef} placeholder='SubCategory' />
-          <input type='text' ref={_idRef} placeholder='id' />
-          <button className='btn' type='submit'>
-            Search
-          </button>
+          <input
+            type='text'
+            name='searchName'
+            placeholder='Name'
+            value={searchName}
+            onChange={handleChange}
+          />
+          <input
+            type='email'
+            name='searchEmail'
+            placeholder='Email'
+            value={searchEmail}
+            onChange={handleChange}
+          />
+
+          {/* phone */}
+
+          <input
+            type='number'
+            placeholder='Phone'
+            name='searchPhone'
+            value={searchPhone}
+            onChange={handleChange}
+          />
+          {/* date */}
+          <input
+            type='date'
+            name='searchDate'
+            value={searchDate}
+            onChange={handleChange}
+          />
         </div>
-      </form>
+      </div>
     </Wrapper>
   )
 }
