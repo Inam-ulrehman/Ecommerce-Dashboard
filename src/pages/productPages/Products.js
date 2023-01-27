@@ -13,7 +13,7 @@ const Products = () => {
   return (
     <Wrapper>
       <div className='container-heading'>
-        <Link className='btn' to={'register'}>
+        <Link className='btn' to={'/dashboard/upload'}>
           New Product
         </Link>
         <span>
