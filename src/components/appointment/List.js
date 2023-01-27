@@ -2,13 +2,15 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../utils/helper'
-import styled from 'styled-components'
+import { FiEdit } from 'react-icons/fi'
+import { RiDeleteBack2Line } from 'react-icons/ri'
 import {
   deleteAppointmentThunk,
   getStateValues,
 } from '../../features/appointment/appointmentSlice'
 import Warning from '../Warning'
 import { showWarning } from '../../features/functions/functionSlice'
+import ListWrapper from '../../Wrapper/dashboard/ListWrapper'
 
 const List = () => {
   const dispatch = useDispatch()
@@ -30,7 +32,7 @@ const List = () => {
     )
   }
   return (
-    <Wrapper>
+    <ListWrapper>
       {/* Show warning  */}
       {warningHolder.warning && (
         <Warning
@@ -60,13 +62,13 @@ const List = () => {
                 <td>{formatDate(item.date.split('T')[0])}</td>
                 <td>
                   <Link className='btn' to={`${item._id}`}>
-                    Edit
+                    <FiEdit />
                   </Link>
                   <button
                     onClick={() => handleDelete(item._id)}
                     className='btn'
                   >
-                    Delete
+                    <RiDeleteBack2Line />
                   </button>
                 </td>
               </tr>
@@ -74,14 +76,8 @@ const List = () => {
           })}
         </tbody>
       </table>
-    </Wrapper>
+    </ListWrapper>
   )
 }
-
-const Wrapper = styled.div`
-  table {
-    text-align: center;
-  }
-`
 
 export default List
