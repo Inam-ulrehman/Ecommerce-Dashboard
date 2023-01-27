@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import HeadingWrapper from '../../Wrapper/HeadingWrapper'
 
 const Heading = () => {
-  const { count, page } = useSelector((state) => state.product)
+  const { count, page } = useSelector((state) => state.user)
   return (
     <HeadingWrapper className='container-heading'>
       <Link className='btn' to={'/dashboard/upload'}>

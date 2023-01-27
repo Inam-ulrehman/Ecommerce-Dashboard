@@ -1,26 +1,11 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { List, Pagination, Search } from '../../components/user'
+import { Heading, List, Pagination, Search } from '../../components/user'
 
 const Users = () => {
-  const { count, page } = useSelector((state) => state.user)
   return (
     <Wrapper>
-      <div className='container-heading'>
-        <Link className='btn' to={'register'}>
-          New User
-        </Link>
-
-        <span>
-          Total Result:
-          <strong>{count}</strong>
-        </span>
-        <span>
-          Page No:<strong>{page}</strong>
-        </span>
-      </div>
+      <Heading />
       <Search />
       <List />
       <Pagination />
@@ -28,13 +13,5 @@ const Users = () => {
   )
 }
 
-const Wrapper = styled.div`
-  .container-heading {
-    display: flex;
-    justify-content: space-between;
-    span {
-      padding: 0 2rem;
-    }
-  }
-`
+const Wrapper = styled.div``
 export default Users
