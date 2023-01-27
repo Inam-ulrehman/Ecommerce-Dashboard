@@ -46,7 +46,6 @@ const List = () => {
             <th>Actions</th>
           </tr>
           {order.list?.map((item) => {
-            console.log(item)
             return (
               <tr key={item._id}>
                 <td className='image-holder'>
