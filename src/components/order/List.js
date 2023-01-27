@@ -22,14 +22,6 @@ const List = () => {
     dispatch(showWarning())
   }
 
-  if (order.isLoading) {
-    return (
-      <div>
-        <h1 className='title'>Loading...</h1>
-        <div className='loading'></div>
-      </div>
-    )
-  }
   return (
     <Wrapper>
       {/* Show warning  */}

@@ -140,6 +140,7 @@ const orderSlice = createSlice({
     },
     [getOrdersThunk.rejected]: (state, { payload }) => {
       state.list = []
+      state.count = 0
 
       state.isLoading = false
     },
