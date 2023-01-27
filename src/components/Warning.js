@@ -13,7 +13,7 @@ const Warning = ({ action }) => {
     <Wrapper>
       <div className='background'></div>
       <div className='container'>
-        <p>This is your action are you sure ?</p>
+        <p>Are you sure about your action ?</p>
         <div className='button'>
           <button onClick={() => dispatch(hideWarning())} className='btn'>
             No

@@ -58,7 +58,9 @@ const List = () => {
               <tr key={item._id}>
                 <td>
                   {item.cart.map((item) => (
-                    <img src={item.uploadImage[0].secure_url} alt='' />
+                    <div>
+                      <img src={item.uploadImage[0].secure_url} alt='' />
+                    </div>
                   ))}
                 </td>
                 <td>

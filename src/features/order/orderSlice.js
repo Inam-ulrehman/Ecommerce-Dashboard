@@ -133,7 +133,7 @@ const orderSlice = createSlice({
     },
     [deleteSingleOrderThunk.fulfilled]: (state, { payload }) => {
       toast.success('Order deleted.')
-      state.getOrders = !state.getOrders
+      state.refreshData = !state.refreshData
       state.isLoading = false
     },
     [deleteSingleOrderThunk.rejected]: (state, { payload }) => {
