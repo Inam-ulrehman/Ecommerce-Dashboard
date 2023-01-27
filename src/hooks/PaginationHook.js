@@ -42,10 +42,6 @@ const PaginationHook = ({ page, count, limit, next, prev, index }) => {
           <button className='btn' onClick={handleIndex} value={1}>
             1
           </button>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
         </>
       )}
 
@@ -66,10 +62,6 @@ const PaginationHook = ({ page, count, limit, next, prev, index }) => {
         .slice(page - 1, page + 4)}
       {page !== pagesArray.length && (
         <>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
           <button
             className='btn'
             onClick={handleIndex}
