@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
+import { FiEdit } from 'react-icons/fi'
+import { RiDeleteBack2Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import { customFetch } from '../../../utils/axios'
 import { getUserFromLocalStorage } from '../../../utils/localStorage'
+import ListWrapper from '../../../Wrapper/dashboard/ListWrapper'
 import FormInput from '../../FormInput'
 
 const initialState = {
@@ -69,8 +72,8 @@ const Slots = () => {
   return (
     <Wrapper>
       <div className='create-slot'>
+        <div className='title'>Add a slot.</div>
         <form className='form' onSubmit={handleSubmit}>
-          <div className='title'>Add a slot.</div>
           {/* startTime */}
           <FormInput
             name='startTime'
@@ -90,39 +93,39 @@ const Slots = () => {
         </form>
       </div>
       <div className='slots-container'>
-        <span>
-          List of your slots. Total:<strong>{state.count}</strong>
-        </span>
-        <table>
-          <tbody>
-            <tr>
-              <td>Start Time</td>
-              <td>End Time</td>
-              <td>Status</td>
-              <td>Actions</td>
-            </tr>
-            {state?.slots?.map((item) => {
-              return (
-                <tr key={item._id}>
-                  <td>{item.startTime}</td>
-                  <td>{item.endTime}</td>
-                  <td>{item.available ? 'Available' : 'Not-Available'}</td>
-                  <td className='btn-holder'>
-                    <Link to={`${item._id}`} className='btn'>
-                      Edit
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(item._id)}
-                      className='btn'
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+        {/* ==========table below============ */}
+        <ListWrapper>
+          <table>
+            <tbody>
+              <tr>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+              {state?.slots?.map((item) => {
+                return (
+                  <tr key={item._id}>
+                    <td>{item.startTime}</td>
+                    <td>{item.endTime}</td>
+                    <td>{item.available ? 'Available' : 'Not-Available'}</td>
+                    <td className='btn-holder'>
+                      <Link to={`${item._id}`} className='btn'>
+                        <FiEdit />
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(item._id)}
+                        className='btn'
+                      >
+                        <RiDeleteBack2Line />
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </ListWrapper>
       </div>
     </Wrapper>
   )
@@ -133,12 +136,18 @@ const Wrapper = styled.div`
   }
   .btn-holder {
     width: 160px;
-    button {
-      margin: 5px;
-      height: 40px;
+  }
+  form {
+    margin: 0 auto;
+    justify-content: center;
+    min-width: 80vw;
+    display: flex;
+    div {
+      margin: 1rem;
     }
-    a {
-      height: 40px;
+    .btn {
+      margin-top: 3rem;
+      height: 2rem;
     }
   }
 `
