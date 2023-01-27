@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { formatDate } from '../../utils/helper'
+import { formatDate, formatPrice } from '../../utils/helper'
 import { FiEdit } from 'react-icons/fi'
 import { RiDeleteBack2Line } from 'react-icons/ri'
 import Warning from '../Warning'
@@ -97,7 +97,7 @@ const List = () => {
                   ))}
                 </td>
                 <td>{item.redirect_status}</td>
-                <td>{item.total}</td>
+                <td>{formatPrice(item.total)}</td>
                 <td>{item.shipment ? `completed` : `Processing`}</td>
                 <td>{formatDate(item.date)}</td>
                 <td>
