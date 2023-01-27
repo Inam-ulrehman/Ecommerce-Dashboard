@@ -2,14 +2,15 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../utils/helper'
-import styled from 'styled-components'
-
+import { FiEdit } from 'react-icons/fi'
+import { RiDeleteBack2Line } from 'react-icons/ri'
 import Warning from '../Warning'
 import { showWarning } from '../../features/functions/functionSlice'
 import {
   deleteSingleOrderThunk,
   getStateValues,
 } from '../../features/order/orderSlice'
+import ListWrapper from '../../Wrapper/dashboard/ListWrapper'
 
 const List = () => {
   const dispatch = useDispatch()
@@ -23,7 +24,7 @@ const List = () => {
   }
 
   return (
-    <Wrapper>
+    <ListWrapper>
       {/* Show warning  */}
       {warningHolder.warning && (
         <Warning
@@ -48,26 +49,51 @@ const List = () => {
             console.log(item)
             return (
               <tr key={item._id}>
+                <td className='image-holder'>
+                  {item.cart.map((item) => (
+                    <img src={item.uploadImage[0].secure_url} alt='' />
+                  ))}
+                </td>
                 <td>
                   {item.cart.map((item) => (
-                    <div>
-                      <img src={item.uploadImage[0].secure_url} alt='' />
+                    <div
+                      style={{
+                        height: '105px',
+                        display: 'grid',
+                        alignItems: `center`,
+                        borderBottom: '2px solid var(--grey-3)',
+                      }}
+                    >
+                      {item.title}
                     </div>
                   ))}
                 </td>
                 <td>
                   {item.cart.map((item) => (
-                    <div>{item.title}</div>
+                    <div
+                      style={{
+                        height: '105px',
+                        display: 'grid',
+                        alignItems: `center`,
+                        borderBottom: '2px solid var(--grey-3)',
+                      }}
+                    >
+                      {item.quantity}
+                    </div>
                   ))}
                 </td>
                 <td>
                   {item.cart.map((item) => (
-                    <div>{item.quantity}</div>
-                  ))}
-                </td>
-                <td>
-                  {item.cart.map((item) => (
-                    <div>{item.totalStock}</div>
+                    <div
+                      style={{
+                        height: '105px',
+                        display: 'grid',
+                        alignItems: `center`,
+                        borderBottom: '2px solid var(--grey-3)',
+                      }}
+                    >
+                      {item.totalStock}
+                    </div>
                   ))}
                 </td>
                 <td>{item.redirect_status}</td>
@@ -76,13 +102,13 @@ const List = () => {
                 <td>{formatDate(item.date)}</td>
                 <td>
                   <Link className='btn' to={`${item._id}`}>
-                    Edit
+                    <FiEdit />
                   </Link>
                   <button
                     onClick={() => handleDelete(item._id)}
                     className='btn'
                   >
-                    Delete
+                    <RiDeleteBack2Line />
                   </button>
                 </td>
               </tr>
@@ -90,17 +116,8 @@ const List = () => {
           })}
         </tbody>
       </table>
-    </Wrapper>
+    </ListWrapper>
   )
 }
-
-const Wrapper = styled.div`
-  table {
-    text-align: center;
-    img {
-      max-width: 70px;
-    }
-  }
-`
 
 export default List

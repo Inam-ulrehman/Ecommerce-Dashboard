@@ -2,7 +2,8 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../utils/helper'
-import styled from 'styled-components'
+import { FiEdit } from 'react-icons/fi'
+import ListWrapper from '../../Wrapper/dashboard/ListWrapper'
 
 const List = () => {
   const { user } = useSelector((state) => state)
@@ -15,7 +16,7 @@ const List = () => {
     )
   }
   return (
-    <Wrapper>
+    <ListWrapper>
       {/* show table */}
       <table>
         <tbody>
@@ -39,7 +40,7 @@ const List = () => {
                 <td>{formatDate(item.createdAt)}</td>
                 <td>
                   <Link className='btn' to={item._id}>
-                    More Details
+                    <FiEdit />
                   </Link>
                 </td>
               </tr>
@@ -47,14 +48,8 @@ const List = () => {
           })}
         </tbody>
       </table>
-    </Wrapper>
+    </ListWrapper>
   )
 }
-
-const Wrapper = styled.div`
-  table {
-    text-align: center;
-  }
-`
 
 export default List

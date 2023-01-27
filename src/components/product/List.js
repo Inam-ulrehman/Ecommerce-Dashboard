@@ -2,7 +2,6 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { formatDate, formatPrice } from '../../utils/helper'
-import styled from 'styled-components'
 import { FiEdit } from 'react-icons/fi'
 import { RiDeleteBack2Line } from 'react-icons/ri'
 import Warning from '../Warning'
@@ -11,6 +10,7 @@ import {
   deleteProductsThunk,
   getStateValues,
 } from '../../features/products/productSlice'
+import ListWrapper from '../../Wrapper/dashboard/ListWrapper'
 
 const List = () => {
   const dispatch = useDispatch()
@@ -32,7 +32,7 @@ const List = () => {
     )
   }
   return (
-    <Wrapper>
+    <ListWrapper>
       {/* Show warning  */}
       {warningHolder.warning && (
         <Warning
@@ -83,42 +83,8 @@ const List = () => {
           })}
         </tbody>
       </table>
-    </Wrapper>
+    </ListWrapper>
   )
 }
-
-const Wrapper = styled.div`
-  table {
-    text-align: center;
-    tbody {
-      .btn {
-        height: 40px;
-        margin: 5px;
-      }
-      tr {
-        .image-holder {
-          width: 100px;
-
-          img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 105px;
-          }
-        }
-        th {
-          text-transform: capitalize;
-          box-shadow: var(--shadow-3);
-          border: 2px solid var(--grey-5);
-          background-color: var(--grey-2);
-        }
-        td {
-          border: 2px solid var(--grey-5);
-          background-color: var(--grey-1);
-        }
-      }
-    }
-  }
-`
 
 export default List
