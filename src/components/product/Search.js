@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { BiSearchAlt2 } from 'react-icons/bi'
 import {
   clearState,
   getProductsThunk,
@@ -105,40 +106,51 @@ const Search = () => {
         {/* ============box divided */}
         <div className='search'>
           {/* title */}
-          <input
-            type='text'
-            name='searchTitle'
-            placeholder='Title'
-            value={searchTitle}
-            onChange={handleChange}
-          />
+          <div>
+            <input
+              type='text'
+              name='searchTitle'
+              placeholder='Title'
+              value={searchTitle}
+              onChange={handleChange}
+            />
+            <BiSearchAlt2 />
+          </div>
           {/* category */}
-          <input
-            type='text'
-            name='searchCategory'
-            placeholder='Category'
-            value={searchCategory}
-            onChange={handleChange}
-          />
+          <div>
+            <input
+              type='text'
+              name='searchCategory'
+              placeholder='Category'
+              value={searchCategory}
+              onChange={handleChange}
+            />
+            <BiSearchAlt2 />
+          </div>
 
           {/* SubCategory */}
+          <div>
+            <input
+              type='text'
+              placeholder='SubCategory'
+              name='searchSubCategory'
+              value={searchSubCategory}
+              onChange={handleChange}
+            />
+            <BiSearchAlt2 />
+          </div>
 
-          <input
-            type='text'
-            placeholder='SubCategory'
-            name='searchSubCategory'
-            value={searchSubCategory}
-            onChange={handleChange}
-          />
           {/* ProductId */}
-
-          <input
-            type='text'
-            placeholder='Product Id'
-            name='searchProductId'
-            value={searchProductId}
-            onChange={handleChange}
-          />
+          <div>
+            <input
+              type='text'
+              placeholder='Product Id'
+              name='searchProductId'
+              value={searchProductId}
+              onChange={handleChange}
+            />
+            <BiSearchAlt2 />
+          </div>
         </div>
       </div>
     </Wrapper>
@@ -161,16 +173,17 @@ const Wrapper = styled.div`
       margin: 0 1rem;
     }
     label {
-      margin: 0 5px;
+      padding: 5px;
     }
     select {
       border: transparent;
       background: var(--primary-5);
       color: var(--white);
       transition: var(--transition-1);
-      padding: 0 5px;
+      padding: 3.5px;
       :hover {
         cursor: pointer;
+        background-color: var(--primary-7);
       }
     }
     option {
@@ -184,6 +197,32 @@ const Wrapper = styled.div`
     }
     .active {
       background-color: var(--primary-7);
+    }
+  }
+  /* Input css here */
+
+  .search {
+    padding: 5px;
+    display: flex;
+    div {
+      display: flex;
+      border: 2px solid var(--grey-2);
+      margin-right: 2rem;
+      justify-content: center;
+
+      svg {
+        margin-top: 3px;
+        font-size: 1.2rem;
+        margin-right: 5px;
+      }
+      input {
+        padding: 3px;
+        background: transparent;
+        border: transparent;
+        :hover {
+          cursor: pointer;
+        }
+      }
     }
   }
 `

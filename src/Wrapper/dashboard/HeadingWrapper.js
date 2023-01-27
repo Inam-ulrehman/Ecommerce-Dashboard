@@ -8,8 +8,8 @@ const HeadingWrapper = styled.div`
     padding: 0 5px;
     border-radius: 0;
   }
+  border-bottom: 2px solid var(--grey-5);
 
-  border-bottom: 2px solid black;
   clear: auto;
   display: flex;
   justify-content: space-between;
