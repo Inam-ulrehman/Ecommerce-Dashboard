@@ -7,8 +7,8 @@ const Heading = () => {
   const { count, page } = useSelector((state) => state.user)
   return (
     <HeadingWrapper className='container-heading'>
-      <Link className='btn' to={'/dashboard/upload'}>
-        New Product
+      <Link className='btn' to={'register'}>
+        New User
       </Link>
       <span></span>
       <span>
