@@ -1,12 +1,13 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
+import { BiSearchAlt2 } from 'react-icons/bi'
 import {
   appointmentThunk,
   clearState,
   getStateValues,
 } from '../../features/appointment/appointmentSlice'
+import SearchWrapper from '../../Wrapper/dashboard/SearchWrapper'
 
 const Search = () => {
   const dispatch = useDispatch()
@@ -57,11 +58,11 @@ const Search = () => {
   ])
 
   return (
-    <Wrapper className='container'>
+    <SearchWrapper SearchWrapper className='container'>
       <button className='btn clear-filter' type='button' onClick={handleClear}>
         Clear Filter
       </button>
-      <div>
+      <div className='limit-sort-input'>
         <div className='limit-sort'>
           <div className='limit'>
             <label htmlFor='limit'>Limit</label>
@@ -89,74 +90,55 @@ const Search = () => {
         </div>
         {/* ============box divided */}
         <div className='search'>
-          <input
-            type='text'
-            name='searchName'
-            placeholder='Name'
-            value={searchName}
-            onChange={handleChange}
-          />
-          <input
-            type='email'
-            name='searchEmail'
-            placeholder='Email'
-            value={searchEmail}
-            onChange={handleChange}
-          />
+          {/* name */}
+          <div>
+            <input
+              type='text'
+              name='searchName'
+              placeholder='Name'
+              value={searchName}
+              onChange={handleChange}
+            />
+            <BiSearchAlt2 />
+          </div>
+
+          {/* email */}
+          <div>
+            <input
+              type='email'
+              name='searchEmail'
+              placeholder='Email'
+              value={searchEmail}
+              onChange={handleChange}
+            />
+            <BiSearchAlt2 />
+          </div>
 
           {/* phone */}
+          <div>
+            <input
+              type='number'
+              placeholder='Phone'
+              name='searchPhone'
+              value={searchPhone}
+              onChange={handleChange}
+            />
+            <BiSearchAlt2 />
+          </div>
 
-          <input
-            type='number'
-            placeholder='Phone'
-            name='searchPhone'
-            value={searchPhone}
-            onChange={handleChange}
-          />
           {/* date */}
-          <input
-            type='date'
-            name='searchDate'
-            value={searchDate}
-            onChange={handleChange}
-          />
+          <div>
+            <input
+              type='date'
+              name='searchDate'
+              value={searchDate}
+              onChange={handleChange}
+            />
+          </div>
         </div>
       </div>
-    </Wrapper>
+    </SearchWrapper>
   )
 }
-const Wrapper = styled.div`
-  position: relative;
-  .clear-filter {
-    position: absolute;
-    top: 0;
-    right: 5%;
-  }
-  .limit-sort {
-    display: flex;
-    margin-bottom: 5px;
-    gap: 1rem;
-  }
-  .sort,
-  .limit {
-    select {
-      :hover {
-        cursor: pointer;
-      }
-    }
-  }
 
-  button {
-    border: transparent;
-
-    box-shadow: var(--shadow-1);
-    padding: 4px;
-    transition: var(--transition);
-    :hover {
-      cursor: pointer;
-      background-color: var(--primary-5);
-      color: var(--white);
-    }
-  }
-`
 export default Search

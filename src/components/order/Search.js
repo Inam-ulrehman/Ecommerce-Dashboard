@@ -1,12 +1,13 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
+import { BiSearchAlt2 } from 'react-icons/bi'
 import {
   clearState,
   getOrdersThunk,
   getStateValues,
 } from '../../features/order/orderSlice'
+import SearchWrapper from '../../Wrapper/dashboard/SearchWrapper'
 
 const Search = () => {
   const dispatch = useDispatch()
@@ -45,11 +46,11 @@ const Search = () => {
     searchStripeId,
   ])
   return (
-    <Wrapper className='container'>
+    <SearchWrapper className='container'>
       <button className='btn clear-filter' type='button' onClick={handleClear}>
         Clear Filter
       </button>
-      <div>
+      <div className='limit-sort-input'>
         <div className='limit-sort'>
           <div className='limit'>
             <label htmlFor='limit'>Limit</label>
@@ -73,63 +74,56 @@ const Search = () => {
         {/* ============box divided */}
         <div className='search'>
           {/* phone */}
+          <div>
+            <input
+              type='number'
+              placeholder='Phone'
+              name='searchPhone'
+              value={searchPhone}
+              onChange={handleChange}
+            />
+            <BiSearchAlt2 />
+          </div>
 
-          <input
-            type='number'
-            placeholder='Phone'
-            name='searchPhone'
-            value={searchPhone}
-            onChange={handleChange}
-          />
           {/* email */}
-          <input
-            type='email'
-            name='searchEmail'
-            placeholder='Email'
-            value={searchEmail}
-            onChange={handleChange}
-          />
+          <div>
+            <input
+              type='email'
+              name='searchEmail'
+              placeholder='Email'
+              value={searchEmail}
+              onChange={handleChange}
+            />
+            <BiSearchAlt2 />
+          </div>
+
           {/* Order Id */}
-          <input
-            type='text'
-            name='searchOrderId'
-            placeholder='Order Id'
-            value={searchOrderId}
-            onChange={handleChange}
-          />
+          <div>
+            <input
+              type='text'
+              name='searchOrderId'
+              placeholder='Order Id'
+              value={searchOrderId}
+              onChange={handleChange}
+            />
+            <BiSearchAlt2 />
+          </div>
+
           {/* Stripe Id */}
-          <input
-            type='text'
-            name='searchStripeId'
-            placeholder='Stripe Id'
-            value={searchStripeId}
-            onChange={handleChange}
-          />
+          <div>
+            <input
+              type='text'
+              name='searchStripeId'
+              placeholder='Stripe Id'
+              value={searchStripeId}
+              onChange={handleChange}
+            />
+            <BiSearchAlt2 />
+          </div>
         </div>
       </div>
-    </Wrapper>
+    </SearchWrapper>
   )
 }
 
-const Wrapper = styled.div`
-  position: relative;
-  .clear-filter {
-    position: absolute;
-    top: 0;
-    right: 5%;
-  }
-  .limit-sort {
-    display: flex;
-    margin-bottom: 5px;
-    gap: 1rem;
-  }
-  .sort,
-  .limit {
-    select {
-      :hover {
-        cursor: pointer;
-      }
-    }
-  }
-`
 export default Search

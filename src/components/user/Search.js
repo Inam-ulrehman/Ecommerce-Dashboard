@@ -1,12 +1,13 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
+import { BiSearchAlt2 } from 'react-icons/bi'
 import {
   clearState,
   getStateValues,
   getUsersThunk,
 } from '../../features/user/userSlice'
+import SearchWrapper from '../../Wrapper/dashboard/SearchWrapper'
 
 const Search = () => {
   const dispatch = useDispatch()
@@ -59,118 +60,114 @@ const Search = () => {
     limit,
   ])
   return (
-    <Wrapper className='container'>
+    <SearchWrapper className='container'>
       <button className='btn clear-filter' type='button' onClick={handleClear}>
         Clear Filter
       </button>
-
-      <div className='limit-sort'>
-        <div className='limit'>
-          <label htmlFor='limit'>Limit</label>
-          <select name='limit' id='limit' value={limit} onChange={handleChange}>
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={30}>30</option>
-            <option value={40}>40</option>
-          </select>
-        </div>
-        <div className='sort'>
-          <label htmlFor='sort'>Sort</label>
-          <select name='sort' id='sort' value={sort} onChange={handleChange}>
-            <option value='-createdAt'>SELECT OPTIONS</option>
-            <option value='-createdAt'>DATE NEW</option>
-            <option value='createdAt'>DATE OLD</option>
-            <option value='title'>NAME A-Z</option>
-            <option value='-title'>NAME Z-A</option>
-          </select>
+      <div className='limit-sort-input'>
+        <div className='limit-sort'>
+          <div className='limit'>
+            <label htmlFor='limit'>Limit</label>
+            <select
+              name='limit'
+              id='limit'
+              value={limit}
+              onChange={handleChange}
+            >
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={30}>30</option>
+              <option value={40}>40</option>
+            </select>
+          </div>
+          <div className='sort'>
+            <label htmlFor='sort'>Sort</label>
+            <select name='sort' id='sort' value={sort} onChange={handleChange}>
+              <option value='-createdAt'>SELECT OPTIONS</option>
+              <option value='-createdAt'>DATE NEW</option>
+              <option value='createdAt'>DATE OLD</option>
+              <option value='title'>NAME A-Z</option>
+              <option value='-title'>NAME Z-A</option>
+            </select>
+          </div>
         </div>
       </div>
       {/* ============box divided */}
       <div className='search'>
         {/* name */}
-        <input
-          type='text'
-          name='searchName'
-          placeholder='Name'
-          value={searchName}
-          onChange={handleChange}
-        />
+        <div>
+          <input
+            type='text'
+            name='searchName'
+            placeholder='Name'
+            value={searchName}
+            onChange={handleChange}
+          />
+          <BiSearchAlt2 />
+        </div>
+
         {/* email */}
-        <input
-          type='email'
-          name='searchEmail'
-          placeholder='Email'
-          value={searchEmail}
-          onChange={handleChange}
-        />
+        <div>
+          <input
+            type='email'
+            name='searchEmail'
+            placeholder='Email'
+            value={searchEmail}
+            onChange={handleChange}
+          />
+          <BiSearchAlt2 />
+        </div>
+
         {/* address */}
-        <input
-          type='text'
-          name='searchAddress'
-          placeholder='Address'
-          value={searchAddress}
-          onChange={handleChange}
-        />
+        <div>
+          <input
+            type='text'
+            name='searchAddress'
+            placeholder='Address'
+            value={searchAddress}
+            onChange={handleChange}
+          />
+          <BiSearchAlt2 />
+        </div>
+
         {/* PostalCode */}
-        <input
-          type='text'
-          name='searchPostalCode'
-          placeholder='Postal Code'
-          value={searchPostalCode}
-          onChange={handleChange}
-        />
+        <div>
+          <input
+            type='text'
+            name='searchPostalCode'
+            placeholder='Postal Code'
+            value={searchPostalCode}
+            onChange={handleChange}
+          />
+          <BiSearchAlt2 />
+        </div>
+
         {/* phone */}
-        <input
-          type='number'
-          name='searchPhone'
-          placeholder='Phone'
-          value={searchPhone}
-          onChange={handleChange}
-        />
+        <div>
+          <input
+            type='number'
+            name='searchPhone'
+            placeholder='Phone'
+            value={searchPhone}
+            onChange={handleChange}
+          />
+          <BiSearchAlt2 />
+        </div>
+
         {/* user Id */}
-        <input
-          type='text'
-          name='searchId'
-          placeholder='User Id'
-          value={searchId}
-          onChange={handleChange}
-        />
+        <div>
+          <input
+            type='text'
+            name='searchId'
+            placeholder='User Id'
+            value={searchId}
+            onChange={handleChange}
+          />
+          <BiSearchAlt2 />
+        </div>
       </div>
-    </Wrapper>
+    </SearchWrapper>
   )
 }
-const Wrapper = styled.div`
-  position: relative;
-  .clear-filter {
-    position: absolute;
-    top: 0;
-    right: 5%;
-  }
-  .limit-sort {
-    display: flex;
-    margin-bottom: 5px;
-    gap: 1rem;
-  }
-  .sort,
-  .limit {
-    select {
-      :hover {
-        cursor: pointer;
-      }
-    }
-  }
 
-  button {
-    border: transparent;
-
-    box-shadow: var(--shadow-1);
-    padding: 4px;
-    transition: var(--transition);
-    :hover {
-      cursor: pointer;
-      background-color: var(--primary-5);
-      color: var(--white);
-    }
-  }
-`
 export default Search
