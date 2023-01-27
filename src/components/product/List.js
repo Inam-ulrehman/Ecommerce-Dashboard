@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { formatDate, formatPrice } from '../../utils/helper'
 import styled from 'styled-components'
-
+import { FiEdit } from 'react-icons/fi'
+import { RiDeleteBack2Line } from 'react-icons/ri'
 import Warning from '../Warning'
 import { showWarning } from '../../features/functions/functionSlice'
 import {
@@ -47,7 +48,7 @@ const List = () => {
             <th>CATEGORY</th>
             <th>SUBCATEGORY</th>
             <th>AVAILABLE</th>
-            <th>Created At</th>
+            <th>CREATED AT</th>
             <th>FEATURE</th>
             <th>PRICE</th>
             <th>ACTIONS</th>
@@ -67,13 +68,13 @@ const List = () => {
                 <td>{formatPrice(item.amount)}</td>
                 <td className='buttons'>
                   <Link className='btn' to={item._id}>
-                    Edit
+                    <FiEdit />
                   </Link>
                   <button
                     onClick={() => handleDelete(item._id)}
                     className='btn'
                   >
-                    Delete
+                    <RiDeleteBack2Line />
                   </button>
                 </td>
               </tr>
@@ -89,9 +90,34 @@ const List = () => {
 const Wrapper = styled.div`
   table {
     text-align: center;
-  }
-  img {
-    max-width: 70px;
+    tbody {
+      .btn {
+        height: 40px;
+        margin: 5px;
+      }
+      tr {
+        .image-holder {
+          width: 100px;
+
+          img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 105px;
+          }
+        }
+        th {
+          text-transform: capitalize;
+          box-shadow: var(--shadow-3);
+          border: 2px solid var(--grey-5);
+          background-color: var(--grey-2);
+        }
+        td {
+          border: 2px solid var(--grey-5);
+          background-color: var(--grey-1);
+        }
+      }
+    }
   }
 `
 
