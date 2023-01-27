@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Heading = () => {
-  const { count, page } = useSelector((state) => state.appointment)
+  const { count, page } = useSelector((state) => state.product)
   return (
     <Wrapper className='container-heading'>
       <Link className='btn' to={'/dashboard/upload'}>
@@ -21,8 +21,12 @@ const Heading = () => {
   )
 }
 const Wrapper = styled.div`
-  border: 2px solid pink;
-  display: flex;
-  justify-content: space-between;
+  .container-heading {
+    display: flex;
+    justify-content: space-between;
+    span {
+      padding: 0 2rem;
+    }
+  }
 `
 export default Heading
