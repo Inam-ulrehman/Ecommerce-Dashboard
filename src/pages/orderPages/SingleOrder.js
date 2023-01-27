@@ -56,9 +56,7 @@ const SingleOrder = () => {
         },
       })
       setState({ ...state, isLoading: false, ...result.data[0] })
-    } catch (error) {
-      console.log(error.response)
-    }
+    } catch (error) {}
   }
   useEffect(() => {
     fetchData()
