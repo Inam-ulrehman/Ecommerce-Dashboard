@@ -1,6 +1,7 @@
+import Heading from './Heading'
 import List from './List'
 import Pagination from './Pagination'
 import Search from './Search'
 import SingleOrderUser from './SingleOrderUser'
 
-export { List, Pagination, SingleOrderUser, Search }
+export { Heading, List, Pagination, SingleOrderUser, Search }
