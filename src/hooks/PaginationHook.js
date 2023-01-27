@@ -27,13 +27,13 @@ const PaginationHook = ({ page, count, limit, next, prev, index }) => {
     }
     dispatch(prev())
   }
-  if (count === 0) {
+  if (count <= 9) {
     return
   }
 
   return (
     <Wrapper className='title'>
-      <button className='btn' type='button' onClick={handlePrev}>
+      <button className='btn prev' type='button' onClick={handlePrev}>
         Prev
       </button>
       {/* Page Pagination */}
@@ -42,7 +42,10 @@ const PaginationHook = ({ page, count, limit, next, prev, index }) => {
           <button className='btn' onClick={handleIndex} value={1}>
             1
           </button>
-          <span>....</span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </>
       )}
 
@@ -63,7 +66,10 @@ const PaginationHook = ({ page, count, limit, next, prev, index }) => {
         .slice(page - 1, page + 4)}
       {page !== pagesArray.length && (
         <>
-          <span>....</span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
           <button
             className='btn'
             onClick={handleIndex}
@@ -73,7 +79,7 @@ const PaginationHook = ({ page, count, limit, next, prev, index }) => {
           </button>
         </>
       )}
-      <button className='btn' type='button' onClick={handleNext}>
+      <button className='btn next' type='button' onClick={handleNext}>
         Next
       </button>
     </Wrapper>
@@ -82,6 +88,13 @@ const PaginationHook = ({ page, count, limit, next, prev, index }) => {
 const Wrapper = styled.div`
   .active {
     background-color: var(--primary-8);
+  }
+  .prev,
+  .next {
+    margin: 1rem 5px;
+  }
+  .btn {
+    border-radius: 0;
   }
 `
 export default PaginationHook
