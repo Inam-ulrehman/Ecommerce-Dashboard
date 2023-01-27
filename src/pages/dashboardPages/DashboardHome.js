@@ -53,7 +53,7 @@ const DashboardHome = () => {
       <DashboardTotalCard
         title={`Appointment`}
         total={appointment?.count}
-        navigateLink={'/dashboard/appointments'}
+        navigateLink={'/dashboard/appointment'}
       />
     </Wrapper>
   )
