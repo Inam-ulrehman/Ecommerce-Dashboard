@@ -4,17 +4,22 @@ import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 
 const initialState = {
-  phone: '',
-  email: '',
-  payment_intent: '',
-  _id: '',
-  sort: '-createdAt',
-  limit: 10,
+  // Search
+  searchPhone: '',
+  searchEmail: '',
+  searchOrderId: '',
+  searchStripeId: '',
+  // pagination
+  list: [],
   page: 1,
-  orderList: [],
-  totalOrders: '',
-  getOrders: '',
+  limit: 10,
+  count: '',
+  sort: '-createdAt',
+
+  // ======Single Order
   deleteId: '',
+  updateId: '',
+  refreshData: '',
   isLoading: false,
 }
 
@@ -33,11 +38,11 @@ export const orderThunk = createAsyncThunk(
 // Get All Orders
 export const getOrdersThunk = createAsyncThunk(
   'order/getOrdersThunk',
-  async (query, thunkAPI) => {
+  async (state, thunkAPI) => {
     const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.get(
-        `/admin/orders?phone=${query?.phone}&email=${query?.email}&_id=${query?._id}&payment_intent=${query?.payment_intent}&sort=${query?.sort}&page=${query?.page}&limit=${query.limit}`,
+        `/admin/orders?phone=${state?.searchPhone}&email=${state?.searchEmail}&_id=${state?.searchOrderId}&payment_intent=${state?.searchStripeId}&sort=${state?.sort}&page=${state?.page}&limit=${state?.limit}`,
         {
           headers: {
             Authorization: `Bearer ${user?.token}`,
@@ -47,7 +52,6 @@ export const getOrdersThunk = createAsyncThunk(
 
       return response.data
     } catch (error) {
-      console.log(error.response)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -78,6 +82,12 @@ const orderSlice = createSlice({
     createFunction: (state, { payload }) => {
       console.log('function call')
     },
+    // state value
+    getStateValues: (state, { payload }) => {
+      const { name, value } = payload
+      state[name] = value
+    },
+    // pagination
     next: (state, { payload }) => {
       state.page = state.page + 1
     },
@@ -88,42 +98,6 @@ const orderSlice = createSlice({
       const index = Number(payload)
 
       state.page = index
-    },
-    searchOrderByPhone: (state, { payload }) => {
-      state.phone = payload
-      state.page = 1
-    },
-    searchOrderByEmail: (state, { payload }) => {
-      state.email = payload
-      state.page = 1
-    },
-    searchOrderById: (state, { payload }) => {
-      state._id = payload
-      state.page = 1
-    },
-    searchOrderByPaymentIntent: (state, { payload }) => {
-      state.payment_intent = payload
-      state.page = 1
-    },
-    clearOrderSearch: (state, { payload }) => {
-      state.phone = ''
-      state.email = ''
-      state._id = ''
-      state.sort = '-createdAt'
-      state.payment_intent = ''
-      state.page = 1
-      state.limit = 10
-    },
-    sortOrder: (state, { payload }) => {
-      state.sort = payload
-      state.page = 1
-    },
-    limitOrder: (state, { payload }) => {
-      state.limit = payload
-      state.page = 1
-    },
-    deleteIdOrder: (state, { payload }) => {
-      state.deleteId = payload
     },
   },
   extraReducers: {
@@ -144,12 +118,13 @@ const orderSlice = createSlice({
       state.isLoading = true
     },
     [getOrdersThunk.fulfilled]: (state, { payload }) => {
-      state.orderList = payload.result
-      state.totalOrders = payload.totalOrders
+      state.list = payload.result
+      state.count = payload.totalOrders
       state.isLoading = false
     },
     [getOrdersThunk.rejected]: (state, { payload }) => {
       toast.error(`${payload?.msg ? payload.msg : payload}`)
+
       state.isLoading = false
     },
     // === Delete Single Order
@@ -167,18 +142,6 @@ const orderSlice = createSlice({
     },
   },
 })
-export const {
-  createFunction,
-  next,
-  prev,
-  index,
-  searchOrderByPhone,
-  searchOrderByEmail,
-  searchOrderById,
-  searchOrderByPaymentIntent,
-  clearOrderSearch,
-  sortOrder,
-  limitOrder,
-  deleteIdOrder,
-} = orderSlice.actions
+export const { createFunction, getStateValues, next, prev, index } =
+  orderSlice.actions
 export default orderSlice.reducer

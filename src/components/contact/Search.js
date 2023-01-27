@@ -31,7 +31,6 @@ const Search = () => {
     dispatch(getStateValues({ name, value }))
   }
   useEffect(() => {
-    console.log('hello')
     dispatch(
       getContactThunk({
         searchName,

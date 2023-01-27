@@ -34,7 +34,7 @@ const DashboardHome = () => {
       {/* Order Card */}
       <DashboardTotalCard
         title={`Orders`}
-        total={order.totalOrders}
+        total={order.count}
         navigateLink={'/dashboard/orders'}
       />
       {/* Contact Card */}

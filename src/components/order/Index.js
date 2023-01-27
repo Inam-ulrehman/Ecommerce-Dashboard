@@ -1,15 +1,6 @@
-import OrderList from './OrderList'
-import OrderWarning from './OrderWarning'
+import List from './List'
+import Pagination from './Pagination'
 import Search from './Search'
-import ServerPagination from './ServerPagination'
 import SingleOrderUser from './SingleOrderUser'
-import SortClearSearch from './SortClearSearch'
 
-export {
-  SingleOrderUser,
-  OrderList,
-  OrderWarning,
-  Search,
-  ServerPagination,
-  SortClearSearch,
-}
+export { List, Pagination, SingleOrderUser, Search }
