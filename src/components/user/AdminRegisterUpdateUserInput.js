@@ -5,7 +5,7 @@ import { clearState, getStateValues } from '../../features/user/userSlice'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 import FormInput from '../FormInput'
 
-const AdminRegisterUpdateUserInput = ({ method }) => {
+const AdminRegisterUpdateUserInput = ({ method, _id }) => {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state)
 
@@ -16,15 +16,17 @@ const AdminRegisterUpdateUserInput = ({ method }) => {
     }
     const { token } = getUserFromLocalStorage()
     try {
-      const result = await method('/auth/users', user, {
+      const result = await method(`/auth/users${_id ? `/${_id}` : ''}`, user, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      dispatch(clearState())
+      if (!_id) {
+        dispatch(clearState())
+      }
       toast.success(result.statusText)
     } catch (error) {
-      console.log(error.response)
+      toast.warning(error.response?.data?.msg)
     }
   }
 

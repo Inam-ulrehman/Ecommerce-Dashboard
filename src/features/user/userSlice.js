@@ -68,7 +68,6 @@ export const registerUserThunk = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const response = await customFetch.post('/auth/register', user)
-
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)

@@ -12,7 +12,7 @@ const SingleUser = () => {
   const { user } = useSelector((state) => state)
   const { _id } = useParams()
 
-  const method = customFetch.patch
+  const method = customFetch.post
 
   useEffect(() => {
     dispatch(getSingleUserThunk(_id))
@@ -22,7 +22,7 @@ const SingleUser = () => {
   return (
     <Wrapper>
       <div className='single-user'>
-        <AdminRegisterUpdateUserInput method={method} />
+        <AdminRegisterUpdateUserInput method={method} _id={_id} />
       </div>
       <hr />
       <CreateUserNotes />
