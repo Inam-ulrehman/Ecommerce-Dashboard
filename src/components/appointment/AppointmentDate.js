@@ -32,6 +32,9 @@ const Wrapper = styled.div`
   max-width: fit-content;
   margin-left: 1rem;
   transition: var(--transition-1);
+  border-radius: 0;
+  height: 95px;
+  margin-bottom: 1rem;
   :hover {
     transition: var(--transition-1);
     background-color: var(--primary-7);

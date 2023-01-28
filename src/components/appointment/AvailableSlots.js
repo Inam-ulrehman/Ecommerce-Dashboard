@@ -99,7 +99,7 @@ const Wrapper = styled.div`
     .day-body {
       display: flex;
       flex-wrap: wrap;
-      border: 2px solid black;
+      background-color: var(--grey-1);
     }
     .day-holder {
       box-shadow: var(--shadow-1);
