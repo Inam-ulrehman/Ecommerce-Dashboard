@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import ScrollHook from './ScrollHook'
 
 const PaginationHook = ({ page, count, limit, next, prev, index }) => {
   const dispatch = useDispatch()
@@ -22,10 +23,12 @@ const PaginationHook = ({ page, count, limit, next, prev, index }) => {
   }
 
   const handlePrev = (e) => {
+    console.log('hello')
     if (page <= 1) {
       return
     }
     dispatch(prev())
+    ScrollHook()
   }
   if (count <= 9) {
     return
