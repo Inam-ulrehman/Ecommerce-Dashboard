@@ -16,10 +16,12 @@ const PaginationHook = ({ page, count, limit, next, prev, index }) => {
       return
     }
     dispatch(next())
+    ScrollHook()
   }
 
   const handleIndex = (e) => {
     dispatch(index(e.target.value))
+    ScrollHook()
   }
 
   const handlePrev = (e) => {
