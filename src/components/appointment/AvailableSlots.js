@@ -99,14 +99,14 @@ const Wrapper = styled.div`
     .day-body {
       display: flex;
       flex-wrap: wrap;
-      background-color: var(--grey-1);
+      background-color: var(--white);
     }
     .day-holder {
       box-shadow: var(--shadow-1);
       margin: 1rem;
       padding: 1rem;
       transition: var(--transition-1);
-      background-color: var(--white);
+
       :hover {
         background-color: var(--green-light);
 
