@@ -35,21 +35,24 @@ const CustomerDetails = ({ action }) => {
     <Wrapper>
       <div className='customer-details'>
         <form className='form' onSubmit={handleSubmit}>
-          {/* name */}
-          <FormInput name='name' value={name} onChange={handleChange} />
-          {/* email */}
-          <FormInput name='email' value={email} onChange={handleChange} />
-          {/* phone */}
-          <FormInput
-            name='phone'
-            type='number'
-            value={phone}
-            onChange={handleChange}
-          />
+          <div>
+            {/* name */}
+            <FormInput name='name' value={name} onChange={handleChange} />
+            {/* email */}
+            <FormInput name='email' value={email} onChange={handleChange} />
+            {/* phone */}
+            <FormInput
+              name='phone'
+              type='number'
+              value={phone}
+              onChange={handleChange}
+            />
+          </div>
+          {/* ===========BOX Divider==== */}
           {/* Note */}
           <div>
             <label className='form-label' htmlFor='note'>
-              Note
+              Appointment Note
             </label>
             <textarea
               className='form-textarea'
@@ -60,14 +63,21 @@ const CustomerDetails = ({ action }) => {
               value={note}
               onChange={handleChange}
             ></textarea>
+            <button type='submit' className='btn'>
+              Submit
+            </button>
           </div>
-          <button type='submit' className='btn'>
-            Submit
-          </button>
         </form>
       </div>
     </Wrapper>
   )
 }
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+  form {
+    min-width: 90vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+`
 export default CustomerDetails
