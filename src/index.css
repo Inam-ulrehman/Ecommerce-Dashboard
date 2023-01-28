@@ -251,6 +251,21 @@ td {
   letter-spacing: var(--letterSpacing);
   text-transform: capitalize;
 }
+select {
+  border: transparent;
+  background: var(--primary-5);
+  color: var(--white);
+  transition: var(--transition-1);
+  padding: 3.5px;
+}
+select:hover {
+  cursor: pointer;
+  background-color: var(--primary-7);
+}
+option {
+  background-color: var(--white);
+  color: var(--black);
+}
 /* alert */
 
 @keyframes spinner {

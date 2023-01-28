@@ -37,26 +37,27 @@ const Category = () => {
   }, [])
   return (
     <Wrapper>
-      <div>
-        <label htmlFor='category'>Pick a category</label>
-        <select
-          name='category'
-          id='category'
-          value={state.category}
-          onChange={handleChange}
-        >
-          <option value=''>Select Options</option>
-          {state.uniqueCategories?.map((item, index) => {
-            return (
-              <option key={index} value={item}>
-                {item}
-              </option>
-            )
-          })}
-        </select>
-      </div>
+      <select
+        name='category'
+        id='category'
+        value={state.category}
+        onChange={handleChange}
+      >
+        <option value=''>SELECT CATEGORY</option>
+        {state.uniqueCategories?.map((item, index) => {
+          return (
+            <option key={index} value={item}>
+              {item}
+            </option>
+          )
+        })}
+      </select>
     </Wrapper>
   )
 }
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+  select {
+    max-width: fit-content;
+  }
+`
 export default Category
