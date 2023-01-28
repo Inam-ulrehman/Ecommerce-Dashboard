@@ -106,6 +106,7 @@ const Wrapper = styled.div`
       margin: 1rem;
       padding: 1rem;
       transition: var(--transition-1);
+      background-color: var(--white);
       :hover {
         background-color: var(--green-light);
 
