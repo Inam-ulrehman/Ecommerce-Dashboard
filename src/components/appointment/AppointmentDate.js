@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
 import { getStateValues } from '../../features/appointment/appointmentSlice'
 
 const AppointmentDate = () => {
@@ -12,11 +13,10 @@ const AppointmentDate = () => {
     dispatch(getStateValues({ name, value }))
   }
   return (
-    <div>
-      <div>
-        <strong>Please pick a date</strong>
-      </div>
+    <Wrapper className='btn'>
+      <div>SELECT DATE</div>
       <input
+        className='form-input '
         type='date'
         name='date'
         id='date'
@@ -24,8 +24,17 @@ const AppointmentDate = () => {
         value={appointment.date}
         onChange={handleChange}
       />
-    </div>
+    </Wrapper>
   )
 }
-
+const Wrapper = styled.div`
+  text-align: center;
+  max-width: fit-content;
+  margin-left: 1rem;
+  transition: var(--transition-1);
+  :hover {
+    transition: var(--transition-1);
+    background-color: var(--primary-7);
+  }
+`
 export default AppointmentDate
