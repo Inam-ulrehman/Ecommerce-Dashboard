@@ -40,21 +40,22 @@ const AvailableSlots = () => {
     <Wrapper>
       {/* close sunday text */}
       {moment(appointment.date).format('dddd') === 'Sunday' && (
-        <h4>Sorry we're closed sundays.</h4>
+        <h4 className='title'>Sorry we're closed sundays.</h4>
       )}
 
       {/* open days text  */}
 
       {state.count === 0 ? (
-        <div>Sorry no availability.</div>
+        <div className='title'>Sorry no availability.</div>
       ) : (
         <div>
           {moment(appointment.date).format('dddd') !== 'Sunday' && (
             <div className='day-container'>
-              <div className='date-holder'>
-                <span>{moment(appointment.date).format('dddd')} </span>
+              <div className='date-holder title'>
                 <span>
-                  Total Available Dates: <strong>{state.count}</strong>
+                  Available{' '}
+                  <strong>{moment(appointment.date).format('dddd')}</strong>{' '}
+                  Slots :<strong>{state.count}</strong>
                 </span>
               </div>
               <div className='day-body'>
@@ -85,8 +86,13 @@ const AvailableSlots = () => {
 const Wrapper = styled.div`
   .day-container {
     .date-holder {
+      position: absolute;
+      top: 130px;
+      right: 0;
+      padding: 10px;
       span {
-        margin: 1rem;
+        background-color: var(--grey-2);
+        padding: 10px;
       }
     }
 
