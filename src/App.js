@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { ChangePassword, Profile, WebsiteContent } from './components/dashboard'
+import { ChangePassword, WebsiteContent } from './components/dashboard'
 import {
   ContentAboutUs,
   ContentContact,
@@ -80,7 +80,6 @@ const App = () => {
               />
             </Route>
             {/* ===============Dashboard inside route===============Finish */}
-            <Route path='/dashboard/profile' element={<Profile />} />
             <Route path='/dashboard/upload' element={<UploadProduct />} />
             <Route
               path='/dashboard/changePassword'

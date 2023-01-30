@@ -53,7 +53,6 @@ export const DashboardSidebarNav = [
 
 export const dashboardNavLink = [
   { id: 1, title: 'Dashboard', path: '/dashboard' },
-  { id: 2, title: 'Profile', path: '/dashboard/profile' },
   { id: 3, title: 'Upload Product', path: '/dashboard/upload' },
   { id: 4, title: 'Change password', path: '/dashboard/changePassword' },
   { id: 5, title: 'Update Website Content', path: '/dashboard/websiteContent' },
