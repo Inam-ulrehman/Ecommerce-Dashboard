@@ -56,7 +56,12 @@ const Search = () => {
         <div className='limit-sort'>
           <div className='limit'>
             <label htmlFor='limit'>Limit</label>
-            <select name='limit' id='limit' onChange={handleChange}>
+            <select
+              name='limit'
+              id='limit'
+              value={limit}
+              onChange={handleChange}
+            >
               <option value={10}>10</option>
               <option value={20}>20</option>
               <option value={30}>30</option>
