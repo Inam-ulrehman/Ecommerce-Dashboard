@@ -5,7 +5,10 @@ import { formatDate } from '../../utils/helper'
 import { FiEdit } from 'react-icons/fi'
 import { RiDeleteBack2Line } from 'react-icons/ri'
 import Warning from '../Warning'
-import { showWarning } from '../../features/functions/functionSlice'
+import {
+  showDeleteAllWarning,
+  showWarning,
+} from '../../features/functions/functionSlice'
 import {
   deleteManyContactThunk,
   deleteSingleContactThunk,
@@ -13,6 +16,7 @@ import {
 } from '../../features/contact/contactSlice'
 import ListWrapper from '../../Wrapper/dashboard/ListWrapper'
 import { useState } from 'react'
+import DeleteAllWarning from '../DeleteAllWrning'
 const initialState = {
   deleteMany: [],
 }
@@ -52,8 +56,7 @@ const List = () => {
   }
 
   const handleDeleteMany = () => {
-    dispatch(deleteManyContactThunk(state.deleteMany))
-    setState({ ...state, deleteMany: [] })
+    dispatch(showDeleteAllWarning())
   }
   // =======deleteMany =======
   if (contact.isLoading) {
@@ -70,6 +73,12 @@ const List = () => {
       {warningHolder.warning && (
         <Warning
           action={() => dispatch(deleteSingleContactThunk(contact.deleteId))}
+        />
+      )}
+      {/* show Delete All warning */}
+      {warningHolder.deleteAllWarning && (
+        <DeleteAllWarning
+          action={() => dispatch(deleteManyContactThunk(state.deleteMany))}
         />
       )}
 
