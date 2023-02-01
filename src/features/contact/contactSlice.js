@@ -19,6 +19,7 @@ const initialState = {
   singleContact: [],
   deleteId: '',
   isLoading: false,
+  deleteMany: [],
 }
 
 export const contactThunk = createAsyncThunk(
@@ -196,6 +197,7 @@ const contactSlice = createSlice({
     },
     [deleteManyContactThunk.fulfilled]: (state, { payload }) => {
       state.refreshData = !state.refreshData
+      state.deleteMany = []
       toast.success(payload.msg)
       state.isLoading = false
     },

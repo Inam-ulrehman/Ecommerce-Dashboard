@@ -15,13 +15,9 @@ import {
   getStateValues,
 } from '../../features/contact/contactSlice'
 import ListWrapper from '../../Wrapper/dashboard/ListWrapper'
-import { useState } from 'react'
-import DeleteAllWarning from '../DeleteAllWrning'
-const initialState = {
-  deleteMany: [],
-}
+import DeleteAllWarning from '../DeleteAllWarning'
+
 const List = () => {
-  const [state, setState] = useState(initialState)
   const dispatch = useDispatch()
   const { contact, function: warningHolder } = useSelector((state) => state)
 
@@ -34,25 +30,25 @@ const List = () => {
 
   // =======deleteMany  Handle Inside the State=======
   const handleSelectAll = () => {
-    if (contact.list.length === state.deleteMany.length) {
-      return setState({ ...state, deleteMany: [] })
+    if (contact.list.length === contact.deleteMany.length) {
+      dispatch(getStateValues({ name: 'deleteMany', value: [] }))
+      return
     }
-    setState({
-      ...state,
-
-      deleteMany: contact.list,
-    })
+    dispatch(getStateValues({ name: 'deleteMany', value: contact.list }))
   }
   const handleSelectOne = (_id) => {
-    if (state.deleteMany.find((item) => item._id === _id)) {
-      return setState({
-        ...state,
-        deleteMany: state.deleteMany.filter((item) => item._id !== _id),
-      })
+    if (contact.deleteMany.find((item) => item._id === _id)) {
+      dispatch(
+        getStateValues({
+          name: 'deleteMany',
+          value: contact.deleteMany.filter((item) => item._id !== _id),
+        })
+      )
+      return
     }
     const result = contact.list.find((item) => item._id === _id)
-    const newValue = [...state.deleteMany, result]
-    setState({ ...state, deleteMany: newValue })
+    const newValue = [...contact.deleteMany, result]
+    dispatch(getStateValues({ name: 'deleteMany', value: newValue }))
   }
 
   const handleDeleteMany = () => {
@@ -78,12 +74,12 @@ const List = () => {
       {/* show Delete All warning */}
       {warningHolder.deleteAllWarning && (
         <DeleteAllWarning
-          action={() => dispatch(deleteManyContactThunk(state.deleteMany))}
+          action={() => dispatch(deleteManyContactThunk(contact.deleteMany))}
         />
       )}
 
       {/* show delete all button */}
-      {state.deleteMany.length > 0 ? (
+      {contact.deleteMany.length > 0 ? (
         <div className='Delete-objects'>
           <button className='btn' onClick={handleDeleteMany}>
             Delete Selected
@@ -99,8 +95,8 @@ const List = () => {
             <th>
               <input
                 type='checkbox'
-                checked={state.deleteMany.length === contact.list.length}
-                value={state.selectAll}
+                checked={contact.deleteMany.length === contact.list.length}
+                // value={state.selectAll}
                 onChange={handleSelectAll}
               />
             </th>
@@ -117,9 +113,9 @@ const List = () => {
                 <td>
                   <input
                     type='checkbox'
-                    value={state.selectOne}
+                    // value={state.selectOne}
                     checked={
-                      state.deleteMany.find((items) => items._id === item._id)
+                      contact.deleteMany.find((items) => items._id === item._id)
                         ? true
                         : false
                     }
