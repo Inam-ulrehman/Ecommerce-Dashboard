@@ -18,8 +18,8 @@ const initialState = {
   refreshData: false,
   singleContact: [],
   deleteId: '',
-  isLoading: false,
   deleteMany: [],
+  isLoading: false,
 }
 
 export const contactThunk = createAsyncThunk(
@@ -95,10 +95,10 @@ export const deleteSingleContactThunk = createAsyncThunk(
     }
   }
 )
-// ==== Delete Many CONTACT LIST====
+// ==== Delete Many CONTACTS====
 
-export const deleteManyContactThunk = createAsyncThunk(
-  'contact/deleteManyContactThunk',
+export const deleteManyContactsThunk = createAsyncThunk(
+  'contact/deleteManyContactsThunk',
   async (data, thunkAPI) => {
     const user = getUserFromLocalStorage()
     try {
@@ -191,17 +191,17 @@ const contactSlice = createSlice({
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },
-    // === Delete Many CONTACT LIST
-    [deleteManyContactThunk.pending]: (state, { payload }) => {
+    // === Delete Many CONTACTS LIST
+    [deleteManyContactsThunk.pending]: (state, { payload }) => {
       state.isLoading = true
     },
-    [deleteManyContactThunk.fulfilled]: (state, { payload }) => {
+    [deleteManyContactsThunk.fulfilled]: (state, { payload }) => {
       state.refreshData = !state.refreshData
       state.deleteMany = []
       toast.success(payload.msg)
       state.isLoading = false
     },
-    [deleteManyContactThunk.rejected]: (state, { payload }) => {
+    [deleteManyContactsThunk.rejected]: (state, { payload }) => {
       console.log(payload)
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false

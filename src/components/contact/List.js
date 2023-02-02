@@ -10,7 +10,7 @@ import {
   showWarning,
 } from '../../features/functions/functionSlice'
 import {
-  deleteManyContactThunk,
+  deleteManyContactsThunk,
   deleteSingleContactThunk,
   getStateValues,
 } from '../../features/contact/contactSlice'
@@ -28,7 +28,7 @@ const List = () => {
     dispatch(showWarning())
   }
 
-  // =======deleteMany  Handle Inside the State=======
+  // =======deleteMany  =======
   const handleSelectAll = () => {
     if (contact.list.length === contact.deleteMany.length) {
       dispatch(getStateValues({ name: 'deleteMany', value: [] }))
@@ -74,7 +74,7 @@ const List = () => {
       {/* show Delete All warning */}
       {warningHolder.deleteAllWarning && (
         <DeleteAllWarning
-          action={() => dispatch(deleteManyContactThunk(contact.deleteMany))}
+          action={() => dispatch(deleteManyContactsThunk(contact.deleteMany))}
         />
       )}
 
@@ -112,7 +112,6 @@ const List = () => {
                 <td>
                   <input
                     type='checkbox'
-                    // value={state.selectOne}
                     checked={
                       contact.deleteMany.find((items) => items._id === item._id)
                         ? true
