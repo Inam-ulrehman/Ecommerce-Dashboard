@@ -79,15 +79,15 @@ const List = () => {
       )}
 
       {/* show delete all button */}
-      {contact.deleteMany.length > 0 ? (
-        <div className='Delete-objects'>
-          <button className='btn' onClick={handleDeleteMany}>
-            Delete Selected
-          </button>
-        </div>
-      ) : (
-        <div></div>
-      )}
+      <div className='delete-all-button'>
+        {contact.deleteMany.length > 0 && (
+          <div className='delete-all-button'>
+            <button className='btn' onClick={handleDeleteMany}>
+              Delete Selected
+            </button>
+          </div>
+        )}
+      </div>
       {/* show table */}
       <table>
         <tbody>
@@ -96,7 +96,6 @@ const List = () => {
               <input
                 type='checkbox'
                 checked={contact.deleteMany.length === contact.list.length}
-                // value={state.selectAll}
                 onChange={handleSelectAll}
               />
             </th>
