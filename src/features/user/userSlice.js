@@ -25,7 +25,6 @@ const initialState = {
   token: user?.token || '',
   userName: user?.user?.name || '',
   isMember: user?.isAdmin ? true : false,
-  isLoading: false,
   forgetPassword: false,
   // Search User
   searchName: '',
@@ -53,6 +52,7 @@ const initialState = {
   refreshData: false,
   // deleteMany
   deleteMany: [],
+  isLoading: false,
 }
 
 export const userThunk = createAsyncThunk(
@@ -229,6 +229,26 @@ export const deleteUserThunk = createAsyncThunk(
     }
   }
 )
+// ==== Delete Many APPOINTMENTS====Start
+
+export const deleteManyUsersThunk = createAsyncThunk(
+  'user/deleteManyUsersThunk',
+  async (data, thunkAPI) => {
+    const user = getUserFromLocalStorage()
+    try {
+      const response = await customFetch.patch(`/auth/users`, data, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
+      return response.data
+    } catch (error) {
+      console.log(error.response)
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
+// ==== Delete Many APPOINTMENTS====END
 
 const userSlice = createSlice({
   name: 'user',
@@ -418,6 +438,21 @@ const userSlice = createSlice({
       state.isLoading = false
     },
     [deleteUserThunk.rejected]: (state, { payload }) => {
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
+      state.isLoading = false
+    },
+    // === Delete Many APPOINTMENTS LIST
+    [deleteManyUsersThunk.pending]: (state, { payload }) => {
+      state.isLoading = true
+    },
+    [deleteManyUsersThunk.fulfilled]: (state, { payload }) => {
+      state.refreshData = !state.refreshData
+      state.deleteMany = []
+      toast.success(payload.msg)
+      state.isLoading = false
+    },
+    [deleteManyUsersThunk.rejected]: (state, { payload }) => {
+      console.log(payload)
       toast.error(`${payload?.msg ? payload.msg : payload}`)
       state.isLoading = false
     },

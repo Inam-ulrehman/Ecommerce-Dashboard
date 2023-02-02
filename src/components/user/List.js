@@ -5,9 +5,17 @@ import { formatDate } from '../../utils/helper'
 import { FiEdit } from 'react-icons/fi'
 import { RiDeleteBack2Line } from 'react-icons/ri'
 import ListWrapper from '../../Wrapper/dashboard/ListWrapper'
-import { deleteUserThunk, getStateValues } from '../../features/user/userSlice'
+import {
+  deleteManyUsersThunk,
+  deleteUserThunk,
+  getStateValues,
+} from '../../features/user/userSlice'
 import Warning from '../Warning'
-import { showWarning } from '../../features/functions/functionSlice'
+import {
+  showDeleteAllWarning,
+  showWarning,
+} from '../../features/functions/functionSlice'
+import DeleteAllWarning from '../DeleteAllWarning'
 
 const List = () => {
   const dispatch = useDispatch()
@@ -19,7 +27,33 @@ const List = () => {
     dispatch(getStateValues({ name, value }))
     dispatch(showWarning())
   }
+  // =======deleteMany  =======
+  const handleSelectAll = () => {
+    if (user.list.length === user.deleteMany.length) {
+      dispatch(getStateValues({ name: 'deleteMany', value: [] }))
+      return
+    }
+    dispatch(getStateValues({ name: 'deleteMany', value: user.list }))
+  }
+  const handleSelectOne = (_id) => {
+    if (user.deleteMany.find((item) => item._id === _id)) {
+      dispatch(
+        getStateValues({
+          name: 'deleteMany',
+          value: user.deleteMany.filter((item) => item._id !== _id),
+        })
+      )
+      return
+    }
+    const result = user.list.find((item) => item._id === _id)
+    const newValue = [...user.deleteMany, result]
+    dispatch(getStateValues({ name: 'deleteMany', value: newValue }))
+  }
 
+  const handleDeleteMany = () => {
+    dispatch(showDeleteAllWarning())
+  }
+  // =======deleteMany =======
   if (user.isLoading) {
     return (
       <div>
@@ -34,10 +68,34 @@ const List = () => {
       {warningHolder.warning && (
         <Warning action={() => dispatch(deleteUserThunk(user.deleteId))} />
       )}
+      {/* show Delete All warning */}
+      {warningHolder.deleteAllWarning && (
+        <DeleteAllWarning
+          action={() => dispatch(deleteManyUsersThunk(user.deleteMany))}
+        />
+      )}
+
+      {/* show delete all button */}
+      <div className='delete-all-button'>
+        {user.deleteMany.length > 0 && (
+          <div className='delete-all-button'>
+            <button className='btn' onClick={handleDeleteMany}>
+              Delete Selected
+            </button>
+          </div>
+        )}
+      </div>
       {/* show table */}
       <table>
         <tbody>
           <tr>
+            <th>
+              <input
+                type='checkbox'
+                checked={user.deleteMany.length === user.list.length}
+                onChange={handleSelectAll}
+              />
+            </th>
             <th>First Name</th>
             <th>Email</th>
             <th>Phone</th>
@@ -49,6 +107,17 @@ const List = () => {
           {user.list?.map((item) => {
             return (
               <tr key={item._id}>
+                <td>
+                  <input
+                    type='checkbox'
+                    checked={
+                      user.deleteMany.find((items) => items._id === item._id)
+                        ? true
+                        : false
+                    }
+                    onChange={() => handleSelectOne(item._id)}
+                  />
+                </td>
                 <td>{item.name}</td>
                 <td>{item.email}</td>
                 <td>{item.phone}</td>
