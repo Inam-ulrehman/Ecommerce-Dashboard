@@ -95,7 +95,7 @@ export const deleteSingleContactThunk = createAsyncThunk(
     }
   }
 )
-// ==== Delete Many CONTACTS====
+// ==== Delete Many CONTACTS====Start
 
 export const deleteManyContactsThunk = createAsyncThunk(
   'contact/deleteManyContactsThunk',
@@ -114,6 +114,7 @@ export const deleteManyContactsThunk = createAsyncThunk(
     }
   }
 )
+// ==== Delete Many CONTACTS====END
 
 const contactSlice = createSlice({
   name: 'contact',
