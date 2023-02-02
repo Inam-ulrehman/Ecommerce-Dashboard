@@ -48,6 +48,11 @@ const initialState = {
   verified: '',
   updateId: '',
   refreshSingleUser: 0,
+  // delete Id
+  deleteId: '',
+  refreshData: false,
+  // deleteMany
+  deleteMany: [],
 }
 
 export const userThunk = createAsyncThunk(
@@ -196,6 +201,25 @@ export const getSingleUserThunk = createAsyncThunk(
       const response = await customFetch.get(`/auth/users/${_id}`, {
         headers: {
           Authorization: `Bearer ${user?.token}`,
+        },
+      })
+
+      return response.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
+// Delete Users
+export const deleteUserThunk = createAsyncThunk(
+  'user/deleteUserThunk',
+  async (_id, thunkAPI) => {
+    const { token } = getUserFromLocalStorage()
+
+    try {
+      const response = await customFetch.delete(`/auth/users/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       })
 
@@ -381,6 +405,21 @@ const userSlice = createSlice({
     [getSingleUserThunk.rejected]: (state, { payload }) => {
       state.isLoading = false
       toast.error(`${payload?.msg ? payload.msg : payload}`)
+    },
+    // delete User
+    [deleteUserThunk.pending]: (state, { payload }) => {
+      state.isLoading = true
+    },
+    [deleteUserThunk.fulfilled]: (state, { payload }) => {
+      toast.success('User Deleted.')
+      state.deleteId = ''
+      state.refreshData = !state.refreshData
+
+      state.isLoading = false
+    },
+    [deleteUserThunk.rejected]: (state, { payload }) => {
+      toast.error(`${payload?.msg ? payload.msg : payload}`)
+      state.isLoading = false
     },
   },
 })
