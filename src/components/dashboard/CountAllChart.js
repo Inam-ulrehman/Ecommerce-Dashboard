@@ -37,7 +37,7 @@ const CountAllChart = () => {
           cx='50%'
           cy='50%'
           outerRadius={50}
-          fill='var(--primary-8)'
+          fill='#8884d8'
         />
         <Pie
           data={data02}
@@ -47,7 +47,7 @@ const CountAllChart = () => {
           cy='50%'
           innerRadius={60}
           outerRadius={80}
-          fill='var(--primary-5)'
+          fill='#82ca9d'
           label
         />
       </PieChart>

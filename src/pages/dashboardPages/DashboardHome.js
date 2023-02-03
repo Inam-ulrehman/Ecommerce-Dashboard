@@ -61,7 +61,9 @@ const DashboardHome = () => {
         </div>
         <CountAllChart className='count-chart' />
       </div>
-      <ProductChart />
+      <div className='product-chart'>
+        <ProductChart className='product-holder' />
+      </div>
     </Wrapper>
   )
 }
@@ -76,6 +78,9 @@ const Wrapper = styled.div`
   }
   .total-card {
     display: flex;
+  }
+
+  .recharts-wrapper {
   }
 `
 export default DashboardHome
