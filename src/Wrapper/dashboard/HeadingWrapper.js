@@ -9,7 +9,7 @@ const HeadingWrapper = styled.div`
     border-radius: 0;
   }
   border-bottom: 2px solid var(--grey-5);
-  /* test */
+
   clear: auto;
   display: flex;
   justify-content: space-between;
