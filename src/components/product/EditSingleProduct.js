@@ -74,7 +74,7 @@ const EditSingleProduct = () => {
           </div>
         </div>
         {/* ===============div divider========= */}
-        <div>
+        <div className='stock'>
           {/* Stock  */}
           <div>
             <label className='form-label' htmlFor='stock'>
@@ -153,6 +153,11 @@ const Wrapper = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
     min-width: 800px;
+  }
+  .stock {
+    select {
+      color: var(--grey-9);
+    }
   }
   .feature {
     padding-top: 1rem;
