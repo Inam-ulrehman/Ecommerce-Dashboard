@@ -159,6 +159,7 @@ const Wrapper = styled.div`
       color: var(--grey-9);
     }
   }
+  /* git */
   .feature {
     padding-top: 1rem;
     label {
