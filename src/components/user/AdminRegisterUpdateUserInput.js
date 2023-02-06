@@ -36,6 +36,7 @@ const AdminRegisterUpdateUserInput = ({ method, _id }) => {
       }
       toast.success(result.statusText)
     } catch (error) {
+      console.log(error)
       toast.warning(error.response?.data?.msg)
     }
   }
@@ -72,7 +73,7 @@ const AdminRegisterUpdateUserInput = ({ method, _id }) => {
             label={'Date Of Birth'}
             name='dateOfBirth'
             type='date'
-            value={user?.dateOfBirth}
+            value={user?.dateOfBirth ? user.dateOfBirth : ''}
             onChange={handleChange}
           />
           {/* gender */}

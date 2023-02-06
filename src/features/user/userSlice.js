@@ -14,7 +14,7 @@ const initialState = {
   name: '',
   lastName: '',
   dateOfBirth: '',
-  gender: '',
+  gender: 'male',
   phone: '',
   email: '',
   address: '',
