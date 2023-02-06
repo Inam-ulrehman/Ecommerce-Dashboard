@@ -16,7 +16,13 @@ import {
 } from './components/dashboard/WebsiteContentComponents'
 import { EditAboutUs } from './components/dashboard/WebsiteContentComponents/aboutComponent'
 import ScrollToTopHook from './hooks/ScrollToTopHook'
-import { SharedLayout, ErrorPage, ProtectedRoute, Register } from './pages'
+import {
+  SharedLayout,
+  ErrorPage,
+  ProtectedRoute,
+  Register,
+  Test,
+} from './pages'
 import {
   Appointment,
   RegisterAppointment,
@@ -78,6 +84,7 @@ const App = () => {
                 path='/dashboard/Appointment/register'
                 element={<RegisterAppointment />}
               />
+              <Route path='/dashboard/Test' element={<Test />} />
             </Route>
             {/* ===============Dashboard inside route===============Finish */}
             <Route path='/dashboard/upload' element={<UploadProduct />} />
