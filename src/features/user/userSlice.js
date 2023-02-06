@@ -14,6 +14,7 @@ const initialState = {
   name: '',
   lastName: '',
   dateOfBirth: '',
+  gender: '',
   phone: '',
   email: '',
   address: '',
@@ -261,6 +262,7 @@ const userSlice = createSlice({
     clearState: (state, { payload }) => {
       state.name = ''
       state.lastName = ''
+      state.gender = 'male'
       state.dateOfBirth = ''
       state.phone = ''
       state.email = ''
