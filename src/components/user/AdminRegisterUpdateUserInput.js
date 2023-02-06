@@ -137,6 +137,10 @@ const Wrapper = styled.form`
   select {
     text-transform: capitalize;
   }
+  .gender {
+    padding: 5px 0;
+    display: grid;
+  }
 `
 
 export default AdminRegisterUpdateUserInput
