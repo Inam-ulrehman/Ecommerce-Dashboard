@@ -12,19 +12,10 @@ import { useState } from 'react'
 
 // This is outcome from address
 const initialState = {
-  houseNo: '',
-  street: '',
-  city: '',
-  region: '',
-  province: '',
-  country: '',
-  postalCode: '',
-  addressArray: [],
-  formatted_address: '',
-  place_id: '',
+  address: [],
 }
 
-const GooglePlaces = () => {
+const GooglePlacesHook = () => {
   const [state, setState] = useState(initialState)
   // Load your script first
   const { isLoaded } = useLoadScript({
@@ -70,39 +61,9 @@ const PlacesAutocomplete = ({ setState, state }) => {
     clearSuggestions()
 
     const results = await getGeocode({ address })
-    // This code below is only get useful values and put in state it has nothing to do with functionality.
-
-    // state code=======Start
-    const addressDetails = results[0]
-    const { formatted_address, place_id, address_components } = addressDetails
-    const length = address_components.length
-    const startLength = address_components.length - 5
-    // We Slice because last 5 values are important also some times array is not returning same values.
-    const lastAddress = address_components.slice(startLength, length)
-
-    const houseNo = address_components[0]?.long_name
-    const street = address_components[1]?.long_name
-    const city = lastAddress[0]?.long_name
-    const region = lastAddress[1]?.long_name
-    const province = lastAddress[2]?.long_name
-    const country = lastAddress[3]?.long_name
-    const postalCode = lastAddress[4]?.long_name
-
-    setState({
-      ...state,
-      addressArray: results,
-      place_id,
-      formatted_address,
-      houseNo,
-      street,
-      city,
-      region,
-      province,
-      country,
-      postalCode,
-    })
+    setState({ ...state, address: results })
   }
-  // state code=======End
+
   return (
     <Combobox onSelect={handleSelect}>
       <ComboboxInput
@@ -124,4 +85,4 @@ const PlacesAutocomplete = ({ setState, state }) => {
   )
 }
 
-export default GooglePlaces
+export default GooglePlacesHook
