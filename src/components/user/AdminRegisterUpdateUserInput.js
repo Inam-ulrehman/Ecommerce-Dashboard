@@ -70,13 +70,15 @@ const AdminRegisterUpdateUserInput = ({ method, _id }) => {
             onChange={handleChange}
           />
           {/* date of birth */}
-          <FormInput
-            label={'Date Of Birth'}
-            name='dateOfBirth'
-            type='date'
-            value={user?.dateOfBirth ? user.dateOfBirth : ''}
-            onChange={handleChange}
-          />
+          <div className='date-input'>
+            <FormInput
+              label={'Date Of Birth'}
+              name='dateOfBirth'
+              type='date'
+              value={user?.dateOfBirth ? user.dateOfBirth : ''}
+              onChange={handleChange}
+            />
+          </div>
           {/* gender */}
           <div className='gender'>
             <label htmlFor='gender'>Gender</label>
@@ -170,8 +172,10 @@ const Wrapper = styled.form`
   label {
     text-transform: uppercase;
   }
-  input {
-    text-transform: uppercase;
+  .date-input {
+    input {
+      text-transform: uppercase;
+    }
   }
   select {
     text-transform: uppercase;
