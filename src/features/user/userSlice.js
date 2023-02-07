@@ -185,7 +185,7 @@ export const getUsersThunk = createAsyncThunk(
     const user = getUserFromLocalStorage()
     try {
       const response = await customFetch.get(
-        `/auth/users?name=${state?.searchName}&phone=${state?.searchPhone}&email=${state?.searchEmail}&postalCode=${state?.searchPostalCode}&address=${state?.searchAddress}&_id=${state?.searchId}&limit=${state?.limit}&sort=${state?.sort}&page=${state?.page}`,
+        `/auth/users?name=${state?.searchName}&phone=${state?.searchPhone}&email=${state?.searchEmail}&postalCode=${state?.searchPostalCode}&street=${state?.searchAddress}&_id=${state?.searchId}&limit=${state?.limit}&sort=${state?.sort}&page=${state?.page}`,
         {
           headers: {
             Authorization: `Bearer ${user?.token}`,
@@ -272,6 +272,7 @@ const userSlice = createSlice({
       state.dateOfBirth = ''
       state.phone = ''
       state.email = ''
+      state.apartment = ''
       state.house = ''
       state.street = ''
       state.city = ''

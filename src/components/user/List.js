@@ -145,7 +145,10 @@ const List = () => {
                 <td>{item.name}</td>
                 <td>{item.email}</td>
                 <td>{item.phone}</td>
-                <td>{item.address}</td>
+                <td className='address'>
+                  <span className='house'>{item.house}</span>
+                  <span>{item.street}</span>
+                </td>
                 <td>{item.postalCode}</td>
                 <td>{formatDate(item.createdAt)}</td>
                 <td>
@@ -178,6 +181,11 @@ const Wrapper = styled.table`
     img {
       width: 100%;
       margin-bottom: -15px;
+    }
+  }
+  .address {
+    .house {
+      margin-right: 3px;
     }
   }
 `
