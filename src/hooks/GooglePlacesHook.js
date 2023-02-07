@@ -14,7 +14,7 @@ import { getAddressValues } from '../features/user/userSlice'
 
 // This is outcome from address
 
-const GooglePlaces = () => {
+const GooglePlacesHook = () => {
   // Load your script first
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -105,4 +105,4 @@ const PlacesAutocomplete = () => {
   )
 }
 
-export default GooglePlaces
+export default GooglePlacesHook
