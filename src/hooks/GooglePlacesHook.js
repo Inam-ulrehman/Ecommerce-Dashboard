@@ -1,5 +1,13 @@
 import { useLoadScript } from '@react-google-maps/api'
 import usePlacesAutocomplete, { getGeocode } from 'use-places-autocomplete'
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from '@reach/combobox'
+import '@reach/combobox/styles.css'
 
 import { useDispatch } from 'react-redux'
 import { getAddressValues } from '../features/user/userSlice'
@@ -76,24 +84,24 @@ const PlacesAutocomplete = () => {
   }
   // state code=======End
   return (
-    <div onSelect={handleSelect}>
+    <Combobox onSelect={handleSelect}>
       <label htmlFor='form-label'>Search your address</label>
-      <input
+      <ComboboxInput
         value={value}
         onChange={(e) => setValue(e.target.value)}
         disabled={!ready}
         className='form-input'
         placeholder='Search an address'
       />
-      <div>
-        <select>
+      <ComboboxPopover>
+        <ComboboxList>
           {status === 'OK' &&
             data.map(({ place_id, description }) => (
-              <option key={place_id} value={description} />
+              <ComboboxOption key={place_id} value={description} />
             ))}
-        </select>
-      </div>
-    </div>
+        </ComboboxList>
+      </ComboboxPopover>
+    </Combobox>
   )
 }
 
