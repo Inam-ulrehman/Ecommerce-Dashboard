@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import { clearState, getStateValues } from '../../features/user/userSlice'
+import GooglePlacesHook from '../../hooks/GooglePlacesHook'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
 import FormInput from '../FormInput'
 
@@ -105,27 +106,58 @@ const AdminRegisterUpdateUserInput = ({ method, _id }) => {
         </div>
         {/* ====================Box Divider=============*/}
         <div className='box-2'>
-          {/* addaddress  */}
+          <GooglePlacesHook />
+          <div className='box-2-inline'>
+            {/* apartment  */}
+            <FormInput
+              name='apartment'
+              label={'Apartment Number'}
+              placeholder={'#'}
+              value={user?.apartment}
+              onChange={handleChange}
+            />
+            {/* houseNo/buildingNo  */}
+            <FormInput
+              name='house'
+              placeholder={'#'}
+              label={'House / Building Number'}
+              value={user?.house}
+              onChange={handleChange}
+            />
+          </div>
+          {/* street*/}
           <FormInput
-            name='address'
-            value={user?.address}
+            name='street'
+            label={'Street Address'}
+            value={user?.street}
             onChange={handleChange}
           />
-          {/* city  */}
-          <FormInput name='city' value={user?.city} onChange={handleChange} />
-          {/* province */}
-          <FormInput
-            name='province'
-            value={user?.province}
-            onChange={handleChange}
-          />
-          {/* postalCode */}
-          <FormInput
-            name='postalCode'
-            label='Postal Code'
-            value={user?.postalCode}
-            onChange={handleChange}
-          />
+          <div className='box-2-inline'>
+            {/* city  */}
+            <FormInput name='city' value={user?.city} onChange={handleChange} />
+            {/* province */}
+            <FormInput
+              name='province'
+              value={user?.province}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='box-2-inline'>
+            <FormInput
+              name='country'
+              value={user?.country}
+              onChange={handleChange}
+            />
+            {/* postalCode */}
+            <FormInput
+              name='postalCode'
+              label='Postal Code'
+              value={user?.postalCode}
+              onChange={handleChange}
+            />
+          </div>
+          {/* country */}
+
           <button className='btn' type='submit'>
             Submit
           </button>
@@ -135,12 +167,23 @@ const AdminRegisterUpdateUserInput = ({ method, _id }) => {
   )
 }
 const Wrapper = styled.form`
+  label {
+    text-transform: uppercase;
+  }
+  input {
+    text-transform: uppercase;
+  }
   select {
-    text-transform: capitalize;
+    text-transform: uppercase;
   }
   .gender {
     padding: 5px 0;
     display: grid;
+  }
+  .box-2-inline {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
   }
 `
 

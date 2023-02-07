@@ -17,10 +17,16 @@ const initialState = {
   gender: 'male',
   phone: '',
   email: '',
-  address: '',
+  // Address details
+  apartment: '',
+  house: '',
+  street: '',
   city: '',
   province: '',
+  country: '',
   postalCode: '',
+  place_id: '',
+  formatted_address: '',
 
   // Authentication User
   token: user?.token || '',
@@ -266,7 +272,8 @@ const userSlice = createSlice({
       state.dateOfBirth = ''
       state.phone = ''
       state.email = ''
-      state.address = ''
+      state.house = ''
+      state.street = ''
       state.city = ''
       state.province = ''
       state.postalCode = ''
@@ -292,6 +299,10 @@ const userSlice = createSlice({
     getStateValues: (state, { payload }) => {
       const { name, value } = payload
       state[name] = value
+    },
+    getAddressValues: (state, { payload }) => {
+      console.log(payload)
+      addObjectInState(payload, state)
     },
 
     //======pagination=======
@@ -461,6 +472,7 @@ const userSlice = createSlice({
   },
 })
 export const {
+  getAddressValues,
   getStateValues,
   clearState,
   next,

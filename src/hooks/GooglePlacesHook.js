@@ -8,15 +8,13 @@ import {
   ComboboxOption,
 } from '@reach/combobox'
 import '@reach/combobox/styles.css'
-import { useState } from 'react'
+
+import { useDispatch } from 'react-redux'
+import { getAddressValues } from '../features/user/userSlice'
 
 // This is outcome from address
-const initialState = {
-  address: [],
-}
 
-const GooglePlacesHook = () => {
-  const [state, setState] = useState(initialState)
+const GooglePlaces = () => {
   // Load your script first
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -35,13 +33,14 @@ const GooglePlacesHook = () => {
   return (
     <>
       <div className='places-container'>
-        <PlacesAutocomplete setState={setState} state={state} />
+        <PlacesAutocomplete />
       </div>
     </>
   )
 }
 // We have this approach because this component must load after isLoaded useLoadScript
-const PlacesAutocomplete = ({ setState, state }) => {
+const PlacesAutocomplete = () => {
+  const dispatch = useDispatch()
   const {
     ready,
     value,
@@ -61,16 +60,37 @@ const PlacesAutocomplete = ({ setState, state }) => {
     clearSuggestions()
 
     const results = await getGeocode({ address })
-    setState({ ...state, address: results })
-  }
+    // This code below is only get useful values and put in state it has nothing to do with functionality.
 
+    // state code=======Start
+    const addressDetails = results[0]
+    const { address_components } = addressDetails
+    const length = address_components.length
+    const startLength = address_components.length - 5
+    // We Slice because last 5 values are important also some times array is not returning same values.
+    const lastAddress = address_components.slice(startLength, length)
+
+    dispatch(
+      getAddressValues({
+        house: address_components[0]?.long_name,
+        street: address_components[1]?.long_name,
+        city: lastAddress[0]?.long_name,
+        region: lastAddress[1]?.long_name,
+        province: lastAddress[2]?.long_name,
+        country: lastAddress[3]?.long_name,
+        postalCode: lastAddress[4]?.long_name,
+      })
+    )
+  }
+  // state code=======End
   return (
     <Combobox onSelect={handleSelect}>
+      <label htmlFor='form-label'>Search your address</label>
       <ComboboxInput
         value={value}
         onChange={(e) => setValue(e.target.value)}
         disabled={!ready}
-        className='combobox-input'
+        className='form-input'
         placeholder='Search an address'
       />
       <ComboboxPopover>
@@ -85,4 +105,4 @@ const PlacesAutocomplete = ({ setState, state }) => {
   )
 }
 
-export default GooglePlacesHook
+export default GooglePlaces
