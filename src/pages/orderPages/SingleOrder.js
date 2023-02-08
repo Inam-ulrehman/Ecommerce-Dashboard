@@ -143,13 +143,14 @@ const SingleOrder = () => {
 
 const Wrapper = styled.div`
   .heading-container {
+    padding: 0 1rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    background-color: var(--white);
     div {
       padding: 1rem;
-      box-shadow: var(--shadow-2);
-      background-color: var(--white);
+
       p {
         margin: 0;
       }
@@ -162,11 +163,16 @@ const Wrapper = styled.div`
     display: grid;
   }
   /* ======= cart=========== */
+  .cart-container {
+    max-width: 80vw;
+    margin: 0 auto;
+  }
   .item-heading {
     margin-top: 1rem;
-    background-color: var(--grey-2);
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    border: 2px solid var(--grey-2);
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
     span {
       padding: 0 1rem;
     }
