@@ -8,14 +8,29 @@ import SingleOrderUserCreateNotes from './SingleOrderUserCreateNotes'
 import SingleOrderUserNotesHolder from './SingleOrderUserNotesHolder'
 import { customFetch } from '../../utils/axios'
 import { getUserFromLocalStorage } from '../../utils/localStorage'
+import GooglePlacesHook from '../../hooks/GooglePlacesHook'
+const genderValue = [
+  'male',
+  'female',
+  'transgender',
+  'non-binary/non-conforming',
+  'prefer not to respond',
+]
 const initialState = {
+  // register user
   name: '',
   lastName: '',
+  dateOfBirth: '',
+  gender: 'male',
   phone: '',
   email: '',
-  address: '',
+  // Address details
+  apartment: '',
+  house: '',
+  street: '',
   city: '',
   province: '',
+  country: '',
   postalCode: '',
   isLoading: false,
   refreshData: false,
@@ -94,54 +109,124 @@ const SingleOrderUser = ({ _id }) => {
       <div className='single-user'>
         <form className='form' onSubmit={handleSubmit}>
           <div className='box-1'>
-            {/* name input */}
-            <FormInput name='name' value={state.name} onChange={handleChange} />
-            {/* lastName input */}
+            {/* name  */}
+            <FormInput
+              name='name'
+              value={state?.name}
+              onChange={handleChange}
+            />
+            {/* lastName  */}
             <FormInput
               name='lastName'
               label='Last Name'
-              value={state.lastName}
+              value={state?.lastName}
               onChange={handleChange}
             />
-            {/* phone input */}
+            {/* date of birth */}
+            <div className='date-input'>
+              <FormInput
+                label={'Date Of Birth'}
+                name='dateOfBirth'
+                type='date'
+                value={state?.dateOfBirth ? state.dateOfBirth : ''}
+                onChange={handleChange}
+              />
+            </div>
+            {/* gender */}
+            <div className='gender'>
+              <label htmlFor='gender'>Gender</label>
+              <select
+                name='gender'
+                value={state?.gender}
+                onChange={handleChange}
+              >
+                {genderValue.map((item, index) => {
+                  return (
+                    <option
+                      select={state?.gender?.toString()}
+                      key={index}
+                      value={item}
+                    >
+                      {item}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+            {/* phone */}
             <FormInput
               name='phone'
               type='number'
-              value={state.phone}
+              value={state.phone === null ? '' : state.phone}
               onChange={handleChange}
             />
-            {/* email input */}
+            {/* email */}
             <FormInput
               name='email'
-              value={state.email}
+              value={state?.email}
               onChange={handleChange}
             />
           </div>
           {/* ====================Box Divider=============*/}
           <div className='box-2'>
-            {/* addaddress input */}
+            <GooglePlacesHook />
+            <div className='box-2-inline'>
+              {/* apartment  */}
+              <FormInput
+                name='apartment'
+                label={'Apartment Number'}
+                placeholder={'#'}
+                value={state?.apartment}
+                onChange={handleChange}
+              />
+              {/* houseNo/buildingNo  */}
+              <FormInput
+                name='house'
+                placeholder={'#'}
+                label={'House / Building Number'}
+                value={state?.house}
+                onChange={handleChange}
+              />
+            </div>
+            {/* street*/}
             <FormInput
-              name='address'
-              value={state.address}
+              name='street'
+              label={'Street Address'}
+              value={state?.street}
               onChange={handleChange}
             />
-            {/* city input */}
-            <FormInput name='city' value={state.city} onChange={handleChange} />
-            {/* province input */}
-            <FormInput
-              name='province'
-              value={state.province}
-              onChange={handleChange}
-            />
-            {/* postalCode  input */}
-            <FormInput
-              name='postalCode'
-              label='Postal Code'
-              value={state.postalCode}
-              onChange={handleChange}
-            />
+            <div className='box-2-inline'>
+              {/* city  */}
+              <FormInput
+                name='city'
+                value={state?.city}
+                onChange={handleChange}
+              />
+              {/* province */}
+              <FormInput
+                name='province'
+                value={state?.province}
+                onChange={handleChange}
+              />
+            </div>
+            {/* country */}
+            <div className='box-2-inline'>
+              <FormInput
+                name='country'
+                value={state?.country}
+                onChange={handleChange}
+              />
+              {/* postalCode */}
+              <FormInput
+                name='postalCode'
+                label='Postal Code'
+                value={state?.postalCode}
+                onChange={handleChange}
+              />
+            </div>
+
             <button className='btn' type='submit'>
-              Update User
+              Submit
             </button>
           </div>
         </form>
@@ -161,6 +246,26 @@ const Wrapper = styled.div`
       gap: 1rem;
       grid-template-columns: 1fr 1fr;
       max-width: 80vw;
+      label {
+        text-transform: uppercase;
+      }
+      .date-input {
+        input {
+          text-transform: uppercase;
+        }
+      }
+      select {
+        text-transform: uppercase;
+      }
+      .gender {
+        padding: 5px 0;
+        display: grid;
+      }
+      .box-2-inline {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+      }
     }
   }
 `

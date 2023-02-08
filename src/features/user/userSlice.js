@@ -25,8 +25,6 @@ const initialState = {
   province: '',
   country: '',
   postalCode: '',
-  place_id: '',
-  formatted_address: '',
 
   // Authentication User
   token: user?.token || '',
